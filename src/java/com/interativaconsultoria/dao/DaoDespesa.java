@@ -73,7 +73,7 @@ public class DaoDespesa {
             valor = valor.replace(",", ".");
             valor = valor.replace(".00", "");
             System.out.println("valor:" + valor);
-            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `despesa`,,`despesa_niveis` WHERE `valor` LIKE '%" + valor + "%' and id_nivel = despesa_niveis.id";
+            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `despesa`,`despesa_niveis` WHERE `valor` LIKE '%" + valor + "%' and id_nivel = despesa_niveis.id";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
         }
