@@ -61,7 +61,7 @@
                         </div>
                         <!--------- tabela ------>
 
-                        <table id="tbniveis" cellspacing="0" width="100%" class="table table-bordered table-striped" >
+                        <table id="tbniveis" cellspacing="1" width="100%" class="table table-bordered table-striped" >
 
 
                             <thead>
