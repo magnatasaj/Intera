@@ -133,5 +133,24 @@ public class DaoDespesa {
         rs.close();
         return ls;
     }
+    
+     public List<Despesa> Consultar_Despesa_mes_atual(int id_nivel) throws SQLException {
+
+        String sql = "";
+        ps = conexao.prepareStatement(sql);
+        rs = ps.executeQuery();
+        List<Despesa> ls = new ArrayList();
+        while (rs.next()) {
+            Despesa Obs = new Despesa();
+            Obs.setId(rs.getInt("id"));
+            Obs.setValor(rs.getBigDecimal("valor"));
+            Obs.setData(rs.getDate("data"));
+            Obs.setDescricao(rs.getString("descricao"));
+            ls.add(Obs);
+        }
+
+        rs.close();
+        return ls;
+    }
 
 }
