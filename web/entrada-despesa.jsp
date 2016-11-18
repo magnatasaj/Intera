@@ -200,7 +200,6 @@
 
                         $('#edt').html(responseText);
                         setTimeout("ocultar()", 5000);
-                        $('#idnivel').val('');
                         $('#valor').val('');
                         $('#ddata').val('');
                         $('#desc').val('');
