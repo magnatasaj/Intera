@@ -307,6 +307,7 @@
                 thousands: '.',
                 decimal: ',',
                 symbolStay: true
+                
             });
 
 
