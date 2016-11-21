@@ -4,10 +4,14 @@
     Author     : Lamara
 --%>
 
+<%@page import="com.interativaconsultoria.funcao.Valor"%>
+<%@page import="com.interativaconsultoria.dao.DaoDespesa"%>
 <%@page import="com.interativaconsultoria.dao.DaoDespesaNivel"%>
 <%@page import="com.interativaconsultoria.objetos.Despesa_Niveis"%>
 <%@page import="java.util.List"%>
 <% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(); %>
+<% DaoDespesa ObDaoDespesa = new DaoDespesa(); %>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- meta-data -->
@@ -46,48 +50,61 @@
 
 
                             <thead>
-                            <th  style="width: 1px">Ordem</th><th>Nome</th><th>Pertence</th>
-
+                                <tr>
+                                    <th  style="width: 1px">Ordem</th>
+                                    <th>Nome</th>
+                                    <th>Entradas Mês Atual</th>
+                                    <th>Pertence</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <% List<Despesa_Niveis> ls = ObDaoDespesaNivel.Consultar_Todos_Nivel();
-                                    for(Despesa_Niveis d : ls){
-                                        if(d.getPai() == 0){  
+                                    for (Despesa_Niveis d : ls) {
+                                        if (d.getPai() == 0) {
                                 %>  
-                                <tr <% if(d.getPai() == 0){out.print("style='background-color:#3c8dbc; color:#FFF'");}; %>>
+                                <tr <% if (d.getPai() == 0) {
+                                        out.print("style='background-color:#3c8dbc; color:#FFF'");
+                                    }; %>>
                                     <td><b><% out.print(d.getOrdem()); %></b></td>
                                     <td><b><% out.print(d.getNome()); %></b></td>
+                                    <td><b></b></td>
+
                                     <td><b></b></td>
 
 
                                 </tr>
 
                                 <!-- Consultar nível 2 -->
-                                <% 
-                                for(Despesa_Niveis d2 : ls){
-                                  if(d2.getPai() == d.getId()){  
+                                <%
+                                    for (Despesa_Niveis d2 : ls) {
+                                        if (d2.getPai() == d.getId()) {
                                 %> 
                                 <tr style='background-color:#F0FFFF; color:#000'>
-                                    <td><% out.print(d.getOrdem()+"."+d2.getOrdem()); %></td>
+                                    <td><% out.print(d.getOrdem() + "." + d2.getOrdem()); %></td>
                                     <td><% out.print(d2.getNome()); %></td>
+                                    <td></td>
                                     <td><% out.print(d.getNome()); %></td>
                                 </tr>
                                 <!-- Consultar nivel 3 -->
-                                <% 
-                                for(Despesa_Niveis d3 : ls){
-                                    if(d3.getPai() == d2.getId()){  
+                                <%
+                                    for (Despesa_Niveis d3 : ls) {
+                                        if (d3.getPai() == d2.getId()) {
                                 %> 
                                 <tr>
 
-                                    <td>  -><% out.print(d.getOrdem()+"."+d2.getOrdem()+"."+d3.getOrdem()); %></td>
+                                    <td>  -><% out.print(d.getOrdem() + "." + d2.getOrdem() + "." + d3.getOrdem()); %></td>
                                     <td><a href="#modal-inserir-despesa"  onclick='valores(<% out.print(d3.getId());%>, "<% out.print(d3.getNome()); %>")' data-toggle="modal" data-target="#modal-inserir-despesa"><% out.print(d3.getNome()); %></a></td>
+                                    <td><% out.print(Valor.FormatarValor(ObDaoDespesa.Consultar_Despesa_mes_atual(d3.getId()))); %></td>
                                     <td>  <% out.print(d2.getNome()); %></td>
                                 </tr>
 
-                                <% }}; %>
-                                <% }}; %>    
+                                <% }
+                                    }; %>
+                                <% }
+                                    }; %>    
 
-                                <% }}; %>
+                                <% }
+                                    };%>
                             </tbody>
                         </table>
                     </div>
@@ -178,11 +195,11 @@
             function ocultar() {
                 $("#edt").slideUp("slow");
             }
-            $(document).ready(function () {
+            $(document).ready(function() {
 
 
 
-                $('#edsalvar').click(function (event) {
+                $('#edsalvar').click(function(event) {
                     var idd = $('#idnivel').val();
                     var valor = $('#valor').val();
                     var data = $('#ddata').val();
@@ -193,7 +210,7 @@
                         data: data,
                         desc: desc,
                         t: 'add'
-                    }, function (responseText) {
+                    }, function(responseText) {
 
 
                         $("#edt").slideDown("slow");
@@ -222,7 +239,12 @@
                     symbolStay: true
                 });
 
+                $('#modal-inserir-despesa').on('hidden.bs.modal', function() {
+                    var id = $('#edid').val();
 
+                    window.setTimeout('location.reload()', 10);
+                    location.hash = hash;
+                })
 
 
             });
@@ -235,12 +257,17 @@
 
 
             $('#tbniveis').DataTable({
-                "paging": false,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": false,
-                "info": true,
-                "autoWidth": true
+                paging: false,
+                lengthChange: true,
+                searching: true,
+                ordering: false,
+                info: true,
+                autoWidth: true,
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                }
+
             });
 
             $('#ddata').datepicker({
