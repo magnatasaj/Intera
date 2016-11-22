@@ -6,14 +6,11 @@
 package com.interativaconsultoria.dao;
 
 import com.interativaconsultoria.objetos.Despesa;
-import com.interativaconsultoria.objetos.Despesa_Niveis;
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.javaIdentifierType;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -133,24 +130,27 @@ public class DaoDespesa {
         rs.close();
         return ls;
     }
-    
-     public List<Despesa> Consultar_Despesa_mes_atual(int id_nivel) throws SQLException {
 
-        String sql = "";
+    public BigDecimal Consultar_Despesa_mes_atual(int id_nivel) throws SQLException {
+        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH(now()) AND id_nivel = " + id_nivel + "";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
-        List<Despesa> ls = new ArrayList();
+        BigDecimal total = new BigDecimal("0");
+        BigDecimal re = new BigDecimal("0");
         while (rs.next()) {
-            Despesa Obs = new Despesa();
-            Obs.setId(rs.getInt("id"));
-            Obs.setValor(rs.getBigDecimal("valor"));
-            Obs.setData(rs.getDate("data"));
-            Obs.setDescricao(rs.getString("descricao"));
-            ls.add(Obs);
+           if(rs.getString("total") != null){
+               String valor = rs.getBigDecimal("total").toString();
+                       System.out.println("valor:" +valor);
+
+             re =  total.add(new BigDecimal(valor));
+           }
+
         }
 
         rs.close();
-        return ls;
+        System.out.println("total:" +re);
+
+        return re;
     }
 
 }
