@@ -41,7 +41,7 @@
                     <li class="active"><a href="areas.jsp"><i class="fa fa-circle-o"></i>Áreas</a></li>
                     <li><a href="entrada-despesa.jsp"><i class="fa fa-circle-o"></i>Entrada de Despesas</a></li>
                     <li><a href="buscar-despesa.jsp"><i class="fa fa-circle-o"></i>Buscar Despesas</a></li>
-                    <li><a href="despesa-grafico.jsp"><i class="fa fa-circle-o"></i>Grágico</a></li>
+                    <li><a href="despesa-grafico.jsp"><i class="fa fa-circle-o"></i>Gráfico</a></li>
 
                 </ul>
             </li>
