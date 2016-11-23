@@ -149,27 +149,17 @@
                             pointStrokeColor: "#c1c7d1",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-            <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa("2016") + "]");%>
+                             <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa("2016") + "]");%>
                         }
                     ]
                 };
                 var areaChartData2 = {
                     labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [
-            <% out.print(ObDaoDespesa.Despesa_Grafico_nivel2());%>
-
-
-
-                    ]
+                    datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel2());%>]
                 };
                 var areaChartData3 = {
                     labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [
-            <% out.print(ObDaoDespesa.Despesa_Grafico_nivel());%>
-
-
-
-                    ]
+                    datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel());%>]
                 };
 
 
