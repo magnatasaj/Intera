@@ -201,7 +201,9 @@
                             <div class="modal-footer">
                                 <div class="col-lg-1">
                                 </div>
-
+                                <div class="col-lg-1">
+                                    <button type="button"  id="edexcluir" name="edexcluir" class="btn btn-danger">Excluir</button>
+                                </div>
                                 <button type="button"  id="edsalvar" name="edsalvar" class="btn btn-primary">Salvar alterações</button>
 
                                 <button type="button" id="edfecha"  class="btn btn-default" data-dismiss="modal">Fecha</button>
@@ -272,7 +274,7 @@
                     data: data,
                     desc: desc,
                     t: 'edd'
-                    
+
                 }, function(responseText) {
 
 
@@ -283,6 +285,21 @@
                 });
 
             });
+
+            $('#edexcluir').click(function(event) {
+                var id = $('#idd').val();
+
+                $.post('SvDespesas', {
+                    id: id,
+                    t: 'exc'
+                }, function(responseText) {
+                    $('#edt').html(responseText);
+                    $('#valor').val("");
+                    $('#ddata').val("");
+                    $('#desc').val("");
+
+                });
+            })
 
             function ocultar() {
                 $("#edt").slideUp("slow");
@@ -308,7 +325,7 @@
                 thousands: '.',
                 decimal: ',',
                 symbolStay: true
-                
+
             });
 
 
@@ -324,7 +341,7 @@
                 buttons: [
                     {extend: 'copy',
                         text: 'Copiar',
-                        footer: true}, 
+                        footer: true},
                     {extend: 'csv',
                         text: 'Salvar CSV',
                         footer: true},

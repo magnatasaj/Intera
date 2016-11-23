@@ -60,7 +60,7 @@
                 <!--- Graficos testes -->
                 <div class="box" >
                     <div class="box-header" style="height: 100px" >
-                        <h3 class="box-title">Anual</h3>
+                        <h3 class="box-title">Anual Despesas</h3>
 
                         <div class="box-tools pull-right" >
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="box" >
                     <div class="box-header" style="height: 100px" >
-                        <h3 class="box-title">Por Área</h3>
+                        <h3 class="box-title">Anual por Área 2</h3>
 
                         <div class="box-tools pull-right" >
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -99,7 +99,7 @@
                 </div>
                 <div class="box" >
                     <div class="box-header" style="height: 100px" >
-                        <h3 class="box-title">Por Área</h3>
+                        <h3 class="box-title">Anual por Área 3</h3>
 
                         <div class="box-tools pull-right" >
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

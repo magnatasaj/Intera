@@ -91,8 +91,8 @@
                                 </tr>
 
 
-                                <% }; %>
-                               
+                                <% };%>
+
                             </tbody>
                         </table>
                     </div>
@@ -143,7 +143,9 @@
                             <div class="modal-footer">
                                 <div class="col-lg-1">
                                 </div>
-
+                                <div class="col-lg-1">
+                                    <button type="button"  id="edexcluir" name="edexcluir" class="btn btn-danger">Excluir</button>
+                                </div>
                                 <button type="button"  id="edsalvar" name="edsalvar" class="btn btn-primary">Salvar alterações</button>
 
                                 <button type="button" id="edfecha"  class="btn btn-default" data-dismiss="modal">Fecha</button>
@@ -221,7 +223,20 @@
                 location.hash = hash;
             })
 
+            $('#edexcluir').click(function(event) {
+                var id = $('#idnivel').val();
 
+                $.post('SvDespesas', {
+                    id: id,
+                    t: 'exc'
+                }, function(responseText) {
+                    $('#edt').html(responseText);
+                    $('#valor').val("");
+                    $('#ddata').val("");
+                    $('#desc').val("");
+
+                });
+            })
 
             $("#valor").maskMoney({symbol: '',
                 showSymbol: true, thousands: '.', decimal: ',', symbolStay: true});
@@ -235,37 +250,37 @@
 
             $(document).ready(function() {
                 $('#tbniveis').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-                dom: 'Bfrtip',
-                buttons: [
-                    {extend: 'copy',
-                        text: 'Copiar',
-                        footer: true}, 
-                    {extend: 'csv',
-                        text: 'Salvar CSV',
-                        footer: true},
-                    {extend: 'excel',
-                        text: 'Salvar em Excel',
-                        footer: true},
-                    {extend: 'pdf',
-                        text: 'Salvar PDF',
-                        footer: true},
-                    {extend: 'print',
-                        text: 'Imprimir',
-                        footer: true}
-                ],
-                drawCallback: function() {
-                    var api = this.api();
-                    $('#tt').html(
-                            "R$ " + api.column(0, {page: 'current'}).data().sum()
-                            );
-                }
-            });
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        {extend: 'copy',
+                            text: 'Copiar',
+                            footer: true},
+                        {extend: 'csv',
+                            text: 'Salvar CSV',
+                            footer: true},
+                        {extend: 'excel',
+                            text: 'Salvar em Excel',
+                            footer: true},
+                        {extend: 'pdf',
+                            text: 'Salvar PDF',
+                            footer: true},
+                        {extend: 'print',
+                            text: 'Imprimir',
+                            footer: true}
+                    ],
+                    drawCallback: function() {
+                        var api = this.api();
+                        $('#tt').html(
+                                "R$ " + api.column(0, {page: 'current'}).data().sum()
+                                );
+                    }
+                });
 
 
 

@@ -95,6 +95,17 @@ public class SvDespesas extends HttpServlet {
                 ObDaoDespesa.Editar_Despesa(ObDespesa);
                 response.getWriter().print(Alerta.Ok("Atualizado com sucesso"));
             }
+             
+            if (request.getParameter("t").equals("exc")) {
+                String id = request.getParameter("id");
+                int iddespesa = Integer.parseInt(id);
+             
+                Despesa ObDespesa = new Despesa();
+                ObDespesa.setId(iddespesa);
+                DaoDespesa ObDaoDespesa = new DaoDespesa();
+                ObDaoDespesa.Excluir_Despesa(ObDespesa);
+                response.getWriter().print(Alerta.Ok("Excluido com sucesso!"));
+            }
 
            
 

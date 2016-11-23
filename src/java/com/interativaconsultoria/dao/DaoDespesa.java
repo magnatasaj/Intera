@@ -65,6 +65,17 @@ public class DaoDespesa {
         ps.close();
 
     }
+    
+    public void Excluir_Despesa(Despesa De) throws SQLException {
+
+        String sql = "DELETE FROM `despesa` WHERE `despesa`.`id` = ?";
+
+        ps = conexao.prepareStatement(sql);
+        ps.setInt(1, De.getId());
+        ps.execute();
+        ps.close();
+
+    }
 
     public String Gerar_Grafico_despesa(String ano) throws SQLException {
 
