@@ -6,6 +6,7 @@
 package com.interativaconsultoria.dao;
 
 import com.interativaconsultoria.objetos.Despesa_Niveis;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,8 +42,8 @@ public class DaoDespesaNivel {
         ps.close();
 
     }
-    
-     public void Adicionar_Nivel_1(Despesa_Niveis De) throws SQLException {
+
+    public void Adicionar_Nivel_1(Despesa_Niveis De) throws SQLException {
 
         String sql = "INSERT INTO `despesa_niveis` (`id`, `nome`, `pai`, `ordem`) VALUES (NULL,?, ?,?)";
 
@@ -73,6 +74,42 @@ public class DaoDespesaNivel {
         rs.close();
         return ls;
     }
+
+    public List<Despesa_Niveis> Consultar_Nivel_Final() throws SQLException {
+        List<Despesa_Niveis> ls = Consultar_Todos_Nivel();
+        List<Despesa_Niveis> re = new ArrayList();
+        for (Despesa_Niveis d : ls) {
+            if (d.getPai() == 0) {
+                for (Despesa_Niveis d2 : ls) {
+                    if (d2.getPai() == d.getId()) {
+                        for (Despesa_Niveis d3 : ls) {
+                            if (d3.getPai() == d2.getId()) {
+                                re.add(d3);
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        return re;
+    }
+    public List<Despesa_Niveis> Consultar_Nivel_2() throws SQLException {
+        List<Despesa_Niveis> ls = Consultar_Todos_Nivel();
+        List<Despesa_Niveis> re = new ArrayList();
+        for (Despesa_Niveis d : ls) {
+            if (d.getPai() == 0) {
+                for (Despesa_Niveis d2 : ls) {
+                    if (d2.getPai() == d.getId()) {
+                       re.add(d2);
+                    }
+                }
+
+            }
+        }
+        return re;
+    }
+    
 
     public List<Despesa_Niveis> Consultar_Nivel_Pai() throws SQLException {
 
@@ -111,8 +148,8 @@ public class DaoDespesaNivel {
         rs.close();
         return ls;
     }
-    
-     public void Editar_Nivel(Despesa_Niveis De) throws SQLException {
+
+    public void Editar_Nivel(Despesa_Niveis De) throws SQLException {
 
         String sql = "UPDATE `despesa_niveis` SET `nome` = ?, `ordem` = ?  WHERE `despesa_niveis`.`id` =?;";
 
@@ -124,15 +161,15 @@ public class DaoDespesaNivel {
         ps.close();
 
     }
-     
-     public void Excluir_Nivel(Despesa_Niveis De) throws SQLException {
+
+    public void Excluir_Nivel(Despesa_Niveis De) throws SQLException {
 
         String sql = "DELETE FROM `despesa_niveis` WHERE `despesa_niveis`.`id` =? ";
 
         ps = conexao.prepareStatement(sql);
         ps.setInt(1, De.getId());
         ps.execute();
-       // ps.close();
+        // ps.close();
 
-    } 
+    }
 }

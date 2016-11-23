@@ -224,30 +224,62 @@ public class DaoDespesa {
         return res;
     }
 
+    public String Consultar_Despesa_mes_e_nivel2(String id_nivel_array) throws SQLException {
+        BigDecimal total = new BigDecimal("0");
+        BigDecimal re = new BigDecimal("0");
+        String res = "";
+        for (int i = 1; i <= 12; i++) {
+            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND id_nivel in(" + id_nivel_array + ")";
+            ps = conexao.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getString("total") != null) {
+                    String valor = rs.getBigDecimal("total").toString();
+                    re = total.add(new BigDecimal(valor));
+                    if (i == 12) {
+                        res += re;
+                    } else {
+                        res += re + ",";
+                    }
+
+                } else {
+                    if (i == 12) {
+                        res += "";
+                    } else {
+                        res += ",";
+                    }
+                }
+
+            }
+        }
+        rs.close();
+
+        return res;
+    }
+
     public String Despesa_Grafico_nivel() throws SQLException, ClassNotFoundException {
         DaoDespesaNivel obj = new DaoDespesaNivel();
         List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
         int i = 0;
 
+        Cores c = new Cores();
+        List<Color> cores = c.gerarCores(100);
+        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
+
         String dataset = "";
         for (Despesa_Niveis d : lista) {
             String corfi = "";
-            Cores c = new Cores();
-            List<Color> cores = c.gerarCores(1);
 
-            List<String> coresHexa = c.gerarCoresHexadecimal(cores);
-            for (String cor : coresHexa) {
-                corfi = cor;
-            }
             i++;
             if (!Consultar_Despesa_mes_e_nivel(d.getId()).equals(",,,,,,,,,,,")) {
                 if (lista.size() == i) {
                     dataset += "{\n"
                             + "                        label: \"" + d.getNome() + "\",\n"
-                            + "                                strokeColor: \"#000\",\n"
-                            + "                                pointColor: \"#000\",\n"
-                            + "                                pointStrokeColor: \"#c1c7d1\",\n"
-                            + "                                pointHighlightFill: \"#fff\",\n"
+                            + "                                strokeColor: \"" + coresHexa.get(i) + "\",\n"
+                            + "                                pointColor: \"" + coresHexa.get(i) + "\",\n"
+                            + "                                pointStrokeColor: \"" + coresHexa.get(i) + "\",\n"
+                            + "                                pointHighlightFill: \"" + coresHexa.get(i) + "\",\n"
                             + "                                pointBorderWidth: 50,\n"
                             + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
                             + "                                 data :[" + Consultar_Despesa_mes_e_nivel(d.getId()) + "]"
@@ -256,9 +288,9 @@ public class DaoDespesa {
                 } else {
                     dataset += "{\n"
                             + "                        label: \"" + d.getNome() + "\",\n"
-                            + "                                fillColor: \"" + corfi + "\",\n"
-                            + "                                strokeColor: \"" + corfi + "\",\n"
-                            + "                                pointColor: \"" + corfi + "\",\n"
+                            + "                                fillColor: \"" + coresHexa.get(i) + "\",\n"
+                            + "                                strokeColor: \"" + coresHexa.get(i) + "\",\n"
+                            + "                                pointColor: \"" + coresHexa.get(i) + "\",\n"
                             + "                                pointStrokeColor: \"#c1c7d1\",\n"
                             + "                                pointHighlightFill: \"#fff\",\n"
                             + "                              pointBorderWidth: 6.5,\n"
@@ -271,6 +303,56 @@ public class DaoDespesa {
         }
 
         return dataset;
+    }
+
+    public String Despesa_Grafico_nivel2() throws SQLException, ClassNotFoundException {
+        DaoDespesaNivel obj = new DaoDespesaNivel();
+        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
+       
+        Cores c = new Cores();
+        List<Color> cores = c.gerarCores(100);
+        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
+
+        String dataset = "";
+        int i = 0;
+        String corfi = "";
+        for (Despesa_Niveis dd : obj.Consultar_Nivel_2()) {
+            String idarray = "";
+            String data = "";
+            i++;
+            for (Despesa_Niveis d : lista) {
+                if (d.getPai() == dd.getId()) {
+                    idarray += d.getId() + ",";
+                }
+            }
+            String arraycorrigido = "";
+            if (idarray.length() > 0) {
+                arraycorrigido = idarray.substring(0, idarray.length() - 1);
+            } else {
+                arraycorrigido = "0";
+            }
+            
+            //Gerar estrutura para o grafico nivel 2
+            
+                   dataset += "{\n"
+                            + "                        label: \"" + dd.getNome() + "\",\n"
+                            + "                                fillColor: \"" + coresHexa.get(i) + "\",\n"
+                            + "                                strokeColor: \"" + coresHexa.get(i) + "\",\n"
+                            + "                                pointColor: \"" + coresHexa.get(i) + "\",\n"
+                            + "                                pointStrokeColor: \"#c1c7d1\",\n"
+                            + "                                pointHighlightFill: \"#fff\",\n"
+                            + "                              pointBorderWidth: 6.5,\n"
+                            + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
+                            + "                                 data :[" + Consultar_Despesa_mes_e_nivel2(arraycorrigido) + "]"
+                            + "                        },";
+
+              
+            
+
+        }
+        String datasetcorrigido = dataset.substring(0,dataset.length() - 1);
+
+        return datasetcorrigido;
     }
 
 }
