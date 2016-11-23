@@ -70,13 +70,15 @@
                     </div>
                     <div class="box-body">
                         <div class="chart">
+                            <div id="barsLegend"></div>
                             <canvas id="barChart"></canvas>
+
 
                         </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
-                 <div class="box" >
+                <div class="box" >
                     <div class="box-header" style="height: 100px" >
                         <h3 class="box-title">Por Área</h3>
 
@@ -88,7 +90,27 @@
                     </div>
                     <div class="box-body">
                         <div class="chart">
+                            <div id="barsLegend2"></div>
                             <canvas id="barChart2"></canvas>
+
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <div class="box" >
+                    <div class="box-header" style="height: 100px" >
+                        <h3 class="box-title">Por Área</h3>
+
+                        <div class="box-tools pull-right" >
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <div id="barsLegend3"></div>
+                            <canvas id="barChart3"></canvas>
 
                         </div>
                     </div>
@@ -117,30 +139,37 @@
             $(function() {
 
                 var areaChartData = {
-                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                        datasets: [
+                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                    datasets: [
                         {
-                        label: "Despesas",
-                                fillColor: "rgba(210, 214, 222, 1)",
-                                strokeColor: "rgba(210, 214, 222, 1)",
-                                pointColor: "rgba(210, 214, 222, 1)",
-                                pointStrokeColor: "#c1c7d1",
-                                pointHighlightFill: "#fff",
-                                pointHighlightStroke: "rgba(220,220,220,1)",
-                              <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa("2016") + "]");%>
+                            label: "Despesas",
+                            fillColor: "rgba(210, 214, 222, 1)",
+                            strokeColor: "rgba(210, 214, 222, 1)",
+                            pointColor: "rgba(210, 214, 222, 1)",
+                            pointStrokeColor: "#c1c7d1",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+            <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa("2016") + "]");%>
                         }
-                        ]
+                    ]
                 };
-                
-                 var areaChartData2 = {
-                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                        datasets: [
-                       
-                              <% out.print(ObDaoDespesa.Despesa_Grafico_nivel());%>
-                       
-                        
-                               
-                        ]
+                var areaChartData2 = {
+                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                    datasets: [
+            <% out.print(ObDaoDespesa.Despesa_Grafico_nivel2());%>
+
+
+
+                    ]
+                };
+                var areaChartData3 = {
+                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                    datasets: [
+            <% out.print(ObDaoDespesa.Despesa_Grafico_nivel());%>
+
+
+
+                    ]
                 };
 
 
@@ -181,7 +210,6 @@
                         }
                     }
                     var string = moeda + (parteDecimal ? [parteInteira, parteDecimal].join(',') : parteInteira);
-                    console.log(string);
                     return string;
 
                 }
@@ -197,31 +225,41 @@
                 var barChartCanvas2 = $("#barChart2").get(0).getContext("2d");
                 var barChart2 = new Chart(barChartCanvas2);
                 var barChartData2 = areaChartData2;
-                
-                
+                // grafico 3 
+                var barChartCanvas3 = $("#barChart3").get(0).getContext("2d");
+                var barChart3 = new Chart(barChartCanvas3);
+                var barChartData3 = areaChartData3;
+
                 var barChartOptions = {
                     responsive: true,
-                    maintainAspectRatio: true,
-                   barStrokeWidth : 5,
-
-    //Number - Spacing between each of the X value sets
-    barValueSpacing : 10,
+                    // maintainAspectRatio: true,
+                    barStrokeWidth: 3,
+                    stacked: true,
+                    //Number - Spacing between each of the X value sets
 
                     multiTooltipTemplate: function(chartData) {
                         return chartData.datasetLabel + " : " + formatar(chartData.value);
                     },
-                     tooltipTemplate:function(data) {
+                    tooltipTemplate: function(data) {
                         return   formatar(data.value);
                     },
                     scaleLabel: function(data) {
                         return   formatar(data.value);
-                    }
-                };
 
-                barChartOptions.datasetFill = false;
+
+                    }}
                 barChart.Bar(barChartData, barChartOptions);
                 barChart2.Bar(barChartData2, barChartOptions);
+                barChart3.Bar(barChartData3, barChartOptions);
+                legend(document.getElementById("barsLegend"), barChartData);
+                legend(document.getElementById("barsLegend2"), barChartData2);
+                legend(document.getElementById("barsLegend3"), barChartData3);
+
+
+
+
             });
+
         </script>    
     </body>
 </html>
