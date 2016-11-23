@@ -15,6 +15,8 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% DaoDespesa ObDaoDespesa = new DaoDespesa(); %>
+<% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(); %>
+
 
 <!-- meta-data -->
 <!DOCTYPE html>
@@ -58,7 +60,7 @@
                 <!--- Graficos testes -->
                 <div class="box" >
                     <div class="box-header" style="height: 100px" >
-                        <h3 class="box-title">Bar Chart</h3>
+                        <h3 class="box-title">Anual</h3>
 
                         <div class="box-tools pull-right" >
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -69,6 +71,24 @@
                     <div class="box-body">
                         <div class="chart">
                             <canvas id="barChart"></canvas>
+
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                 <div class="box" >
+                    <div class="box-header" style="height: 100px" >
+                        <h3 class="box-title">Por Área</h3>
+
+                        <div class="box-tools pull-right" >
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="barChart2"></canvas>
 
                         </div>
                     </div>
@@ -107,11 +127,21 @@
                                 pointStrokeColor: "#c1c7d1",
                                 pointHighlightFill: "#fff",
                                 pointHighlightStroke: "rgba(220,220,220,1)",
-            <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa("2016") + "]");%>
+                              <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa("2016") + "]");%>
                         }
                         ]
                 };
-
+                
+                 var areaChartData2 = {
+                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                        datasets: [
+                       
+                              <% out.print(ObDaoDespesa.Despesa_Grafico_nivel());%>
+                       
+                        
+                               
+                        ]
+                };
 
 
 
@@ -156,16 +186,27 @@
 
                 }
 //---------------------------------------------
+                //grafico 1
                 var barChartCanvas = $("#barChart").get(0).getContext("2d");
                 var barChart = new Chart(barChartCanvas);
                 var barChartData = areaChartData;
                 barChartData.datasets[0].fillColor = "#00a65a";
                 barChartData.datasets[0].strokeColor = "#00a65a";
                 barChartData.datasets[0].pointColor = "#00a65a";
-
+                //grafico 2
+                var barChartCanvas2 = $("#barChart2").get(0).getContext("2d");
+                var barChart2 = new Chart(barChartCanvas2);
+                var barChartData2 = areaChartData2;
+                
+                
                 var barChartOptions = {
                     responsive: true,
                     maintainAspectRatio: true,
+                   barStrokeWidth : 5,
+
+    //Number - Spacing between each of the X value sets
+    barValueSpacing : 10,
+
                     multiTooltipTemplate: function(chartData) {
                         return chartData.datasetLabel + " : " + formatar(chartData.value);
                     },
@@ -179,6 +220,7 @@
 
                 barChartOptions.datasetFill = false;
                 barChart.Bar(barChartData, barChartOptions);
+                barChart2.Bar(barChartData2, barChartOptions);
             });
         </script>    
     </body>
