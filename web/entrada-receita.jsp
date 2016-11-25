@@ -76,8 +76,7 @@
                                 </div>
                                 <div class=" radio-inline">
                                     <label>
-                                        <input onclick="apmostrar();
-                                                vrocular();" type="radio" name="tipoRadios" id="tipoRadios" value="4" >
+                                        <input onclick="apmostrar();vrocular();" type="radio" name="tipoRadios" id="tipoRadios" value="4" >
                                         Promissória
                                     </label>
 
