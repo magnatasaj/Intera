@@ -41,7 +41,6 @@
                     <li class="active"><a href="areas.jsp"><i class="fa fa-circle-o"></i>Áreas</a></li>
                     <li><a href="entrada-despesa.jsp"><i class="fa fa-circle-o"></i>Entrada de Despesas</a></li>
                     <li><a href="buscar-despesa.jsp"><i class="fa fa-circle-o"></i>Buscar Despesas</a></li>
-                    <li><a href="despesa-grafico.jsp"><i class="fa fa-circle-o"></i>Gráfico</a></li>
 
                 </ul>
             </li>
@@ -51,10 +50,22 @@
                     <span>Receita</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i></a></li>
-                    <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                    <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                    <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                    <li><a href="entrada-receita.jsp"><i class="fa fa-circle-o"></i>Entrada de Receita</a></li>
+
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-files-o"></i>
+                    <span>Resultados</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="entrada-receita.jsp"><i class="fa fa-circle-o"></i>Gráfico despesas</a></li>
+                    <li><a href="entrada-receita.jsp"><i class="fa fa-circle-o"></i>Gráfico receitas</a></li>
+                    <li><a href="entrada-receita.jsp"><i class="fa fa-circle-o"></i>Gráfico comparativos</a></li>
+
+
+
                 </ul>
             </li>
 
