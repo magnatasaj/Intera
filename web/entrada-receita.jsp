@@ -4,13 +4,16 @@
     Author     : Lamara
 --%>
 
+<%@page import="com.interativaconsultoria.objetos.ReceitaOrigem"%>
+<%@page import="com.interativaconsultoria.objetos.Receita"%>
+<%@page import="com.interativaconsultoria.dao.DaoReceitaOrigem"%>
+<%@page import="com.interativaconsultoria.dao.DaoReceita"%>
 <%@page import="com.interativaconsultoria.funcao.Valor"%>
 <%@page import="com.interativaconsultoria.dao.DaoDespesa"%>
 <%@page import="com.interativaconsultoria.dao.DaoDespesaNivel"%>
 <%@page import="com.interativaconsultoria.objetos.Despesa_Niveis"%>
 <%@page import="java.util.List"%>
-<% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(); %>
-<% DaoDespesa ObDaoDespesa = new DaoDespesa();%>
+<% DaoReceitaOrigem ObDaoReceitaOrigem = new DaoReceitaOrigem(); %>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -51,43 +54,23 @@
                             <div id="tipo" class="callout callout-success" style="font-size: 19px">
                                 <h2>Formas de pagamento</h2>
 
-                                <div class="radio-inline" >
-                                    <label>
-                                        <input onclick="apocular();
-                                                vrocular();"  type="radio" name="tipoRadios" id="tipoRadios" value="1" checked="true">
-                                        Dinheiro
-                                    </label>
-                                </div>
-                                <div class="radio-inline">
-                                    <label>
-                                        <input onclick="apmostrar();
-                                                vrocular();" type="radio" name="tipoRadios" id="tipoRadios" value="2">
-                                        Cheque
-                                    </label>
-
-                                </div>
+                                <%  for (ReceitaOrigem r : ObDaoReceitaOrigem.Consultar_Todas_Origens()) { %>
                                 <div class=" radio-inline">
                                     <label>
                                         <input onclick="apmostrar();
-                                                vrocular();" type="radio" name="tipoRadios" id="tipoRadios" value="3" >
-                                        Cartão
+                                                vrocular();" type="radio" name="tipoRadios" id="tipoRadios" value="<%out.print(r.getId()); %>" >
+                                        <% out.print(r.getNome()); %>
                                     </label>
 
                                 </div>
-                                <div class=" radio-inline">
-                                    <label>
-                                        <input onclick="apmostrar();vrocular();" type="radio" name="tipoRadios" id="tipoRadios" value="4" >
-                                        Promissória
-                                    </label>
-
-                                </div>
+                                <%}%>
                             </div>
                             <!-- á vista e a prazo -->
                             <div id="ap" class="callout callout-info" hidden="true" style="font-size: 19px">
                                 <h2>Á vista/A prazo</h3>
                                     <div class="radio-inline">
                                         <label >
-                                            <input onclick="vrocular()();" type="radio" name="apRadios" id="apRadios" value="1">
+                                            <input onclick="vrocular();" type="radio" name="apRadios" id="apRadios" value="1">
                                             Á vista/Debito
                                         </label>
                                     </div>
@@ -101,17 +84,17 @@
                             </div>
                             <!--Se foi recebio ou não -->
                             <div id="vr" class="callout callout-warning" hidden="true" style="font-size: 19px">
-                                <h2>Vendido/Recebido</h2>
+                                <h2>Recebido/Vendido</h2>
                                 <div class="radio-inline">
                                     <label>
                                         <input type="radio" name="vrRadios" id="vrRadios" value="1">
-                                        Vendido
+                                        Recebido
                                     </label>
                                 </div>
                                 <div class="radio-inline">
                                     <label>
                                         <input type="radio" name="vrRadios" id="vrRadios" value="2">
-                                        Recebido
+                                        Vendido
                                     </label>
 
                                 </div>
@@ -140,7 +123,10 @@
 
                                 </div>
                             </div>
+                            <div id="conteudo"></div>
                             <div class="clearfix"></div>
+                            <button type="submit"  id="buscar"  class="btn btn-primary">Salvar</button>
+
                         </form>
 
                     </div>
@@ -157,16 +143,15 @@
         <!-- js -->
         <%@include file="/partes/javascript.jsp" %> 
         <script>
+
             //á vista e a prazo 
             function apmostrar() {
 
                 $("#ap").slideDown();
                 $("#apRadios").prop('checked', true);
-
             }
             function apocular() {
                 $("#ap").slideUp();
-
             }
             // vendido e recebido
             function vrmostrar() {
@@ -176,6 +161,23 @@
             function vrocular() {
                 $("#vr").slideUp();
             }
+            function carregar() {
+                $("#conteudo").load('base.jsp');
+            }
+            //maskaras
+            $("#valor").maskMoney({
+                symbol: '',
+                showSymbol: true,
+                thousands: '.',
+                decimal: ',',
+                symbolStay: true
+            });
+            $('#ddata').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR',
+                weekStart: 0
+            });
         </script>
     </body>
 </html>
