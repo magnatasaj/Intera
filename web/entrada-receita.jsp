@@ -46,68 +46,78 @@
                                 <i class="fa fa-times"></i></button>
                         </div>
                         <form>
-                            <h3>Tipo:</h3>
-                            <div class="form-group bg-olive ">
-                                <div class="radio-inline">
+                            <!-- Tipo de entrada-->
+
+                            <div id="tipo" class="callout callout-success" style="font-size: 19px">
+                                <h2>Formas de pagamento</h2>
+
+                                <div class="radio-inline" >
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios" value="1" checked="true">
+                                        <input onclick="apocular();
+                                                vrocular();"  type="radio" name="tipoRadios" id="tipoRadios" value="1" checked="true">
                                         Dinheiro
                                     </label>
                                 </div>
                                 <div class="radio-inline">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios" value="2">
+                                        <input onclick="apmostrar();
+                                                vrocular();" type="radio" name="tipoRadios" id="tipoRadios" value="2">
                                         Cheque
                                     </label>
 
                                 </div>
                                 <div class=" radio-inline">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios" value="3" >
+                                        <input onclick="apmostrar();
+                                                vrocular();" type="radio" name="tipoRadios" id="tipoRadios" value="3" >
                                         Cartão
                                     </label>
 
                                 </div>
                                 <div class=" radio-inline">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios" value="4" >
+                                        <input onclick="apmostrar();
+                                                vrocular();" type="radio" name="tipoRadios" id="tipoRadios" value="4" >
                                         Promissória
                                     </label>
 
                                 </div>
                             </div>
-                            <h3>Vendido/Recebido</h3>
-                            <div class="form-group bg-olive ">
+                            <!-- á vista e a prazo -->
+                            <div id="ap" class="callout callout-info" hidden="true" style="font-size: 19px">
+                                <h2>Á vista/A prazo</h3>
+                                    <div class="radio-inline">
+                                        <label >
+                                            <input onclick="vrocular()();" type="radio" name="apRadios" id="apRadios" value="1">
+                                            Á vista/Debito
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input onclick="vrmostrar();" type="radio" name="apRadios" id="apRadios" value="2">
+                                            A prazo/Credito
+                                        </label>
+
+                                    </div>
+                            </div>
+                            <!--Se foi recebio ou não -->
+                            <div id="vr" class="callout callout-warning" hidden="true" style="font-size: 19px">
+                                <h2>Vendido/Recebido</h2>
                                 <div class="radio-inline">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios" value="1" checked="true">
+                                        <input type="radio" name="vrRadios" id="vrRadios" value="1">
                                         Vendido
                                     </label>
                                 </div>
                                 <div class="radio-inline">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios" value="2">
+                                        <input type="radio" name="vrRadios" id="vrRadios" value="2">
                                         Recebido
                                     </label>
 
                                 </div>
                             </div>
-                            <h3>Á vista/A prazo</h3>
-                            <div class="form-group bg-olive ">
-                                <div class="radio-inline">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios" value="1" checked="true">
-                                        Á vista/Debito
-                                    </label>
-                                </div>
-                                <div class="radio-inline">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios" value="2">
-                                        A prazo/Credito
-                                    </label>
 
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label for="valor" class="control-label">Valor R$:</label>
                                 <div class="input-group">
@@ -147,7 +157,27 @@
         </div>
         <!-- js -->
         <%@include file="/partes/javascript.jsp" %> 
+        <script>
+            //á vista e a prazo 
+            function apmostrar() {
 
+                $("#ap").slideDown();
+                $("#apRadios").prop('checked', true);
+
+            }
+            function apocular() {
+                $("#ap").slideUp();
+
+            }
+            // vendido e recebido
+            function vrmostrar() {
+                $("#vr").slideDown();
+                $("#vrRadios").prop('checked', true);
+            }
+            function vrocular() {
+                $("#vr").slideUp();
+            }
+        </script>
     </body>
 </html>
 
