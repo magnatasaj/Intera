@@ -9,6 +9,7 @@ import com.interativaconsultoria.funcao.Cores;
 import com.interativaconsultoria.objetos.Despesa;
 import com.interativaconsultoria.objetos.Despesa_Niveis;
 import com.interativaconsultoria.objetos.Receita;
+import com.interativaconsultoria.objetos.ReceitaOrigem;
 import java.awt.Color;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -41,12 +42,14 @@ public class DaoReceita {
 
     public void Adicionar_Receita(Receita Re) throws SQLException {
 
-        String sql = "INSERT INTO `despesa` (`id`, `valor`, `data`, `id_nivel`,`descricao`) VALUES (NULL, ?, ?, ?,?);";
+        String sql = "INSERT INTO `receita` (`valor`, `data`, `origem`, `vendido_recebido`, `debito_credito`, `descricao`) VALUES (?, ?, ?, ?, ?, ?);";
         ps = conexao.prepareStatement(sql);
         ps.setBigDecimal(1, Re.getValor());
         ps.setDate(2, new java.sql.Date(Re.getData().getTime()));
-        ps.setInt(3, Re.getOrigem());
-        ps.setString(4, Re.getDescricao());
+        ps.setInt(3, Re.getReceita_origem().getId());
+        ps.setInt(4, Re.getVendido_recebido());
+        ps.setInt(5, Re.getDebito_credito());
+        ps.setString(6, Re.getDescricao());
         ps.execute();
         ps.close();
 
@@ -160,26 +163,33 @@ public class DaoReceita {
         return ls;
     }
 
-    public BigDecimal Consultar_Despesa_mes_atual(int id_nivel) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH(now()) AND id_nivel = " + id_nivel + "";
+    public List Consultar_Receita_mes_atual() throws SQLException {
+        String sql = "SELECT receita.*, receita_origem.id as id_tb_origem, receita_origem.nome_origem FROM `receita`, receita_origem WHERE MONTH(data) = MONTH(now()) and origem = receita_origem.id ORDER BY `receita`.`data` DESC";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
+        List<Receita> de = new ArrayList();
         while (rs.next()) {
-            if (rs.getString("total") != null) {
-                String valor = rs.getBigDecimal("total").toString();
-                System.out.println("valor:" + valor);
-
-                re = total.add(new BigDecimal(valor));
-            }
+            ReceitaOrigem or = new ReceitaOrigem();
+            or.setId(rs.getInt("id_tb_origem"));
+            or.setNome(rs.getString("nome_origem"));
+            
+           Receita Obr = new Receita();
+           Obr.setId(rs.getInt("id"));
+           Obr.setReceita_origem(or);
+           Obr.setDebito_credito(rs.getInt("debito_credito"));
+           Obr.setVendido_recebido(rs.getInt("vendido_recebido"));
+           Obr.setData(rs.getDate("data"));
+           Obr.setValor(rs.getBigDecimal("valor"));
+           Obr.setDescricao(rs.getString("descricao"));
+           de.add(Obr);
 
         }
 
         rs.close();
-        System.out.println("total:" + re);
 
-        return re;
+        return de;
     }
 
     public BigDecimal Consultar_Despesa_mes(int mes) throws SQLException {

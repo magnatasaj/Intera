@@ -60,9 +60,8 @@
                     <span>Resultados</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="entrada-receita.jsp"><i class="fa fa-circle-o"></i>Gráfico despesas</a></li>
-                    <li><a href="entrada-receita.jsp"><i class="fa fa-circle-o"></i>Gráfico receitas</a></li>
-                    <li><a href="entrada-receita.jsp"><i class="fa fa-circle-o"></i>Gráfico comparativos</a></li>
+                    <li><a href="despesa-grafico.jsp"><i class="fa fa-circle-o"></i>Gráfico despesas</a></li>
+                   
 
 
 

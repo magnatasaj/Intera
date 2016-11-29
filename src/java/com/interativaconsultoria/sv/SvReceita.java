@@ -7,8 +7,11 @@ package com.interativaconsultoria.sv;
 
 import com.interativaconsultoria.dao.DaoDespesa;
 import com.interativaconsultoria.dao.DaoDespesaNivel;
+import com.interativaconsultoria.dao.DaoReceita;
 import com.interativaconsultoria.objetos.Despesa;
 import com.interativaconsultoria.objetos.Despesa_Niveis;
+import com.interativaconsultoria.objetos.Receita;
+import com.interativaconsultoria.objetos.ReceitaOrigem;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -29,9 +32,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *NumberFormat nf = NumberFormat.getCurrencyInstance();  
-String formatado = nf.format (valor);
-System.out.println(formatado);
+ * NumberFormat nf = NumberFormat.getCurrencyInstance(); String formatado =
+ * nf.format (valor); System.out.println(formatado);
+ *
  * @author Lamara
  */
 @WebServlet(name = "SvReceita", urlPatterns = {"/SvReceita"})
@@ -41,51 +44,62 @@ public class SvReceita extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+
         try {
             if (request.getParameter("t").equals("add")) {
                 String d = request.getParameter("valor").trim();
-                String id = request.getParameter("id");
+                String receita_origem = request.getParameter("tipoRadios");
+                String debito_credito = request.getParameter("apRadios");
+                String vendido_recebido = request.getParameter("vrRadios");
+
                 String desc = request.getParameter("desc");
                 String str_data = request.getParameter("data").trim();
-                str_data = str_data.replace( "-" , "/");
-                int idnivel = Integer.parseInt(id);
-                d = d.replace( "." , "");
-                d = d.replace( "," , ".");
-                BigDecimal valor = new BigDecimal (d);  
+                str_data = str_data.replace("-", "/");
                 
-                DateFormat formatter ; 
-                Date date ; 
+                int receita_origem_id = Integer.parseInt(receita_origem);
+                int debito_creditoI = Integer.parseInt(debito_credito);
+                int vendido_recebidoI = Integer.parseInt(vendido_recebido);
+
+                d = d.replace(".", "");
+                d = d.replace(",", ".");
+                BigDecimal valor = new BigDecimal(d);
+
+                DateFormat formatter;
+                Date date;
                 formatter = new SimpleDateFormat("dd/MM/yyyy");
-                date = (Date)formatter.parse(str_data); 
-                
-                Despesa ObDespesa = new Despesa();
-                ObDespesa.setId_nivel(idnivel);
-                ObDespesa.setValor(valor);
-                ObDespesa.setData(date);
-                ObDespesa.setDescricao(desc);
-                DaoDespesa ObDaoDespesa = new DaoDespesa();
-                ObDaoDespesa.Adicionar_Despesa(ObDespesa);
-                response.getWriter().print(Alerta.Ok("Salvo com sucesso"));
+                date = (Date) formatter.parse(str_data);
+                //criando os objetos receita e origem
+                Receita ObReceita = new Receita();
+                ReceitaOrigem ObOrigem = new ReceitaOrigem();
+                ObOrigem.setId(receita_origem_id);
+                //passando valroes para o objeto
+                ObReceita.setReceita_origem(ObOrigem);
+                ObReceita.setDebito_credito(debito_creditoI);
+                ObReceita.setVendido_recebido(vendido_recebidoI);
+                ObReceita.setValor(valor);
+                ObReceita.setData(date);
+                ObReceita.setDescricao(desc);
+                DaoReceita ObDaoReceita = new DaoReceita();
+                ObDaoReceita.Adicionar_Receita(ObReceita);
+                response.getWriter().print(Alerta.Ok("Adicionado com sucesso"));
             }
-            
-             if (request.getParameter("t").equals("edd")) {
+
+            if (request.getParameter("t").equals("edd")) {
                 String d = request.getParameter("valor").trim();
                 String id = request.getParameter("id");
                 String desc = request.getParameter("desc");
                 String str_data = request.getParameter("data").trim();
                 int iddespesa = Integer.parseInt(id);
-                d = d.replace( "." , "");
-                d = d.replace( "," , ".");
-             
-                BigDecimal valor = new BigDecimal (d);  
-                
-                DateFormat formatter ; 
-                Date date ; 
+                d = d.replace(".", "");
+                d = d.replace(",", ".");
+
+                BigDecimal valor = new BigDecimal(d);
+
+                DateFormat formatter;
+                Date date;
                 formatter = new SimpleDateFormat("dd/MM/yyyy");
-                date = (Date)formatter.parse(str_data); 
-   
+                date = (Date) formatter.parse(str_data);
+
                 Despesa ObDespesa = new Despesa();
                 ObDespesa.setId(iddespesa);
                 ObDespesa.setValor(valor);
@@ -95,11 +109,11 @@ public class SvReceita extends HttpServlet {
                 ObDaoDespesa.Editar_Despesa(ObDespesa);
                 response.getWriter().print(Alerta.Ok("Atualizado com sucesso"));
             }
-             
+
             if (request.getParameter("t").equals("exc")) {
                 String id = request.getParameter("id");
                 int iddespesa = Integer.parseInt(id);
-             
+
                 Despesa ObDespesa = new Despesa();
                 ObDespesa.setId(iddespesa);
                 DaoDespesa ObDaoDespesa = new DaoDespesa();
@@ -107,9 +121,6 @@ public class SvReceita extends HttpServlet {
                 response.getWriter().print(Alerta.Ok("Excluido com sucesso!"));
             }
 
-           
-
-       
         } catch (NumberFormatException ex) {
             response.getWriter().print(Alerta.erro("Erro no formato de número", ex.toString()));
             Logger.getLogger(SvReceita.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,8 +134,7 @@ public class SvReceita extends HttpServlet {
             response.getWriter().print(Alerta.erro("Erro Classe não existe", ex.toString()));
             Logger.getLogger(SvReceita.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 
 }

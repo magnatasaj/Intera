@@ -34,6 +34,7 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link href="plugins/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
+  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

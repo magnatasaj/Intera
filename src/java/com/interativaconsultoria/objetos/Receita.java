@@ -17,7 +17,6 @@ public class Receita {
     private int id;
     private BigDecimal valor;
     private Date data;
-    private int origem;
     private int vendido_recebido;
     private int debito_credito;
     private String  descricao;
@@ -65,25 +64,23 @@ public class Receita {
         this.data = data;
     }
 
-    /**
-     * @return the origem
-     */
-    public int getOrigem() {
-        return origem;
-    }
-
-    /**
-     * @param origem the origem to set
-     */
-    public void setOrigem(int origem) {
-        this.origem = origem;
-    }
-
+   
     /**
      * @return the vendido_recebido
      */
     public int getVendido_recebido() {
         return vendido_recebido;
+    }
+    
+    public String getVendido_recebido_st() {
+        String resultado = "";
+        switch (vendido_recebido){
+            case 1 : resultado = "Recebido"; break;
+            case 2 : resultado = "Vendido"; break;
+                
+        }
+        
+        return resultado;
     }
 
     /**
@@ -98,6 +95,16 @@ public class Receita {
      */
     public int getDebito_credito() {
         return debito_credito;
+    }
+    public String getDebito_credito_st() {
+       String resultado = "";
+        switch (vendido_recebido){
+            case 1 : resultado = "Á vista"; break;
+            case 2 : resultado = "A prazo"; break;
+                
+        }
+        
+        return resultado;
     }
 
     /**
