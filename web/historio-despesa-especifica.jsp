@@ -256,7 +256,7 @@
                     "ordering": true,
                     "info": true,
                     "autoWidth": true,
-                    dom: 'Bfrtip',
+                    dom: 'l,Bfrtip', 
                     buttons: [
                         {extend: 'copy',
                             text: 'Copiar',

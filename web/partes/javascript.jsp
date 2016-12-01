@@ -11,15 +11,15 @@
 <script src="legenda/legend.js" type="text/javascript"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
-
+<!--- script para tabel e soma da tabela -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="dist/js/sum().js"></script>
-
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+
 <!-- Morris.js charts -->
 <script src="plugins/chartjs/Chart.min.js" type="text/javascript"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
-<script src="plugins/morris/morris.min.js"></script>
+<script src="plugins/chartjs/FileSaver.min.js" type="text/javascript"></script>
+<script src="plugins/chartjs/canvas-toBlob.js" type="text/javascript"></script>
 <!-- Sparkline -->
 
 <script src="plugins/sparkline/jquery.sparkline.min.js"></script>

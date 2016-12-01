@@ -61,6 +61,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="despesa-grafico.jsp"><i class="fa fa-circle-o"></i>Gráfico despesas</a></li>
+                    <li><a href="receita-grafico.jsp"><i class="fa fa-circle-o"></i>Gráfico receita</a></li>
                    
 
 

@@ -69,6 +69,8 @@
                         </div>
                     </div>
                     <div class="box-body">
+                        <button onclick="img('barChart')" id="save-btn">Save gráfico como imagem</button>
+
                         <div class="chart">
                             <div id="barsLegend"></div>
                             <canvas id="barChart"></canvas>
@@ -88,6 +90,8 @@
                             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
+                    <button onclick="img('barChart2')" id="save-btn">Save gráfico como imagem</button>
+
                     <div class="box-body">
                         <div class="chart">
                             <div id="barsLegend2"></div>
@@ -107,6 +111,8 @@
                             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
+                    <button onclick="img('barChart3')" id="save-btn">Save gráfico como imagem</button>
+
                     <div class="box-body">
                         <div class="chart">
                             <div id="barsLegend3"></div>
@@ -149,7 +155,7 @@
                             pointStrokeColor: "#c1c7d1",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-                             <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa("2016") + "]");%>
+            <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa("2016") + "]");%>
                         }
                     ]
                 };
@@ -245,10 +251,16 @@
                 legend(document.getElementById("barsLegend2"), barChartData2);
                 legend(document.getElementById("barsLegend3"), barChartData3);
 
-
-
-
+                
             });
+            function img(grafico) {
+
+                    $("#" + grafico + "").get(0).toBlob(function(blob) {
+                        saveAs(blob, "grafico.png");
+                    });
+
+                }
+
 
         </script>    
     </body>

@@ -337,7 +337,8 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
-                dom: 'Bfrtip',
+                "lengthMenu": [[10, 25, 50,100, -1], [10, 25, 50,100, "Todos"]],
+                dom: 'l,Bfrtip',
                 buttons: [
                     {extend: 'copy',
                         text: 'Copiar',

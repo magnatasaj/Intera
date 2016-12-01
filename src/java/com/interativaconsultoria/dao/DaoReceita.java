@@ -55,15 +55,17 @@ public class DaoReceita {
 
     }
 
-    public void Editar_Despesa(Despesa De) throws SQLException {
+    public void Editar_Receita(Receita Re) throws SQLException {
 
-        String sql = "UPDATE `despesa` SET `valor` = ?, `data` = ?, `descricao` = ? WHERE `despesa`.`id` = ?;";
-
+       String sql = "UPDATE `receita` SET `valor` = ?, `data` = ?, `origem` = ?, `vendido_recebido` = ?, `debito_credito` = ?, `descricao` = ? WHERE `receita`.`id` = ?;";
         ps = conexao.prepareStatement(sql);
-        ps.setBigDecimal(1, De.getValor());
-        ps.setDate(2, new java.sql.Date(De.getData().getTime()));
-        ps.setString(3, De.getDescricao());
-        ps.setInt(4, De.getId());
+        ps.setBigDecimal(1, Re.getValor());
+        ps.setDate(2, new java.sql.Date(Re.getData().getTime()));
+        ps.setInt(3, Re.getReceita_origem().getId());
+        ps.setInt(4, Re.getVendido_recebido());
+        ps.setInt(5, Re.getDebito_credito());
+        ps.setString(6, Re.getDescricao());
+        ps.setInt(7, Re.getId());
         ps.executeUpdate();
         ps.close();
 
