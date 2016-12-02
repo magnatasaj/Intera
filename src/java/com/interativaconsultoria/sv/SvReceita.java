@@ -126,14 +126,14 @@ public class SvReceita extends HttpServlet {
             }
 
             if (request.getParameter("t").equals("exc")) {
-                String id = request.getParameter("id");
+                String id = request.getParameter("id").trim();
                 int iddespesa = Integer.parseInt(id);
 
-                Despesa ObDespesa = new Despesa();
-                ObDespesa.setId(iddespesa);
-                DaoDespesa ObDaoDespesa = new DaoDespesa();
-                ObDaoDespesa.Excluir_Despesa(ObDespesa);
-                response.getWriter().print(Alerta.Ok("Excluido com sucesso!"));
+                Receita ObReceita = new Receita();
+                ObReceita.setId(iddespesa);
+                DaoReceita ObDaoReceita = new DaoReceita();
+                ObDaoReceita.Excluir_Receita(ObReceita);
+                response.getWriter().print(Alerta.Ok("Que pena, foi excluido com sucesso a receita!"));
             }
 
         } catch (NumberFormatException ex) {

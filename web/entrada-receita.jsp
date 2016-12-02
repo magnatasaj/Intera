@@ -233,6 +233,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <div class="col-lg-1">
+                                            <button type="button" id="edexcluir" name="edexcluir" class="btn btn-danger">Excluir</button>
                                         </div>
 
                                         <button type="button"  id="edsalvar" name="edsalvar" class="btn btn-primary">Salvar alterações</button>
@@ -316,15 +317,31 @@
 
 
                     $("#re").slideDown("slow");
-                    carregar();
                     $('#re').html(responseText);
                     setTimeout("ocultar()", 5000);
-                    carregar;
+                    carregar();
 
                 });
 
             });
+            $('#edexcluir').click(function(event) {
+                var id = $('#edid').val();
 
+                $.post('SvReceita', {
+                    id: id,
+                    t: 'exc'
+                }, function(responseText) {
+                    
+                    $('#re').html(responseText);
+                    $("#re").slideDown("slow");
+                    setTimeout("ocultar()", 5000);
+                    carregar();
+                    $('#edvalor').val('');
+                    $('#eddata').val('');
+                    $('#eddesc').val('');
+
+                });
+            })
             function valores(id, db, vr, or, data, desc, valor) {
                 $("#edid").val(id);
                 $("input[name='edtipoRadios'][value='" + or + "']").prop("checked", true);
@@ -338,7 +355,7 @@
             }
 
             function ocultar() {
-                $("#edt").slideUp("slow");
+                $("#edt, #re").slideUp("slow");
             }
             //á vista e a prazo 
             function apmostrar() {

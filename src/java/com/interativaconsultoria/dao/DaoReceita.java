@@ -71,25 +71,25 @@ public class DaoReceita {
 
     }
     
-    public void Excluir_Despesa(Despesa De) throws SQLException {
+    public void Excluir_Receita(Receita Re) throws SQLException {
 
-        String sql = "DELETE FROM `despesa` WHERE `despesa`.`id` = ?";
+        String sql = "DELETE FROM `receita` WHERE `receita`.`id` = ?";
 
         ps = conexao.prepareStatement(sql);
-        ps.setInt(1, De.getId());
+        ps.setInt(1, Re.getId());
         ps.execute();
         ps.close();
 
     }
 
-    public String Gerar_Grafico_despesa(String ano) throws SQLException {
+    public String Gerar_Grafico_receita(String ano) throws SQLException {
 
         String dados = "";
         for (int i = 1; i <= 12; i++) {
             if (i == 12) {
-                dados += Consultar_Despesa_mes(i);
+                dados += Consultar_Receita_mes(i);
             } else {
-                dados += Consultar_Despesa_mes(i) + ",";
+                dados += Consultar_Receita_mes(i) + ",";
             }
         }
 
@@ -194,8 +194,8 @@ public class DaoReceita {
         return de;
     }
 
-    public BigDecimal Consultar_Despesa_mes(int mes) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-01')";
+    public BigDecimal Consultar_Receita_mes(int mes) throws SQLException {
+        String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('2016-" + mes + "-01')";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
