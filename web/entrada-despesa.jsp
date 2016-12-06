@@ -183,7 +183,6 @@
 
                 document.getElementById("idnivel").value = "";
                 document.getElementById("valor").value = "";
-                document.getElementById("ddata").value = "";
                 document.getElementById("desc").value = "";
                 document.getElementById("idnivel").value = cod;
                 document.getElementById("myModalLabel").innerHTML = "Será inserido na categoria:<b>" + nome + "</b>";
@@ -218,7 +217,6 @@
                         $('#edt').html(responseText);
                         setTimeout("ocultar()", 5000);
                         $('#valor').val('');
-                        $('#ddata').val('');
                         $('#desc').val('');
                     });
 
@@ -273,10 +271,10 @@
             $('#ddata').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
-                language: 'pt-BR',
-                weekStart: 0
+                language: 'pt-BR'
+                
             });
-
+                         $('#ddata').datepicker("update", new Date());
 
         </script>
     </body>

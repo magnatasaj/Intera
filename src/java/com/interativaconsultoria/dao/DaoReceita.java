@@ -87,9 +87,9 @@ public class DaoReceita {
         String dados = "";
         for (int i = 1; i <= 12; i++) {
             if (i == 12) {
-                dados += Consultar_Receita_mes(i);
+                dados += Consultar_Receita_mes(i,ano);
             } else {
-                dados += Consultar_Receita_mes(i) + ",";
+                dados += Consultar_Receita_mes(i,ano) + ",";
             }
         }
 
@@ -194,8 +194,8 @@ public class DaoReceita {
         return de;
     }
 
-    public BigDecimal Consultar_Receita_mes(int mes) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('2016-" + mes + "-01')";
+    public BigDecimal Consultar_Receita_mes(int mes,String ano) throws SQLException {
+        String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + mes + "-01') and YEAR(data) = YEAR('"+ano+"-" + mes + "-01')";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
@@ -213,12 +213,12 @@ public class DaoReceita {
         return re;
     }
 
-    public String Consultar_Despesa_mes_e_nivel(int id_nivel) throws SQLException {
+    public String Consultar_Despesa_mes_e_vendido(int vendido,String ano) throws SQLException {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND id_nivel = " + id_nivel + "";
+            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND vendido_recebido = " + vendido + "";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -247,12 +247,45 @@ public class DaoReceita {
         return res;
     }
 
-    public String Consultar_Despesa_mes_e_nivel2(String id_nivel_array) throws SQLException {
+    public String Consultar_Despesa_mes_e_futuro(int vendido,String ano) throws SQLException {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND id_nivel in(" + id_nivel_array + ")";
+            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND vendido_recebido = 2 AND debito_credito = "+vendido+"";
+            ps = conexao.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getString("total") != null) {
+                    String valor = rs.getBigDecimal("total").toString();
+                    re = total.add(new BigDecimal(valor));
+                    if (i == 12) {
+                        res += re;
+                    } else {
+                        res += re + ",";
+                    }
+
+                } else {
+                    if (i == 12) {
+                        res += "";
+                    } else {
+                        res += ",";
+                    }
+                }
+
+            }
+        }
+        rs.close();
+
+        return res;
+    }
+    public String Consultar_Despesa_mes_e_origem(int id, String ano) throws SQLException {
+        BigDecimal total = new BigDecimal("0");
+        BigDecimal re = new BigDecimal("0");
+        String res = "";
+        for (int i = 1; i <= 12; i++) {
+            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND origem = "+id+"";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -281,56 +314,81 @@ public class DaoReceita {
         return res;
     }
 
-    public String Despesa_Grafico_nivel() throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
-        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
-        int i = 0;
+    public String Receita_Grafico_vendido(int rv, String ano) throws SQLException, ClassNotFoundException {
+        DaoReceitaOrigem obj = new DaoReceitaOrigem();
 
         Cores c = new Cores();
         List<Color> cores = c.gerarCores(100);
         List<String> coresHexa = c.gerarCoresHexadecimal(cores);
 
         String dataset = "";
-        for (Despesa_Niveis d : lista) {
-            String corfi = "";
-
-            i++;
-            if (!Consultar_Despesa_mes_e_nivel(d.getId()).equals(",,,,,,,,,,,")) {
-                if (lista.size() == i) {
+        
+        String resultado = "";
+        switch (rv){
+            case 1 : resultado = "Recebido"; break;
+            case 2 : resultado = "Vendido"; break;
+                
+        }
+           
+            if (!Consultar_Despesa_mes_e_vendido(rv,ano).equals(",,,,,,,,,,,")) {
+              
                     dataset += "{\n"
-                            + "                        label: \"" + d.getNome() + "\",\n"
-                            + "                                strokeColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointStrokeColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointHighlightFill: \"" + coresHexa.get(i) + "\",\n"
+                            + "                        label: \""+resultado+"\",\n"
+                            +                                   "fillColor: \"" + coresHexa.get(rv) + "\",\n"
+                            + "                                strokeColor: \"" + coresHexa.get(rv) + "\",\n"
+                            + "                                pointColor: \"" + coresHexa.get(rv) + "\",\n"
+                            + "                                pointStrokeColor: \"" + coresHexa.get(rv) + "\",\n"
+                            + "                                pointHighlightFill: \"" + coresHexa.get(rv) + "\",\n"
                             + "                                pointBorderWidth: 50,\n"
                             + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
-                            + "                                 data :[" + Consultar_Despesa_mes_e_nivel(d.getId()) + "]"
+                            + "                                 data :[" + Consultar_Despesa_mes_e_vendido(rv,ano) + "]"
                             + "                        }";
 
-                } else {
-                    dataset += "{\n"
-                            + "                        label: \"" + d.getNome() + "\",\n"
-                            + "                                fillColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                strokeColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointStrokeColor: \"#c1c7d1\",\n"
-                            + "                                pointHighlightFill: \"#fff\",\n"
-                            + "                              pointBorderWidth: 6.5,\n"
-                            + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
-                            + "                                 data :[" + Consultar_Despesa_mes_e_nivel(d.getId()) + "]"
-                            + "                        },";
+               
+        }
 
-                }
-            }
+        return dataset;
+    }
+    
+     public String Receita_Grafico_Credito_futuro(int rv, String ano) throws SQLException, ClassNotFoundException {
+        DaoReceitaOrigem obj = new DaoReceitaOrigem();
+
+        Cores c = new Cores();
+        List<Color> cores = c.gerarCores(100);
+        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
+
+        String dataset = "";
+        
+        String resultado = "";
+        switch (rv){
+            case 1 : resultado = "Á vista"; break;
+            case 2 : resultado = "Futuro"; break;
+                
+        }
+           
+            if (!Consultar_Despesa_mes_e_vendido(rv,ano).equals(",,,,,,,,,,,")) {
+              
+                    dataset += "{\n"
+                            + "                        label: \""+resultado+"\",\n"
+                            +                                   "fillColor: \"" + coresHexa.get(rv) + "\",\n"
+                            + "                                strokeColor: \"" + coresHexa.get(rv) + "\",\n"
+                            + "                                pointColor: \"" + coresHexa.get(rv) + "\",\n"
+                            + "                                pointStrokeColor: \"" + coresHexa.get(rv) + "\",\n"
+                            + "                                pointHighlightFill: \"" + coresHexa.get(rv) + "\",\n"
+                            + "                                pointBorderWidth: 50,\n"
+                            + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
+                            + "                                 data :[" + Consultar_Despesa_mes_e_futuro(rv,ano) + "]"
+                            + "                        }";
+
+               
         }
 
         return dataset;
     }
 
-    public String Despesa_Grafico_nivel2() throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
-        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
+    public String Receita_Grafico_Origens(String ano) throws SQLException, ClassNotFoundException {
+        DaoReceitaOrigem obj = new DaoReceitaOrigem();
+        List<ReceitaOrigem> lista = obj.Consultar_Todas_Origens();
        
         Cores c = new Cores();
         List<Color> cores = c.gerarCores(100);
@@ -339,22 +397,10 @@ public class DaoReceita {
         String dataset = "";
         int i = 0;
         String corfi = "";
-        for (Despesa_Niveis dd : obj.Consultar_Nivel_2()) {
+        for (ReceitaOrigem dd : lista) {
             String idarray = "";
             String data = "";
             i++;
-            for (Despesa_Niveis d : lista) {
-                if (d.getPai() == dd.getId()) {
-                    idarray += d.getId() + ",";
-                }
-            }
-            String arraycorrigido = "";
-            if (idarray.length() > 0) {
-                arraycorrigido = idarray.substring(0, idarray.length() - 1);
-            } else {
-                arraycorrigido = "0";
-            }
-            
             //Gerar estrutura para o grafico nivel 2
             
                    dataset += "{\n"
@@ -366,7 +412,7 @@ public class DaoReceita {
                             + "                                pointHighlightFill: \"#fff\",\n"
                             + "                              pointBorderWidth: 6.5,\n"
                             + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
-                            + "                                 data :[" + Consultar_Despesa_mes_e_nivel2(arraycorrigido) + "]"
+                            + "                                 data :[" + Consultar_Despesa_mes_e_origem(dd.getId(),ano) + "]"
                             + "                        },";
 
               

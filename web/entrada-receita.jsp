@@ -393,8 +393,10 @@
                 autoclose: true,
                 format: 'dd/mm/yyyy',
                 language: 'pt-BR',
-                weekStart: 0
+                defaultDate: new Date()
+                
             });
+            $('#ddata').datepicker("update", new Date());
 
 
         </script>

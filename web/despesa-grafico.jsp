@@ -1,3 +1,6 @@
+<%@page import="java.util.GregorianCalendar"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="com.interativaconsultoria.dao.DaoAno"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : index
@@ -16,7 +19,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% DaoDespesa ObDaoDespesa = new DaoDespesa(); %>
 <% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(); %>
+<%
+    Calendar cal = GregorianCalendar.getInstance();
+    String ano = "";
+    if (request.getParameter("ano") == null) {
+        ano = Integer.toString(cal.get(Calendar.YEAR));
+    } else {
+        ano = request.getParameter("ano");
+    }
 
+
+%>
 
 <!-- meta-data -->
 <!DOCTYPE html>
@@ -49,11 +62,24 @@
                             <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                                 <i class="fa fa-times"></i></button>
                         </div>
-                        <form id="f1"  method="get" onSubmit="return valida()">
-
-                            <button type="submit"  id="buscar"  class="btn btn-primary">Buscar</button>
+                       <form action="despesa-grafico.jsp" method="get">
+                            <h1 class="box-title">Escolha o ano para geração dos gráficos</h1>
+                            <select id="ano" name="ano" class="form-control">
+                                <option></option>
+                                <% DaoAno dano = new DaoAno();
+                                    List<Integer> lano = dano.Lista_anos();
+                                    for (int an : lano) { %>  
+                                    <option><% out.println(an); %></option>
+                                <% } %>
+                            </select>
+                            </br>
+                            <button type="submit"  id="buscar"  class="btn btn-primary">Alterar Ano</button>
 
                         </form>
+                                                        </br>
+
+                            <div class="callout callout-warning">
+                <h4>Ano base para os gráficos: <% out.print(ano);%></h4>
 
                     </div>
                 </div>
@@ -155,17 +181,17 @@
                             pointStrokeColor: "#c1c7d1",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-            <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa("2016") + "]");%>
+            <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa(ano) + "]");%>
                         }
                     ]
                 };
                 var areaChartData2 = {
                     labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel2());%>]
+                    datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel2(ano));%>]
                 };
                 var areaChartData3 = {
                     labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel());%>]
+                    datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel(ano));%>]
                 };
 
 
