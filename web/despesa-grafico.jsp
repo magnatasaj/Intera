@@ -169,7 +169,8 @@
 
         <script>
             $(function() {
-
+                
+                //data um
                 var areaChartData = {
                     labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
                     datasets: [
@@ -185,21 +186,21 @@
                         }
                     ]
                 };
+                
+                //data dois
                 var areaChartData2 = {
                     labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
                     datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel2(ano));%>]
                 };
+                
+                // data três
                 var areaChartData3 = {
                     labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
                     datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel(ano));%>]
                 };
 
 
-
-
-                //-------------
-                //- BAR CHART -
-                //-------------
+                //formatar para real
                 function formatar(valor) {
                     var moeda = 'R$';
                     valor = ('' + valor).split('.');
@@ -236,6 +237,7 @@
 
                 }
 //---------------------------------------------
+     
                 //grafico 1
                 var barChartCanvas = $("#barChart").get(0).getContext("2d");
                 var barChart = new Chart(barChartCanvas);

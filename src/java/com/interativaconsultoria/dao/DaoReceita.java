@@ -97,14 +97,14 @@ public class DaoReceita {
         return dados;
     }
 
-    public List<Despesa> Consultar_Despesa_all(String valor, int op) throws SQLException, ParseException {
+    public List<Receita> Consultar_Receita_all(String valor, int op) throws SQLException, ParseException {
 
         if (op == 1) {
             valor = valor.replace(".", "");
             valor = valor.replace(",", ".");
             valor = valor.replace(".00", "");
             System.out.println("valor:" + valor);
-            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `despesa`,`despesa_niveis` WHERE `valor` LIKE '%" + valor + "%' and id_nivel = despesa_niveis.id";
+            String sql = "SELECT data,nome_origem,receita.id,vendido_recebido,debito_credito,valor, descricao,receita_origem.id as id_tb_origem FROM `receita`,`receita_origem` WHERE `valor` LIKE '%"+valor+"%' and origem = receita_origem.id";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
         }
@@ -119,27 +119,33 @@ public class DaoReceita {
             date1 = (Date) formatter.parse(data[0]);
             date2 = (Date) formatter.parse(data[1]);
 
-            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `despesa`,`despesa_niveis` WHERE `data` BETWEEN ? AND ? and id_nivel = despesa_niveis.id";
+            String sql = "SELECT data,nome_origem,receita.id,vendido_recebido,debito_credito,valor, descricao, receita_origem.id as id_tb_origem  FROM `receita`,`receita_origem`  WHERE `data` BETWEEN ? AND ? and origem = receita_origem.id";
             ps = conexao.prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(date1.getTime()));
             ps.setDate(2, new java.sql.Date(date2.getTime()));
             rs = ps.executeQuery();
         }
         if (op == 3) {
-            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `despesa`,`despesa_niveis` WHERE `descricao` LIKE ? and id_nivel = despesa_niveis.id";
+            String sql = "SELECT data,nome_origem,receita.id,vendido_recebido,debito_credito,valor, descricao,receita_origem.id as id_tb_origem FROM `receita`,`receita_origem` WHERE `descricao` LIKE ? and origem = receita_origem.id";
             ps = conexao.prepareStatement(sql);
             ps.setString(1, "%" + valor + "%");
             rs = ps.executeQuery();
         }
-        List<Despesa> ls = new ArrayList();
+        List<Receita> ls = new ArrayList();
         while (rs.next()) {
-            Despesa Obs = new Despesa();
-            Obs.setId(rs.getInt("id"));
-            Obs.setValor(rs.getBigDecimal("valor"));
-            Obs.setData(rs.getDate("data"));
-            Obs.setDescricao(rs.getString("descricao"));
-            Obs.setNome_despesa(rs.getString("nome"));
-            ls.add(Obs);
+            ReceitaOrigem or = new ReceitaOrigem();
+            or.setId(rs.getInt("id_tb_origem"));
+            or.setNome(rs.getString("nome_origem"));
+            
+           Receita Obr = new Receita();
+           Obr.setId(rs.getInt("id"));
+           Obr.setReceita_origem(or);
+           Obr.setDebito_credito(rs.getInt("debito_credito"));
+           Obr.setVendido_recebido(rs.getInt("vendido_recebido"));
+           Obr.setData(rs.getDate("data"));
+           Obr.setValor(rs.getBigDecimal("valor"));
+           Obr.setDescricao(rs.getString("descricao"));
+           ls.add(Obr);
         }
 
         rs.close();
@@ -218,7 +224,7 @@ public class DaoReceita {
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND vendido_recebido = " + vendido + "";
+            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND (vendido_recebido = " + vendido + " or debito_credito = 1)";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -247,19 +253,22 @@ public class DaoReceita {
         return res;
     }
 
-    public String Consultar_Despesa_mes_e_futuro(int vendido,String ano) throws SQLException {
+   
+    
+     public String Consultar_Despesa_mes_e_f(int vendido,String ano) throws SQLException {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND vendido_recebido = 2 AND debito_credito = "+vendido+"";
+            String sql = "SELECT SUM(valor)  as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND vendido_recebido ="+vendido+"";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
-
+            
             while (rs.next()) {
                 if (rs.getString("total") != null) {
                     String valor = rs.getBigDecimal("total").toString();
                     re = total.add(new BigDecimal(valor));
+             
                     if (i == 12) {
                         res += re;
                     } else {
@@ -280,6 +289,7 @@ public class DaoReceita {
 
         return res;
     }
+     
     public String Consultar_Despesa_mes_e_origem(int id, String ano) throws SQLException {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
@@ -377,7 +387,7 @@ public class DaoReceita {
                             + "                                pointHighlightFill: \"" + coresHexa.get(rv) + "\",\n"
                             + "                                pointBorderWidth: 50,\n"
                             + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
-                            + "                                 data :[" + Consultar_Despesa_mes_e_futuro(rv,ano) + "]"
+                            + "                                 data :[" + Consultar_Despesa_mes_e_f(rv,ano) + "]"
                             + "                        }";
 
                

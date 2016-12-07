@@ -72,9 +72,9 @@ public class Receita {
         return vendido_recebido;
     }
     
-    public String getVendido_recebido_st() {
+    public String getVendido_recebido_st(int vr) {
         String resultado = "";
-        switch (vendido_recebido){
+        switch (vr){
             case 1 : resultado = "Recebido"; break;
             case 2 : resultado = "Vendido"; break;
                 
@@ -96,9 +96,9 @@ public class Receita {
     public int getDebito_credito() {
         return debito_credito;
     }
-    public String getDebito_credito_st() {
+    public String getDebito_credito_st(int v) {
        String resultado = "";
-        switch (vendido_recebido){
+        switch (v){
             case 1 : resultado = "Á vista"; break;
             case 2 : resultado = "A prazo"; break;
                 

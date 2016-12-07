@@ -45,8 +45,8 @@
         <td><% out.print(Data.MudarFormatoDeData(d.getData())); %></td>
         <td><% out.print(d.getDescricao()); %></td>
         <td><% out.print(d.getReceita_origem().getNome()); %></td>
-        <td><% out.print(d.getDebito_credito_st()); %></td>
-        <td><% out.print(d.getVendido_recebido_st()); %></td>
+        <td><% out.print(d.getDebito_credito_st(d.getDebito_credito())); %></td>
+        <td><% out.print(d.getVendido_recebido_st(d.getVendido_recebido())); %></td>
 
         <td><a href="#modal-editar-receita" onclick='valores("<% out.print(d.getId());%>","<% out.print(d.getDebito_credito()); %>","<% out.print(d.getVendido_recebido()); %>","<% out.print(d.getReceita_origem().getId()); %>","<% out.print(Data.MudarFormatoDeData(d.getData())); %>", "<% out.print(d.getDescricao()); %>","<% out.print(Valor.FormatarValor(d.getValor()).replace("R$", "").trim()); %>")' data-toggle="modal" data-target="#modal-editar-receita">editar</a></td>
 
