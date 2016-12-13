@@ -97,18 +97,16 @@
                     </div>
                     <div class="box-body">
 
-                        <div class="chart">
-                            <div id="barsLegend"></div>
-                            <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                        
+                            <div id="container" style="width:100%; height: 100%;"></div>
 
 
-                        </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
 
                 <div class="box" >
-                    <div class="box-header" style="height: 100px" >
+                    <div class="box-header" >
                         <h3 class="box-title">Anual por Área 1</h3>
 
                         <div class="box-tools pull-right" >
@@ -122,7 +120,7 @@
                     <div class="box-body">
                         <div class="chart">
                             <div id="barsLegend1"></div>
-                            <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div id="container1" style="min-width: 310px; margin: 0 auto"></div>
 
 
                         </div>
@@ -131,7 +129,7 @@
                 </div>
 
                 <div class="box" >
-                    <div class="box-header" style="height: 100px" >
+                    <div class="box-header"  >
                         <h3 class="box-title">Anual por Área 2</h3>
 
                         <div class="box-tools pull-right" >
@@ -145,7 +143,7 @@
                     <div class="box-body">
                         <div class="chart">
                             <div id="barsLegend2"></div>
-                            <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div id="container2" style="min-width: 310px;  margin: 0 auto"></div>
 
                         </div>
                     </div>
@@ -153,7 +151,7 @@
                 </div>
 
                 <div class="box" >
-                    <div class="box-header" style="height: 100px" >
+                    <div class="box-header"  >
                         <h3 class="box-title">Anual por Área 3</h3>
 
                         <div class="box-tools pull-right" >
@@ -166,7 +164,7 @@
                     <div class="box-body">
                         <div class="chart">
                             <div id="barsLegend3"></div>
-                            <div id="container3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div id="container3" style="min-width: 310px; margin: 0 auto"></div>
 
                         </div>
                     </div>
@@ -190,6 +188,8 @@
         </script>
 
         <script>
+
+// primeiro gráfico                                        
             var d = Highcharts.chart('container', {
                 chart: {
                     type: 'column'
@@ -219,19 +219,21 @@
                     valuePrefix: 'R$ ',
                     shared: true,
                 },
-                plotOptions: {
+                 plotOptions: {
                     column: {
                         pointPadding: 0.2,
-                        borderWidth: 0
-                    },
-                    series: {
+                        borderWidth: 0,
                         
                         dataLabels: {
                             enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            format: "R$ {y:,3.2f}"
                             
                         }
-                    }
-                },
+
+
+                    }},
                 series: [{
                         name: 'Despesa',
             <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa(ano) + "]");%>
@@ -284,10 +286,17 @@
             });
 
 //grafico 2
-
+Highcharts.setOptions({
+		lang: {
+            decimalPoint: ',',
+            thousandsSep: '.'
+            
+		}
+	});
             var d2 = Highcharts.chart('container2', {
                 chart: {
                     type: 'column'
+                    
                 },
                 title: {
                     text: 'Monthly Average Rainfall'
@@ -313,22 +322,26 @@
                     valueDecimals: 2,
                     valuePrefix: 'R$ ',
                     shared: true
+                                  
 
                 },
                 plotOptions: {
                     column: {
                         pointPadding: 0.2,
-                        borderWidth: 0
-                    },
-                    series: {
-                        stacking: 'normal',
+                        borderWidth: 0,
+                        
                         dataLabels: {
                             enabled: true,
-                            valueDecimals: 2,
-                            format: 'R$ {y}'
+                            crop: false,
+                            overflow: 'none',
+                            format: "R$ {y:,3.2f}"
+                            
+                            
+                            
                         }
-                    }
-                },
+
+
+                    }},
                 series: [
             <% out.print(ObDaoDespesa.Despesa_Grafico_nivel2(ano));%>
 
@@ -366,12 +379,21 @@
                     shared: true
 
                 },
-                plotOptions: {
+                 plotOptions: {
                     column: {
                         pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
+                        borderWidth: 0,
+                        
+                        dataLabels: {
+                            enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            format: "R$ {y:,3.2f}"
+                            
+                        }
+
+
+                    }},
                 series: [
             <% out.print(ObDaoDespesa.Despesa_Grafico_nivel(ano));%>
                 ]
