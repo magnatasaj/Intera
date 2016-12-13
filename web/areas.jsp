@@ -29,7 +29,7 @@
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
-                <div class="box">
+                <div class="box" style="border-top: 5px solid red">
                     <div class="box-header with-border">
                         <h1 class="box-title">Níveis Hierárquicos de Despesas</h1>
                         <div class="row">

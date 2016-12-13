@@ -12,57 +12,53 @@
                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <p>Rodrigo Silva</p>
             </div>
         </div>
-        <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search...">
-                <span class="input-group-btn">
-                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
-        <!-- /.search form -->
+        
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">MENU DE NAVEGAÇÃO</li>
-            <li class="active treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Despesas</span>
+            <li class="active treeview " >
+                <a style="border-left-color: red" href="#">
+                    <i class="fa fa-arrow-circle-up" style="color: red"></i> <span>Despesas</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="areas.jsp"><i class="fa fa-circle-o"></i>Áreas</a></li>
-                    <li><a href="entrada-despesa.jsp"><i class="fa fa-circle-o"></i>Entrada de Despesas</a></li>
-                    <li><a href="buscar-despesa.jsp"><i class="fa fa-circle-o"></i>Buscar Despesas</a></li>
+                    <li><a href="areas.jsp"><i class="fa fa-angle-right"></i>Áreas</a></li>
+                    <li><a href="entrada-despesa.jsp"><i class="fa fa-angle-right"></i>Entrada de Despesas</a></li>
+                    <li><a href="buscar-despesa.jsp"><i class="fa fa-angle-right"></i>Buscar Despesas</a></li>
 
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-files-o"></i>
+            <li class="active treeview">
+                <a style="border-left-color: green" href="#">
+                    <i class="fa fa-arrow-circle-down" style="color: green"></i>
                     <span>Receita</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="entrada-receita.jsp"><i class="fa fa-circle-o"></i>Entrada de Receita</a></li>
-                    <li><a href="buscar-receita.jsp"><i class="fa fa-circle-o"></i>Buscar Receita</a></li>
+                    <li><a href="entrada-receita.jsp"><i class="fa fa-angle-right"></i>Entrada de Receita</a></li>
+                    <li><a href="buscar-receita.jsp"><i class="fa fa-angle-right"></i>Buscar Receita</a></li>
 
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-files-o"></i>
+            <li class="active treeview">
+                <a style="border-left-color: blue" href="#">
+                    <i class="fa  fa-area-chart" style="color: blue"></i>
                     <span>Resultados</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="despesa-grafico.jsp"><i class="fa fa-circle-o"></i>Gráfico despesas</a></li>
-                    <li><a href="receita-grafico.jsp"><i class="fa fa-circle-o"></i>Gráfico receita</a></li>
+                    <li><a href="despesa-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico despesas</a></li>
+                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receita</a></li>
+                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receita</a></li>
 
 
 

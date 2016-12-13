@@ -74,6 +74,21 @@ public class DaoDespesaNivel {
         rs.close();
         return ls;
     }
+    
+     public List<Despesa_Niveis> Consultar_Nivel_1() throws SQLException {
+       List<Despesa_Niveis> ls = Consultar_Todos_Nivel();
+        List<Despesa_Niveis> re = new ArrayList();
+        for (Despesa_Niveis d : ls) {
+            if (d.getPai() == 0) {
+                
+                       re.add(d);
+                   
+                }
+
+            
+        }
+        return re;
+    }
 
     public List<Despesa_Niveis> Consultar_Nivel_Final() throws SQLException {
         List<Despesa_Niveis> ls = Consultar_Todos_Nivel();

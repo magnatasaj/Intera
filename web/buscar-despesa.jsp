@@ -33,7 +33,7 @@
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
-                <div class="box">
+                <div class="box bg-red-active">
                     <div class="box-header with-border">
                         <h1 class="box-title">Buscar Despesas</h1>
                         <div class="row">
@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                             <div class="clearfix"></div>
-                            <button type="submit"  id="buscar"  class="btn btn-primary">Buscar</button>
+                            <button type="submit"  id="buscar"  class="btn btn-primary">Buscar despesa</button>
 
                         </form>
 
@@ -330,6 +330,7 @@
 
 
 
+
             $('#tbniveis').DataTable({
                 "paging": true,
                 "lengthChange": true,
@@ -337,7 +338,11 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
-                "lengthMenu": [[10, 25, 50,100, -1], [10, 25, 50,100, "Todos"]],
+                "language": {
+                    "decimal": ",",
+                    "thousands": "."
+                },
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
                 dom: 'l,Bfrtip',
                 buttons: [
                     {extend: 'copy',

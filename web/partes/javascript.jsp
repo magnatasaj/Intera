@@ -11,11 +11,10 @@
 <script src="legenda/legend.js" type="text/javascript"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
-<!--- script para tabel e soma da tabela -->
+<!--- script para tabela,soma da tabela e ordenação -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="dist/js/sum().js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
-
+<script src="plugins/datatables/numeric-comma.js" type="text/javascript"></script>
 <!-- Morris.js charts -->
 <script src="plugins/chartjs/Chart.min.js" type="text/javascript"></script>
 <script src="plugins/chartjs/FileSaver.min.js" type="text/javascript"></script>
@@ -60,3 +59,5 @@
 <script src="plugins/datatables/ex/jszip.min.js" type="text/javascript"></script>
 <script src="plugins/datatables/ex/pdfmake.min.js" type="text/javascript"></script>
 <script src="plugins/datatables/ex/vfs_fonts.js" type="text/javascript"></script>
+<script src="plugins/highcharts/highcharts.js"></script>
+<script src="plugins/highcharts/modules/exporting.js"></script>

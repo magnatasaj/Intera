@@ -34,7 +34,7 @@
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
-                <div class="box">
+                <div class="box bg-green-active">
                     <div class="box-header with-border">
                         <h1 class="box-title">Entrada de Receita</h1>
                         <div class="row">
@@ -248,10 +248,15 @@
 
                         <%@include file="/partes/javascript.jsp" %> 
 
+
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header with-border">
                         <div id="conteudo">
                             <%@include file="ultimas-receitas.jsp" %> 
 
-                        </div>     
+                        </div>  
                     </div>
                 </div>
 
@@ -331,7 +336,7 @@
                     id: id,
                     t: 'exc'
                 }, function(responseText) {
-                    
+
                     $('#re').html(responseText);
                     $("#re").slideDown("slow");
                     setTimeout("ocultar()", 5000);
@@ -394,7 +399,7 @@
                 format: 'dd/mm/yyyy',
                 language: 'pt-BR',
                 defaultDate: new Date()
-                
+
             });
             $('#ddata').datepicker("update", new Date());
 

@@ -51,7 +51,7 @@
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
-                <div class="box">
+                <div class="box bg-green-active">
                     <div class="box-header with-border">
 
                         <div class="row">
@@ -81,7 +81,7 @@
                         </form>
                                                         </br>
 
-                            <div class="callout callout-warning">
+                            <div class="callout callout-info">
                 <h4>Ano base para os gráficos: <% out.print(ano);%></h4>
               </div>
                                 

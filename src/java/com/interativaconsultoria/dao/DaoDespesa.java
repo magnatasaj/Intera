@@ -65,7 +65,7 @@ public class DaoDespesa {
         ps.close();
 
     }
-    
+
     public void Excluir_Despesa(Despesa De) throws SQLException {
 
         String sql = "DELETE FROM `despesa` WHERE `despesa`.`id` = ?";
@@ -82,9 +82,9 @@ public class DaoDespesa {
         String dados = "";
         for (int i = 1; i <= 12; i++) {
             if (i == 12) {
-                dados += Consultar_Despesa_mes(i,ano);
+                dados += Consultar_Despesa_mes(i, ano);
             } else {
-                dados += Consultar_Despesa_mes(i,ano) + ",";
+                dados += Consultar_Despesa_mes(i, ano) + ",";
             }
         }
 
@@ -160,30 +160,8 @@ public class DaoDespesa {
         return ls;
     }
 
-    public BigDecimal Consultar_Despesa_mes_atual(int id_nivel) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH(now()) AND id_nivel = " + id_nivel + "";
-        ps = conexao.prepareStatement(sql);
-        rs = ps.executeQuery();
-        BigDecimal total = new BigDecimal("0");
-        BigDecimal re = new BigDecimal("0");
-        while (rs.next()) {
-            if (rs.getString("total") != null) {
-                String valor = rs.getBigDecimal("total").toString();
-                System.out.println("valor:" + valor);
-
-                re = total.add(new BigDecimal(valor));
-            }
-
-        }
-
-        rs.close();
-        System.out.println("total:" + re);
-
-        return re;
-    }
-
-    public BigDecimal Consultar_Despesa_mes(int mes,String ano) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-01') AND YEAR(data) = YEAR('"+ano+"-" + mes + "-01')";
+    public BigDecimal Consultar_Despesa_mes(int mes, String ano) throws SQLException {
+        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-01') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-01')";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
@@ -201,12 +179,31 @@ public class DaoDespesa {
         return re;
     }
 
-    public String Consultar_Despesa_mes_e_nivel(int id_nivel,String ano) throws SQLException {
+    public BigDecimal Consultar_Despesa_mes_despesa_especifica(int mes, String ano, int id_nivel) throws SQLException {
+        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-01') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-01') AND id_nivel = " + id_nivel + "";
+        ps = conexao.prepareStatement(sql);
+        rs = ps.executeQuery();
+        BigDecimal total = new BigDecimal("0");
+        BigDecimal re = new BigDecimal("0");
+        while (rs.next()) {
+            if (rs.getString("total") != null) {
+                String valor = rs.getBigDecimal("total").toString();
+
+                re = total.add(new BigDecimal(valor));
+            }
+
+        }
+
+        rs.close();
+        return re;
+    }
+
+    public String Consultar_Despesa_mes_e_nivel(int id_nivel, String ano) throws SQLException {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND id_nivel = " + id_nivel + "";
+            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND YEAR(data) = YEAR('" + ano + "-" + i + "-01') AND id_nivel = " + id_nivel + "";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -222,9 +219,9 @@ public class DaoDespesa {
 
                 } else {
                     if (i == 12) {
-                        res += "";
+                        res += "null";
                     } else {
-                        res += ",";
+                        res += "null,";
                     }
                 }
 
@@ -235,12 +232,12 @@ public class DaoDespesa {
         return res;
     }
 
-    public String Consultar_Despesa_mes_e_nivel2(String id_nivel_array,String ano) throws SQLException {
+    public String Consultar_Despesa_mes_e_nivel2(String id_nivel_array, String ano) throws SQLException {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND id_nivel in(" + id_nivel_array + ")";
+            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND YEAR(data) = YEAR('" + ano + "-" + i + "-01') AND id_nivel in(" + id_nivel_array + ")";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -256,9 +253,9 @@ public class DaoDespesa {
 
                 } else {
                     if (i == 12) {
-                        res += "";
+                        res += "null";
                     } else {
-                        res += ",";
+                        res += "null,";
                     }
                 }
 
@@ -280,46 +277,72 @@ public class DaoDespesa {
 
         String dataset = "";
         for (Despesa_Niveis d : lista) {
-            String corfi = "";
 
             i++;
-            if (!Consultar_Despesa_mes_e_nivel(d.getId(),ano).equals(",,,,,,,,,,,")) {
-                if (lista.size() == i) {
-                    dataset += "{\n"
-                            + "                        label: \"" + d.getNome() + "\",\n"
-                            + "                                strokeColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointStrokeColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointHighlightFill: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointBorderWidth: 50,\n"
-                            + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
-                            + "                                 data :[" + Consultar_Despesa_mes_e_nivel(d.getId(),ano) + "]"
-                            + "                        }";
+            if (!Consultar_Despesa_mes_e_nivel(d.getId(), ano).equals("null,null,null,null,null,null,null,null,null,null,null,null")) {
 
-                } else {
-                    dataset += "{\n"
-                            + "                        label: \"" + d.getNome() + "\",\n"
-                            + "                                fillColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                strokeColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointStrokeColor: \"#c1c7d1\",\n"
-                            + "                                pointHighlightFill: \"#fff\",\n"
-                            + "                              pointBorderWidth: 6.5,\n"
-                            + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
-                            + "                                 data :[" + Consultar_Despesa_mes_e_nivel(d.getId(), ano) + "]"
-                            + "                        },";
+                dataset += "{\n"
+                        + "                       name:  '" + d.getNome() + "',\n"
+                        + "                                 data :[" + Consultar_Despesa_mes_e_nivel(d.getId(), ano) + "]"
+                        + "                        },";
 
-                }
             }
+        }
+        if (dataset.length() > 0) {
+            dataset = dataset.substring(0, dataset.length() - 1);
         }
 
         return dataset;
     }
 
+    public String Despesa_Grafico_nivel1(String ano) throws SQLException, ClassNotFoundException {
+        DaoDespesaNivel obj = new DaoDespesaNivel();
+        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
+
+        Cores c = new Cores();
+        List<Color> cores = c.gerarCores(100);
+        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
+
+        String dataset = "";
+        int i = 0;
+        String corfi = "";
+        for (Despesa_Niveis dd : obj.Consultar_Nivel_1()) {
+            String idarray = "";
+            String data = "";
+            i++;
+
+            for (Despesa_Niveis d : obj.Consultar_Nivel_2()) {
+                if (d.getPai() == dd.getId()) {
+                    for (Despesa_Niveis d2 : lista) {
+                        if (d2.getPai() == d.getId()) {
+                            idarray += d2.getId() + ",";
+                        }
+                    }
+                }
+            }
+            String arraycorrigido = "";
+            if (idarray.length() > 0) {
+                arraycorrigido = idarray.substring(0, idarray.length() - 1);
+            } else {
+                arraycorrigido = "0";
+            }
+
+            //Gerar estrutura para o grafico nivel 2
+            dataset += "{\n"
+                    + "                        name: \"" + dd.getNome() + "\",\n"
+                    + "                                 data :[" + Consultar_Despesa_mes_e_nivel2(arraycorrigido, ano) + "]"
+                    + "                        },";
+
+        }
+        String datasetcorrigido = dataset.substring(0, dataset.length() - 1);
+
+        return datasetcorrigido;
+    }
+
     public String Despesa_Grafico_nivel2(String ano) throws SQLException, ClassNotFoundException {
         DaoDespesaNivel obj = new DaoDespesaNivel();
         List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
-       
+
         Cores c = new Cores();
         List<Color> cores = c.gerarCores(100);
         List<String> coresHexa = c.gerarCoresHexadecimal(cores);
@@ -342,26 +365,16 @@ public class DaoDespesa {
             } else {
                 arraycorrigido = "0";
             }
-            
-            //Gerar estrutura para o grafico nivel 2
-            
-                   dataset += "{\n"
-                            + "                        label: \"" + dd.getNome() + "\",\n"
-                            + "                                fillColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                strokeColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointStrokeColor: \"#c1c7d1\",\n"
-                            + "                                pointHighlightFill: \"#fff\",\n"
-                            + "                              pointBorderWidth: 6.5,\n"
-                            + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
-                            + "                                 data :[" + Consultar_Despesa_mes_e_nivel2(arraycorrigido,ano) + "]"
-                            + "                        },";
 
-              
-            
+            //Gerar estrutura para o grafico nivel 2
+            dataset += "{\n"
+                    + "                        name: \"" + dd.getNome() + "\",\n"
+                                                 
+                    + "                                 data :[" + Consultar_Despesa_mes_e_nivel2(arraycorrigido, ano) + "]"
+                    + "                        },";
 
         }
-        String datasetcorrigido = dataset.substring(0,dataset.length() - 1);
+        String datasetcorrigido = dataset.substring(0, dataset.length() - 1);
 
         return datasetcorrigido;
     }

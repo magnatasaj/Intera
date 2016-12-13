@@ -35,9 +35,9 @@
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
-                <div class="box">
+                <div class="box bg-green-gradient">
                     <div class="box-header with-border">
-                        <h1 class="box-title">Buscar Despesas</h1>
+                        <h1 class="box-title">Buscar Receita</h1>
                         <div class="row">
                             <div class="col-lg-3" style="margin: 10px" >   
 
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="des" class="control-label">Descrição da despesa:</label>
+                                <label for="des" class="control-label">Descrição da Receita:</label>
                                 <div>
 
                                     <textarea onclick="radio(2);" rows="5"  class="form-control" name="desc" id="desc"></textarea>
@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="clearfix"></div>
-                            <button type="submit"  id="buscar"  class="btn btn-primary">Buscar</button>
+                            <button type="submit"  id="buscar"  class="btn btn-primary">Buscar receita</button>
 
                         </form>
 
@@ -356,6 +356,10 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
+                 "language": {
+                    "decimal": ",",
+                    "thousands": "."
+                },
                 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
                 dom: 'l,Bfrtip',
                 buttons: [

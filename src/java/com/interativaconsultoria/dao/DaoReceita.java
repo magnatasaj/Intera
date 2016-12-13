@@ -31,6 +31,8 @@ import java.util.regex.Pattern;
 public class DaoReceita {
 
     private PreparedStatement ps = null;
+
+    
     private PreparedStatement ps2 = null;
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();

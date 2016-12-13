@@ -48,9 +48,8 @@
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
-                <div class="box">
+                <div class="box bg-red-active">
                     <div class="box-header with-border">
-                        <h1 class="box-title">Buscar Despesas</h1>
                         <div class="row">
                             <div class="col-lg-3" style="margin: 10px" >   
 
@@ -62,26 +61,28 @@
                             <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                                 <i class="fa fa-times"></i></button>
                         </div>
-                       <form action="despesa-grafico.jsp" method="get">
+                        <form action="despesa-grafico.jsp" method="get">
                             <h1 class="box-title">Escolha o ano para geração dos gráficos</h1>
                             <select id="ano" name="ano" class="form-control">
                                 <option></option>
                                 <% DaoAno dano = new DaoAno();
                                     List<Integer> lano = dano.Lista_anos();
                                     for (int an : lano) { %>  
-                                    <option><% out.println(an); %></option>
+                                <option><% out.println(an); %></option>
                                 <% } %>
                             </select>
                             </br>
                             <button type="submit"  id="buscar"  class="btn btn-primary">Alterar Ano</button>
 
                         </form>
-                                                        </br>
+                        </br>
 
-                            <div class="callout callout-warning">
-                <h4>Ano base para os gráficos: <% out.print(ano);%></h4>
+                        <div class="callout callout-info">
+                            <h4>Ano base para os gráficos: <% out.print(ano);%></h4>
 
+                        </div>
                     </div>
+
                 </div>
                 <!--- Graficos testes -->
                 <div class="box" >
@@ -106,6 +107,29 @@
                     </div>
                     <!-- /.box-body -->
                 </div>
+
+                <div class="box" >
+                    <div class="box-header" style="height: 100px" >
+                        <h3 class="box-title">Anual por Área 1</h3>
+
+                        <div class="box-tools pull-right" >
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <button onclick="img('barChart1')" id="save-btn">Save gráfico como imagem</button>
+
+                    <div class="box-body">
+                        <div class="chart">
+                            <div id="barsLegend1"></div>
+                            <canvas id="barChart1"></canvas>
+
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
                 <div class="box" >
                     <div class="box-header" style="height: 100px" >
                         <h3 class="box-title">Anual por Área 2</h3>
@@ -127,6 +151,7 @@
                     </div>
                     <!-- /.box-body -->
                 </div>
+
                 <div class="box" >
                     <div class="box-header" style="height: 100px" >
                         <h3 class="box-title">Anual por Área 3</h3>
@@ -150,147 +175,146 @@
                 </div>
                 <!-- fecha gratifo teste -->
 
+                <!-- #Fecha Conteúdo -->
+
+                <!-- Abrir Rodapé -------------------------------------------------------------------------------------------->  
+                <%@include file="/partes/rodape.jsp" %> 
+                <!-- #Fecha rodapé -->
+
             </div>
-            <!-- #Fecha Conteúdo -->
+            <!-- js -->
+            <%@include file="/partes/javascript.jsp" %> 
 
-            <!-- Abrir Rodapé -------------------------------------------------------------------------------------------->  
-            <%@include file="/partes/rodape.jsp" %> 
-            <!-- #Fecha rodapé -->
-
-        </div>
-        <!-- js -->
-        <%@include file="/partes/javascript.jsp" %> 
-
-        <!-- #Fecha js-->
-        <script>
+            <!-- #Fecha js-->
+            <script>
 
 
-        </script>
+            </script>
 
-        <script>
-            $(function() {
-                
-                //data um
-                var areaChartData = {
-                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [
-                        {
-                            label: "Despesas",
-                            fillColor: "rgba(210, 214, 222, 1)",
-                            strokeColor: "rgba(210, 214, 222, 1)",
-                            pointColor: "rgba(210, 214, 222, 1)",
-                            pointStrokeColor: "#c1c7d1",
-                            pointHighlightFill: "#fff",
-                            pointHighlightStroke: "rgba(220,220,220,1)",
-            <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa(ano) + "]");%>
-                        }
-                    ]
-                };
-                
-                //data dois
-                var areaChartData2 = {
-                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel2(ano));%>]
-                };
-                
-                // data três
-                var areaChartData3 = {
-                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel(ano));%>]
-                };
+            <script>
+                        $(function() {
 
+                        //data um
+                        var areaChartData = {
+                        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                                datasets: [
+                                {
+                                label: "Despesas",
+                                        fillColor: "rgba(210, 214, 222, 1)",
+                                        strokeColor: "rgba(210, 214, 222, 1)",
+                                        pointColor: "rgba(210, 214, 222, 1)",
+                                        pointStrokeColor: "#c1c7d1",
+                                        pointHighlightFill: "#fff",
+                                        pointHighlightStroke: "rgba(220,220,220,1)",
+                <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa(ano) + "]");%>
+                                }
+                                ]
+                        };
+                                //data um
+                                var areaChartData1 = {
+                                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                                        datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel1(ano));%>]
+                                };
+                                //data dois
+                                var areaChartData2 = {
+                                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                                        datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel2(ano));%>]
+                                };
+                                // data três
+                                var areaChartData3 = {
+                                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                                        datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel(ano));%>]
+                                };
+                                //formatar para real
+                                        function formatar(valor) {
+                                        var moeda = 'R$';
+                                                valor = ('' + valor).split('.');
+                                                var parteInteira = valor[0];
+                                                var parteDecimal = valor[1];
+                                                // tratar a parte inteira
+                                                var rx = /(\d+)(\d{3})/;
+                                                parteInteira = parteInteira.replace(/^\d+/, function(w) {
+                                                while (rx.test(w)) {
+                                                w = w.replace(rx, '$1.$2');
+                                                }
+                                                return w;
+                                                });
+                                                // tratar a parte decimal
+                                                var formatoDecimal = 2;
+                                                if (parteDecimal)
+                                                parteDecimal = parteDecimal.slice(0, formatoDecimal);
+                                                else if (!parteDecimal && formatoDecimal) {
+                                        parteDecimal = '';
+                                                while (parteDecimal.length < formatoDecimal) {
+                                        parteDecimal = '0' + parteDecimal;
+                                        }
+                                        }
+                                        if (parteDecimal.length < formatoDecimal) {
+                                        while (parteDecimal.length < formatoDecimal) {
+                                        parteDecimal = parteDecimal + '0';
+                                        }
+                                        }
+                                        var string = moeda + (parteDecimal ? [parteInteira, parteDecimal].join(',') : parteInteira);
+                                                return string;
+                                        }
+                                //---------------------------------------------
 
-                //formatar para real
-                function formatar(valor) {
-                    var moeda = 'R$';
-                    valor = ('' + valor).split('.');
-                    var parteInteira = valor[0];
-                    var parteDecimal = valor[1];
+                                //grafico 
+                                var barChartCanvas = $("#barChart").get(0).getContext("2d");
+                                        var barChart = new Chart(barChartCanvas);
+                                        var barChartData = areaChartData;
+                                        barChartData.datasets[0].fillColor = "#00a65a";
+                                        barChartData.datasets[0].strokeColor = "#00a65a";
+                                        barChartData.datasets[0].pointColor = "#00a65a";
+                                        //grafico 1
+                                        var barChartCanvas1 = $("#barChart1").get(0).getContext("2d");
+                                        var barChart1 = new Chart(barChartCanvas1);
+                                        var barChartData1 = areaChartData1;
+                                        //grafico 2
+                                        var barChartCanvas2 = $("#barChart2").get(0).getContext("2d");
+                                        var barChart2 = new Chart(barChartCanvas2);
+                                        var barChartData2 = areaChartData2;
+                                        // grafico 3 
+                                        var barChartCanvas3 = $("#barChart3").get(0).getContext("2d");
+                                        var barChart3 = new Chart(barChartCanvas3);
+                                        var barChartData3 = areaChartData3;
+                                        var barChartOptions = {
+                                        responsive: true,
+                                                // maintainAspectRatio: true,
+                                                barStrokeWidth: 3,
+                                                stacked: true,
+                                                showAllTooltips: true,
 
-                    // tratar a parte inteira
-                    var rx = /(\d+)(\d{3})/;
-                    parteInteira = parteInteira.replace(/^\d+/, function(w) {
-                        while (rx.test(w)) {
-                            w = w.replace(rx, '$1.$2');
-                        }
-                        return w;
-                    });
-
-                    // tratar a parte decimal
-                    var formatoDecimal = 2;
-
-                    if (parteDecimal)
-                        parteDecimal = parteDecimal.slice(0, formatoDecimal);
-                    else if (!parteDecimal && formatoDecimal) {
-                        parteDecimal = '';
-                        while (parteDecimal.length < formatoDecimal) {
-                            parteDecimal = '0' + parteDecimal;
-                        }
-                    }
-                    if (parteDecimal.length < formatoDecimal) {
-                        while (parteDecimal.length < formatoDecimal) {
-                            parteDecimal = parteDecimal + '0';
-                        }
-                    }
-                    var string = moeda + (parteDecimal ? [parteInteira, parteDecimal].join(',') : parteInteira);
-                    return string;
-
-                }
-//---------------------------------------------
-     
-                //grafico 1
-                var barChartCanvas = $("#barChart").get(0).getContext("2d");
-                var barChart = new Chart(barChartCanvas);
-                var barChartData = areaChartData;
-                barChartData.datasets[0].fillColor = "#00a65a";
-                barChartData.datasets[0].strokeColor = "#00a65a";
-                barChartData.datasets[0].pointColor = "#00a65a";
-                //grafico 2
-                var barChartCanvas2 = $("#barChart2").get(0).getContext("2d");
-                var barChart2 = new Chart(barChartCanvas2);
-                var barChartData2 = areaChartData2;
-                // grafico 3 
-                var barChartCanvas3 = $("#barChart3").get(0).getContext("2d");
-                var barChart3 = new Chart(barChartCanvas3);
-                var barChartData3 = areaChartData3;
-
-                var barChartOptions = {
-                    responsive: true,
-                    // maintainAspectRatio: true,
-                    barStrokeWidth: 3,
-                    stacked: true,
-                    //Number - Spacing between each of the X value sets
-
-                    multiTooltipTemplate: function(chartData) {
-                        return chartData.datasetLabel + " : " + formatar(chartData.value);
-                    },
-                    tooltipTemplate: function(data) {
-                        return   formatar(data.value);
-                    },
-                    scaleLabel: function(data) {
-                        return   formatar(data.value);
-
-
-                    }}
-                barChart.Bar(barChartData, barChartOptions);
-                barChart2.Bar(barChartData2, barChartOptions);
-                barChart3.Bar(barChartData3, barChartOptions);
-                legend(document.getElementById("barsLegend"), barChartData);
-                legend(document.getElementById("barsLegend2"), barChartData2);
-                legend(document.getElementById("barsLegend3"), barChartData3);
-
-                
-            });
-            function img(grafico) {
-
-                    $("#" + grafico + "").get(0).toBlob(function(blob) {
-                        saveAs(blob, "grafico.png");
-                    });
-
-                }
+                                                multiTooltipTemplate: function(chartData) {
+                                                return chartData.datasetLabel + " : " + formatar(chartData.value);
+                                                },
+                                                tooltipTemplate: function(data) {
+                                                return   formatar(data.value);
+                                                },
+                                                scaleLabel: function(data) {
+                                                return   formatar(data.value);
+                                                }
 
 
-        </script>    
+                                        };
+                                        barChart1.Bar(barChartData1, barChartOptions);
+                                        barChart.Bar(barChartData, barChartOptions);
+                                        barChart2.Bar(barChartData2, barChartOptions);
+                                        barChart3.Bar(barChartData3, barChartOptions);
+                                        legend(document.getElementById("barsLegend1"), barChartData1);
+                                        legend(document.getElementById("barsLegend"), barChartData);
+                                        legend(document.getElementById("barsLegend2"), barChartData2);
+                                        legend(document.getElementById("barsLegend3"), barChartData3);
+                                });
+                                function img(grafico) {
+
+                                $("#" + grafico + "").get(0).toBlob(function(blob) {
+                                saveAs(blob, "grafico.png");
+                                });
+                                }
+
+
+            </script>    
     </body>
 </html>
 

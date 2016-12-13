@@ -47,7 +47,7 @@ public class DaoAno {
         }
         List<Integer> anos = new ArrayList();
         
-        for (int i = menor;maior >= i ;i++) {
+        for (int i = maior;menor <= i ;i--) {
           anos.add(i);
           
         }
