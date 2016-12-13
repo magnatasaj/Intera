@@ -48,7 +48,7 @@
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
-                <div class="box bg-red-active">
+                <div class="box" style="border-top: 10px solid red">
                     <div class="box-header with-border">
                         <div class="row">
                             <div class="col-lg-3" style="margin: 10px" >   
@@ -96,11 +96,10 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <button onclick="img('barChart')" id="save-btn">Save gráfico como imagem</button>
 
                         <div class="chart">
                             <div id="barsLegend"></div>
-                            <canvas id="barChart"></canvas>
+                            <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 
                         </div>
@@ -118,12 +117,13 @@
                             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
-                    <button onclick="img('barChart1')" id="save-btn">Save gráfico como imagem</button>
+
 
                     <div class="box-body">
                         <div class="chart">
                             <div id="barsLegend1"></div>
-                            <canvas id="barChart1"></canvas>
+                            <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
 
                         </div>
                     </div>
@@ -140,12 +140,12 @@
                             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
-                    <button onclick="img('barChart2')" id="save-btn">Save gráfico como imagem</button>
+
 
                     <div class="box-body">
                         <div class="chart">
                             <div id="barsLegend2"></div>
-                            <canvas id="barChart2"></canvas>
+                            <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
                         </div>
                     </div>
@@ -162,12 +162,11 @@
                             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
-                    <button onclick="img('barChart3')" id="save-btn">Save gráfico como imagem</button>
 
                     <div class="box-body">
                         <div class="chart">
                             <div id="barsLegend3"></div>
-                            <canvas id="barChart3"></canvas>
+                            <div id="container3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
                         </div>
                     </div>
@@ -175,146 +174,212 @@
                 </div>
                 <!-- fecha gratifo teste -->
 
-                <!-- #Fecha Conteúdo -->
-
-                <!-- Abrir Rodapé -------------------------------------------------------------------------------------------->  
-                <%@include file="/partes/rodape.jsp" %> 
-                <!-- #Fecha rodapé -->
-
             </div>
-            <!-- js -->
-            <%@include file="/partes/javascript.jsp" %> 
+            <!-- Abrir Rodapé -------------------------------------------------------------------------------------------->  
+            <%@include file="/partes/rodape.jsp" %> 
+            <!-- #Fecha rodapé -->
 
-            <!-- #Fecha js-->
-            <script>
+        </div>
+        <!-- js -->
+        <%@include file="/partes/javascript.jsp" %> 
 
-
-            </script>
-
-            <script>
-                        $(function() {
-
-                        //data um
-                        var areaChartData = {
-                        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                                datasets: [
-                                {
-                                label: "Despesas",
-                                        fillColor: "rgba(210, 214, 222, 1)",
-                                        strokeColor: "rgba(210, 214, 222, 1)",
-                                        pointColor: "rgba(210, 214, 222, 1)",
-                                        pointStrokeColor: "#c1c7d1",
-                                        pointHighlightFill: "#fff",
-                                        pointHighlightStroke: "rgba(220,220,220,1)",
-                <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa(ano) + "]");%>
-                                }
-                                ]
-                        };
-                                //data um
-                                var areaChartData1 = {
-                                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                                        datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel1(ano));%>]
-                                };
-                                //data dois
-                                var areaChartData2 = {
-                                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                                        datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel2(ano));%>]
-                                };
-                                // data três
-                                var areaChartData3 = {
-                                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                                        datasets: [<% out.print(ObDaoDespesa.Despesa_Grafico_nivel(ano));%>]
-                                };
-                                //formatar para real
-                                        function formatar(valor) {
-                                        var moeda = 'R$';
-                                                valor = ('' + valor).split('.');
-                                                var parteInteira = valor[0];
-                                                var parteDecimal = valor[1];
-                                                // tratar a parte inteira
-                                                var rx = /(\d+)(\d{3})/;
-                                                parteInteira = parteInteira.replace(/^\d+/, function(w) {
-                                                while (rx.test(w)) {
-                                                w = w.replace(rx, '$1.$2');
-                                                }
-                                                return w;
-                                                });
-                                                // tratar a parte decimal
-                                                var formatoDecimal = 2;
-                                                if (parteDecimal)
-                                                parteDecimal = parteDecimal.slice(0, formatoDecimal);
-                                                else if (!parteDecimal && formatoDecimal) {
-                                        parteDecimal = '';
-                                                while (parteDecimal.length < formatoDecimal) {
-                                        parteDecimal = '0' + parteDecimal;
-                                        }
-                                        }
-                                        if (parteDecimal.length < formatoDecimal) {
-                                        while (parteDecimal.length < formatoDecimal) {
-                                        parteDecimal = parteDecimal + '0';
-                                        }
-                                        }
-                                        var string = moeda + (parteDecimal ? [parteInteira, parteDecimal].join(',') : parteInteira);
-                                                return string;
-                                        }
-                                //---------------------------------------------
-
-                                //grafico 
-                                var barChartCanvas = $("#barChart").get(0).getContext("2d");
-                                        var barChart = new Chart(barChartCanvas);
-                                        var barChartData = areaChartData;
-                                        barChartData.datasets[0].fillColor = "#00a65a";
-                                        barChartData.datasets[0].strokeColor = "#00a65a";
-                                        barChartData.datasets[0].pointColor = "#00a65a";
-                                        //grafico 1
-                                        var barChartCanvas1 = $("#barChart1").get(0).getContext("2d");
-                                        var barChart1 = new Chart(barChartCanvas1);
-                                        var barChartData1 = areaChartData1;
-                                        //grafico 2
-                                        var barChartCanvas2 = $("#barChart2").get(0).getContext("2d");
-                                        var barChart2 = new Chart(barChartCanvas2);
-                                        var barChartData2 = areaChartData2;
-                                        // grafico 3 
-                                        var barChartCanvas3 = $("#barChart3").get(0).getContext("2d");
-                                        var barChart3 = new Chart(barChartCanvas3);
-                                        var barChartData3 = areaChartData3;
-                                        var barChartOptions = {
-                                        responsive: true,
-                                                // maintainAspectRatio: true,
-                                                barStrokeWidth: 3,
-                                                stacked: true,
-                                                showAllTooltips: true,
-
-                                                multiTooltipTemplate: function(chartData) {
-                                                return chartData.datasetLabel + " : " + formatar(chartData.value);
-                                                },
-                                                tooltipTemplate: function(data) {
-                                                return   formatar(data.value);
-                                                },
-                                                scaleLabel: function(data) {
-                                                return   formatar(data.value);
-                                                }
+        <!-- #Fecha js-->
+        <script>
 
 
-                                        };
-                                        barChart1.Bar(barChartData1, barChartOptions);
-                                        barChart.Bar(barChartData, barChartOptions);
-                                        barChart2.Bar(barChartData2, barChartOptions);
-                                        barChart3.Bar(barChartData3, barChartOptions);
-                                        legend(document.getElementById("barsLegend1"), barChartData1);
-                                        legend(document.getElementById("barsLegend"), barChartData);
-                                        legend(document.getElementById("barsLegend2"), barChartData2);
-                                        legend(document.getElementById("barsLegend3"), barChartData3);
-                                });
-                                function img(grafico) {
+        </script>
 
-                                $("#" + grafico + "").get(0).toBlob(function(blob) {
-                                saveAs(blob, "grafico.png");
-                                });
-                                }
+        <script>
+            var d = Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Monthly Average Rainfall'
+                },
+                subtitle: {
+                    text: 'Source: WorldClimate.com'
+                },
+                xAxis: {
+                    categories: [
+                        "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    labels: {
+                        format: 'R$ {value}',
+                        style: {
+                            color: '#89A54E'
+                        }
+                    }
+                },
+                tooltip: {
+                    valueDecimals: 2,
+                    valuePrefix: 'R$ ',
+                    shared: true,
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    },
+                    series: {
+                        
+                        dataLabels: {
+                            enabled: true,
+                            
+                        }
+                    }
+                },
+                series: [{
+                        name: 'Despesa',
+            <% out.print("data: [" + ObDaoDespesa.Gerar_Grafico_despesa(ano) + "]");%>
+                    }
+                ]
+            });
+
+//grafico 1
+
+            var d1 = Highcharts.chart('container1', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Monthly Average Rainfall'
+                },
+                subtitle: {
+                    text: 'Source: WorldClimate.com'
+                },
+                xAxis: {
+                    categories: [
+                        "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    labels: {
+                        format: 'R$ {value}',
+                        style: {
+                            color: '#89A54E'
+                        }
+                    }
+                },
+                tooltip: {
+                    valueDecimals: 2,
+                    valuePrefix: 'R$ ',
+                    shared: true
+
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [
+            <% out.print(ObDaoDespesa.Despesa_Grafico_nivel1(ano));%>
+
+                ]
+            });
+
+//grafico 2
+
+            var d2 = Highcharts.chart('container2', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Monthly Average Rainfall'
+                },
+                subtitle: {
+                    text: 'Source: WorldClimate.com'
+                },
+                xAxis: {
+                    categories: [
+                        "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    labels: {
+                        format: 'R$ {value}',
+                        style: {
+                            color: '#89A54E'
+                        }
+                    }
+                },
+                tooltip: {
+                    valueDecimals: 2,
+                    valuePrefix: 'R$ ',
+                    shared: true
+
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    },
+                    series: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            valueDecimals: 2,
+                            format: 'R$ {y}'
+                        }
+                    }
+                },
+                series: [
+            <% out.print(ObDaoDespesa.Despesa_Grafico_nivel2(ano));%>
+
+                ]
+            });
+//grafico 3
+
+            var d3 = Highcharts.chart('container3', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Monthly Average Rainfall'
+                },
+                subtitle: {
+                    text: 'Source: WorldClimate.com'
+                },
+                xAxis: {
+                    categories: [
+                        "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    labels: {
+                        format: 'R$ {value}',
+                        style: {
+                            color: '#89A54E'
+                        }
+                    }
+                },
+                tooltip: {
+                    valueDecimals: 2,
+                    valuePrefix: 'R$ ',
+                    shared: true
+
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [
+            <% out.print(ObDaoDespesa.Despesa_Grafico_nivel(ano));%>
+                ]
+            });
 
 
-            </script>    
+
+        </script>    
     </body>
 </html>
 
