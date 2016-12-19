@@ -72,19 +72,19 @@
                                 <% DaoAno dano = new DaoAno();
                                     List<Integer> lano = dano.Lista_anos();
                                     for (int an : lano) { %>  
-                                    <option><% out.println(an); %></option>
+                                <option><% out.println(an); %></option>
                                 <% } %>
                             </select>
                             </br>
                             <button type="submit"  id="buscar"  class="btn btn-primary">Alterar Ano</button>
 
                         </form>
-                                                        </br>
+                        </br>
 
-                            <div class="callout callout-info">
-                <h4>Ano base para os gráficos: <% out.print(ano);%></h4>
-              </div>
-                                
+                        <div class="callout callout-info">
+                            <h4>Ano base para os gráficos: <% out.print(ano);%></h4>
+                        </div>
+
                     </div>
                 </div>
                 <!--- Graficos testes -->
@@ -99,204 +99,250 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <button onclick="img('barChart')" id="save-btn">Save gráfico como imagem</button>
+                        <div id="container" style="width:100%; height: 100%;"></div>
 
-                        <div class="chart">
-                            <div id="barsLegend"></div>
-                            <canvas id="barChart"></canvas>
-
-
-                        </div>
                     </div>
-                    <!-- /.box-body -->
                 </div>
-                <div class="box" >
-                    <div class="box-header" style="height: 100px" >
-                        <h3 class="box-title">Anual por Área 2</h3>
+                <!-- /.box-body -->
+            <div class="box" >
+                <div class="box-header" style="height: 100px" >
+                    <h3 class="box-title">Anual por Área 2</h3>
 
-                        <div class="box-tools pull-right" >
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>
+                    <div class="box-tools pull-right" >
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
-                    <button onclick="img('barChart2')" id="save-btn">Save gráfico como imagem</button>
-
-                    <div class="box-body">
-                        <div class="chart">
-                            <div id="barsLegend2"></div>
-                            <canvas id="barChart2"></canvas>
-
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
                 </div>
-                <div class="box" >
-                    <div class="box-header" style="height: 100px" >
-                        <h3 class="box-title">Anual por Área 3</h3>
 
-                        <div class="box-tools pull-right" >
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                    <button onclick="img('barChart3')" id="save-btn">Save gráfico como imagem</button>
 
-                    <div class="box-body">
-                        <div class="chart">
-                            <div id="barsLegend3"></div>
-                            <canvas id="barChart3"></canvas>
+                <div class="box-body">
+                    <div id="container1" style="width:100%; height: 100%;"></div>
 
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- fecha gratifo teste -->
-
+               
             </div>
-            <!-- #Fecha Conteúdo -->
+            <div class="box" >
+                <div class="box-header" style="height: 100px" >
+                    <h3 class="box-title">Anual por Área 3</h3>
 
-            <!-- Abrir Rodapé -------------------------------------------------------------------------------------------->  
-            <%@include file="/partes/rodape.jsp" %> 
-            <!-- #Fecha rodapé -->
+                    <div class="box-tools pull-right" >
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+               
+
+                <div class="box-body">
+                   <div id="container2" style="width:100%; height: 100%;"></div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- fecha gratifo teste -->
 
         </div>
-        <!-- js -->
-        <%@include file="/partes/javascript.jsp" %> 
+        <!-- #Fecha Conteúdo -->
 
-        <!-- #Fecha js-->
-        <script>
+        <!-- Abrir Rodapé -------------------------------------------------------------------------------------------->  
+        <%@include file="/partes/rodape.jsp" %> 
+        <!-- #Fecha rodapé -->
 
+    </div>
+    <!-- js -->
+    <%@include file="/partes/javascript.jsp" %> 
 
-        </script>
-
-        <script>
-
-            $(function() {
-
-                var areaChartData = {
-                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [
-                        {
-                            label: "Receita",
-                            fillColor: "rgba(210, 214, 222, 1)",
-                            strokeColor: "rgba(210, 214, 222, 1)",
-                            pointColor: "rgba(210, 214, 222, 1)",
-                            pointStrokeColor: "#c1c7d1",
-                            pointHighlightFill: "#fff",
-                            pointHighlightStroke: "rgba(220,220,220,1)",
-            <% out.print("data: [" + ObDaoReceita.Gerar_Grafico_receita(ano) + "]");%>
-                        }
-                    ]
-                };
-                var areaChartData2 = {
-                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [<% out.print(ObDaoReceita.Receita_Grafico_Origens(ano));%>]
-                };
-                var areaChartData3 = {
-                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-                    datasets: [<% String v = ObDaoReceita.Receita_Grafico_vendido(2, ano);  if(!v.equals("")){ v +=",";} out.print(v);
-                   out.print(ObDaoReceita.Receita_Grafico_vendido(1, ano)+","); 
-                   out.print(ObDaoReceita.Receita_Grafico_Credito_futuro(2, ano)); 
-                    %>]
-                };
+    <!-- #Fecha js-->
+    <script>
 
 
+    </script>
 
-
-                //-------------
-                //- BAR CHART -
-                //-------------
-                function formatar(valor) {
-                    var moeda = 'R$';
-                    valor = ('' + valor).split('.');
-                    var parteInteira = valor[0];
-                    var parteDecimal = valor[1];
-
-                    // tratar a parte inteira
-                    var rx = /(\d+)(\d{3})/;
-                    parteInteira = parteInteira.replace(/^\d+/, function(w) {
-                        while (rx.test(w)) {
-                            w = w.replace(rx, '$1.$2');
-                        }
-                        return w;
-                    });
-
-                    // tratar a parte decimal
-                    var formatoDecimal = 2;
-
-                    if (parteDecimal)
-                        parteDecimal = parteDecimal.slice(0, formatoDecimal);
-                    else if (!parteDecimal && formatoDecimal) {
-                        parteDecimal = '';
-                        while (parteDecimal.length < formatoDecimal) {
-                            parteDecimal = '0' + parteDecimal;
-                        }
-                    }
-                    if (parteDecimal.length < formatoDecimal) {
-                        while (parteDecimal.length < formatoDecimal) {
-                            parteDecimal = parteDecimal + '0';
-                        }
-                    }
-                    var string = moeda + (parteDecimal ? [parteInteira, parteDecimal].join(',') : parteInteira);
-                    return string;
-
-                }
-//---------------------------------------------
-                //grafico 1
-                var barChartCanvas = $("#barChart").get(0).getContext("2d");
-                var barChart = new Chart(barChartCanvas);
-                var barChartData = areaChartData;
-                barChartData.datasets[0].fillColor = "#00a65a";
-                barChartData.datasets[0].strokeColor = "#00a65a";
-                barChartData.datasets[0].pointColor = "#00a65a";
-                //grafico 2
-                var barChartCanvas2 = $("#barChart2").get(0).getContext("2d");
-                var barChart2 = new Chart(barChartCanvas2);
-                var barChartData2 = areaChartData2;
-                // grafico 3 
-                var barChartCanvas3 = $("#barChart3").get(0).getContext("2d");
-                var barChart3 = new Chart(barChartCanvas3);
-                var barChartData3 = areaChartData3;
-
-                var barChartOptions = {
-                    responsive: true,
-                    // maintainAspectRatio: true,
-                    barStrokeWidth: 3,
-                    stacked: true,
-                    //Number - Spacing between each of the X value sets
-
-                    multiTooltipTemplate: function(chartData) {
-                        return chartData.datasetLabel + " : " + formatar(chartData.value);
-                    },
-                    tooltipTemplate: function(data) {
-                        return   formatar(data.value);
-                    },
-                    scaleLabel: function(data) {
-                        return   formatar(data.value);
-
-
-                    }}
-                barChart.Bar(barChartData, barChartOptions);
-                barChart2.Bar(barChartData2, barChartOptions);
-                barChart3.Bar(barChartData3, barChartOptions);
-                legend(document.getElementById("barsLegend"), barChartData);
-                legend(document.getElementById("barsLegend2"), barChartData2);
-                legend(document.getElementById("barsLegend3"), barChartData3);
-
-
-            });
-            function img(grafico) {
-
-                $("#" + grafico + "").get(0).toBlob(function(blob) {
-                    saveAs(blob, "grafico.png");
-                });
+    <script>
+// padrão valor em br            
+        Highcharts.setOptions({
+            lang: {
+                decimalPoint: ',',
+                thousandsSep: '.'
 
             }
+        });
+        
+// primeiro gráfico                                        
+        var d = Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Monthly Average Rainfall'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                categories: [
+                    "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                labels: {
+                    format: 'R$ {value}',
+                    style: {
+                        color: '#89A54E'
+                    }
+                }
+            },
+            tooltip: {
+                valueDecimals: 2,
+                valuePrefix: 'R$ ',
+                shared: true,
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        crop: false,
+                        overflow: 'none',
+                        format: "R$ {y:,3.2f}"
+
+                    }
 
 
-        </script>    
-    </body>
+                }},
+            series: [{
+                    name: 'Receita',
+        <% out.print("data: [" + ObDaoReceita.Gerar_Grafico_receita(ano) + "]");%>
+                }
+            ]
+        });
+
+//gráfico 1               
+        var d1 = Highcharts.chart('container1', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Monthly Average Rainfall'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                categories: [
+                    "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                labels: {
+                    format: 'R$ {value}',
+                    style: {
+                        color: '#89A54E'
+                    }
+                }
+            },
+            tooltip: {
+                valueDecimals: 2,
+                valuePrefix: 'R$ ',
+                shared: true
+
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        crop: false,
+                        overflow: 'none',
+                        format: "R$ {y:,3.2f}"
+
+                    }
+
+
+                }},
+            series: [
+        <% out.print(ObDaoReceita.Receita_Grafico_Origens(ano));%>
+
+            ]
+        });
+
+//gráfico 2
+
+ var d2 = Highcharts.chart('container2', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Monthly Average Rainfall'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                categories: [
+                    "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                labels: {
+                    format: 'R$ {value}',
+                    style: {
+                        color: '#89A54E'
+                    }
+                }
+            },
+            tooltip: {
+                valueDecimals: 2,
+                valuePrefix: 'R$ ',
+                shared: true
+
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        crop: false,
+                        overflow: 'none',
+                        format: "R$ {y:,3.2f}"
+
+                    }
+
+
+                }},
+            series: [
+        <% String v = ObDaoReceita.Receita_Grafico_vendido(2, ano);
+                    if (!v.equals("")) {
+                        v += ",";
+                    }
+                    out.print(v);
+                    out.print(ObDaoReceita.Receita_Grafico_vendido(1, ano) + ",");
+                    out.print(ObDaoReceita.Receita_Grafico_Credito_futuro(2, ano));%>
+
+            ]
+        });
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+    </script>    
+</body>
 </html>
 

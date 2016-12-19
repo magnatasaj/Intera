@@ -20,8 +20,8 @@
         <ul class="sidebar-menu">
             <li class="header">MENU DE NAVEGAÇÃO</li>
             <li class="active treeview " >
-                <a style="border-left-color: red" href="#">
-                    <i class="fa fa-arrow-circle-up" style="color: red"></i> <span>Despesas</span>
+                <a style="border-left-color: #f00" href="#">
+                    <i class="fa fa-arrow-circle-up" style="color: #f00"></i> <span>Despesas</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -48,9 +48,27 @@
                 </ul>
             </li>
             <li class="active treeview">
-                <a style="border-left-color: blue" href="#">
-                    <i class="fa  fa-area-chart" style="color: blue"></i>
+                <a style="border-left-color: #005983" href="#">
+                    <i class="fa  fa-area-chart" style="color: #005983"></i>
                     <span>Resultados</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="despesa-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico despesas</a></li>
+                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receita</a></li>
+                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receita</a></li>
+
+
+
+
+                </ul>
+            </li>
+             <li class="active treeview">
+                <a style="border-left-color: #FF7E00" href="#">
+                    <i class="fa  fa-area-chart" style="color: #FF7E00"></i>
+                    <span>Relatórios</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>

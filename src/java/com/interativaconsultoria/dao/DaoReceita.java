@@ -242,9 +242,9 @@ public class DaoReceita {
 
                 } else {
                     if (i == 12) {
-                        res += "";
+                        res += "null";
                     } else {
-                        res += ",";
+                        res += "null,";
                     }
                 }
 
@@ -279,9 +279,9 @@ public class DaoReceita {
 
                 } else {
                     if (i == 12) {
-                        res += "";
+                        res += "null";
                     } else {
-                        res += ",";
+                        res += "null,";
                     }
                 }
 
@@ -313,9 +313,9 @@ public class DaoReceita {
 
                 } else {
                     if (i == 12) {
-                        res += "";
+                        res += "null";
                     } else {
-                        res += ",";
+                        res += "null,";
                     }
                 }
 
@@ -345,14 +345,8 @@ public class DaoReceita {
             if (!Consultar_Despesa_mes_e_vendido(rv,ano).equals(",,,,,,,,,,,")) {
               
                     dataset += "{\n"
-                            + "                        label: \""+resultado+"\",\n"
-                            +                                   "fillColor: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                strokeColor: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                pointColor: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                pointStrokeColor: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                pointHighlightFill: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                pointBorderWidth: 50,\n"
-                            + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
+                            + "                        name: \""+resultado+"\",\n"
+
                             + "                                 data :[" + Consultar_Despesa_mes_e_vendido(rv,ano) + "]"
                             + "                        }";
 
@@ -378,17 +372,10 @@ public class DaoReceita {
                 
         }
            
-            if (!Consultar_Despesa_mes_e_vendido(rv,ano).equals(",,,,,,,,,,,")) {
+            if (!Consultar_Despesa_mes_e_vendido(rv,ano).equals("null,null,null,null,null,null,null,null,null,null,null,null")) {
               
                     dataset += "{\n"
-                            + "                        label: \""+resultado+"\",\n"
-                            +                                   "fillColor: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                strokeColor: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                pointColor: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                pointStrokeColor: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                pointHighlightFill: \"" + coresHexa.get(rv) + "\",\n"
-                            + "                                pointBorderWidth: 50,\n"
-                            + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
+                            + "                        name: \""+resultado+"\",\n"                                
                             + "                                 data :[" + Consultar_Despesa_mes_e_f(rv,ano) + "]"
                             + "                        }";
 
@@ -416,15 +403,8 @@ public class DaoReceita {
             //Gerar estrutura para o grafico nivel 2
             
                    dataset += "{\n"
-                            + "                        label: \"" + dd.getNome() + "\",\n"
-                            + "                                fillColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                strokeColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointColor: \"" + coresHexa.get(i) + "\",\n"
-                            + "                                pointStrokeColor: \"#c1c7d1\",\n"
-                            + "                                pointHighlightFill: \"#fff\",\n"
-                            + "                              pointBorderWidth: 6.5,\n"
-                            + "                                pointHighlightStroke: \"rgba(220,220,220,1)\",\n"
-                            + "                                 data :[" + Consultar_Despesa_mes_e_origem(dd.getId(),ano) + "]"
+                            + "                        name: '" + dd.getNome() + "',\n"
+                   + "                                 data :[" + Consultar_Despesa_mes_e_origem(dd.getId(),ano) + "]"
                             + "                        },";
 
               

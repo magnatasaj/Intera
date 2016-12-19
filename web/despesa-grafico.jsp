@@ -188,7 +188,14 @@
         </script>
 
         <script>
-
+// padrão valor em br            
+Highcharts.setOptions({
+		lang: {
+            decimalPoint: ',',
+            thousandsSep: '.'
+            
+		}
+	});
 // primeiro gráfico                                        
             var d = Highcharts.chart('container', {
                 chart: {
@@ -267,18 +274,27 @@
                         }
                     }
                 },
-                tooltip: {
+                 tooltip: {
                     valueDecimals: 2,
                     valuePrefix: 'R$ ',
                     shared: true
 
                 },
-                plotOptions: {
+                 plotOptions: {
                     column: {
                         pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
+                        borderWidth: 0,
+                        
+                        dataLabels: {
+                            enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            format: "R$ {y:,3.2f}"
+                            
+                        }
+
+
+                    }},
                 series: [
             <% out.print(ObDaoDespesa.Despesa_Grafico_nivel1(ano));%>
 
@@ -286,13 +302,7 @@
             });
 
 //grafico 2
-Highcharts.setOptions({
-		lang: {
-            decimalPoint: ',',
-            thousandsSep: '.'
-            
-		}
-	});
+
             var d2 = Highcharts.chart('container2', {
                 chart: {
                     type: 'column'
