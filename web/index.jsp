@@ -22,11 +22,15 @@
 
 <!-- Conteúdo ------------------------------------------------------------------------------------------------->
   <div class="content-wrapper">
+      <div class="fundo">
+          
+      </div>    
 
   </div>
 <!-- #Fecha Conteúdo -->
 
 <!-- Abrir Rodapé -------------------------------------------------------------------------------------------->  
+<div class="clearfix"></div>
 <%@include file="/partes/rodape.jsp" %> 
 <!-- #Fecha rodapé -->
   

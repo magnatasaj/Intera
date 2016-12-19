@@ -26,9 +26,9 @@
     } else {
         ano = request.getParameter("ano");
     }
-    if (request.getParameter("mes") == null|| request.getParameter("mes").isEmpty()) {
+    if (request.getParameter("mes") == null || request.getParameter("mes").isEmpty()) {
         mes += cal.get(Calendar.MONTH);
-        System.out.print("mes:"+mes);
+        System.out.print("mes:" + mes);
     } else {
         mes = Integer.parseInt(request.getParameter("mes"));
     }
@@ -84,18 +84,15 @@
                                 </div>
 
                             </div>
-                                    <button style="margin-top: 5px;" type="submit"  id="buscar"  class="btn btn-primary">Alterar Ano</button>
+                            <button style="margin-top: 5px;" type="submit"  id="buscar"  class="btn btn-primary">Alterar</button>
 
                         </form>           
                     </div>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fa fa-times"></i></button>
+                        <p>OBS: para filtrar nível 1 use "@"</p>
                     </div>
                     <!--------- tabela ------>
-                    <table id="tbniveis" class="table table-bordered" >
+                    <table id="tbniveis" cellspacing="0" width="100%" class="table table-bordered table-striped" >
 
 
                         <thead>
@@ -109,16 +106,18 @@
                         </thead>
                         <tbody>
                             <% List<Despesa_Niveis> ls = ObDaoDespesaNivel.Consultar_Todos_Nivel();
+                                String sg = "";
                                 for (Despesa_Niveis d : ls) {
                                     if (d.getPai() == 0) {
                             %>  
                             <tr <% if (d.getPai() == 0) {
-                                    out.print("style='background-color:#3c8dbc; color:#FFF'");
+                                    out.print("style='background-color:red; color:#FFF'");
+                                    sg = "@  ";
                                 }; %>>
                                 <td><b><% out.print(d.getOrdem()); %></b></td>
                                 <td><b><% out.print(d.getNome()); %></b></td>
-                                <td><b></b></td>
-                                <td><b></b></td>
+                                <td><b><% out.print(Valor.FormatarValor(ObDaoDespesa.Despesa_tabela_nivel1_total(d.getId(), ano, mes))); %></b></td>
+                                <td><b style="color: red"><% out.print(sg); %></b></td>
 
 
                             </tr>
@@ -128,10 +127,10 @@
                                 for (Despesa_Niveis d2 : ls) {
                                     if (d2.getPai() == d.getId()) {
                             %> 
-                            <tr style='background-color:#F0FFFF; color:#000'>
+                            <tr style='background-color: #F7A6A6'>
                                 <td><% out.print(d.getOrdem() + "." + d2.getOrdem()); %></td>
                                 <td><% out.print(d2.getNome()); %></td>
-                                <td></td>
+                                <td><% out.print(Valor.FormatarValor(ObDaoDespesa.Despesa_tabela_nivel2_total(d2.getId(), ano, mes))); %></td>
                                 <td><% out.print(d.getNome()); %></td>
                             </tr>
                             <!-- Consultar nivel 3 -->
@@ -149,12 +148,12 @@
                             </tr>
 
                             <% }
-                                    }; %>
+                                }; %>
                             <% }
-                                    }; %>    
+                                }; %>    
 
                             <% }
-                                    };%>
+                                };%>
                         </tbody>
                     </table>
                 </div>
@@ -304,17 +303,36 @@
 
 
 
-        $('#tbniveis').DataTable({
-            paging: false,
-            lengthChange: true,
-            searching: true,
-            ordering: false,
-            info: true,
-            autoWidth: true,
-            fixedHeader: {
-                header: true,
-                footer: true
-            }
+        var tb = $('#tbniveis').DataTable({
+            "paging": false,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": true,
+            "language": {
+                "decimal": ",",
+                "thousands": "."
+            },
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
+            dom: 'l,Bfrtip',
+            buttons: [
+                {extend: 'copy',
+                    text: 'Copiar',
+                    footer: true},
+                {extend: 'csv',
+                    text: 'Salvar CSV',
+                    footer: true},
+                {extend: 'excel',
+                    text: 'Salvar em Excel',
+                    footer: true},
+                {extend: 'pdf',
+                    text: 'Salvar PDF',
+                    footer: true},
+                {extend: 'print',
+                    text: 'Imprimir',
+                    footer: true}
+            ]
 
         });
 
@@ -324,6 +342,8 @@
             language: 'pt-BR'
 
         });
+
+        new $.fn.dataTable.FixedHeader(tb);
         $('#ddata').datepicker("update", new Date());
 
     </script>

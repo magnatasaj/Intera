@@ -13,6 +13,8 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!--- script para tabela,soma da tabela e ordenação -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/extensions/FixedHeader/js/dataTables.fixedHeader.min.js" type="text/javascript"></script>
+
 <script src="dist/js/sum().js"></script>
 <script src="plugins/datatables/numeric-comma.js" type="text/javascript"></script>
 <!-- Morris.js charts -->
@@ -32,7 +34,6 @@
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="dist/js/teste.js"></script>
-
 <script src="plugins/datepicker/bootstrap-datepicker.min.js"></script>
 <script src="plugins/datepicker/locales/bootstrap-datepicker.pt-BR.js"></script>
 

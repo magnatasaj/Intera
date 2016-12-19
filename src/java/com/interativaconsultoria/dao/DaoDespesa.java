@@ -77,6 +77,7 @@ public class DaoDespesa {
 
     }
 
+////////////////////////////////metodos para criação dos gráficos/////////////////////////////////////////////////// 
     public String Gerar_Grafico_despesa(String ano) throws SQLException {
 
         String dados = "";
@@ -92,6 +93,192 @@ public class DaoDespesa {
         return dados;
     }
 
+    public String Despesa_Grafico_nivel(String ano) throws SQLException, ClassNotFoundException {
+        DaoDespesaNivel obj = new DaoDespesaNivel();
+        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
+        int i = 0;
+
+        Cores c = new Cores();
+        List<Color> cores = c.gerarCores(100);
+        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
+
+        String dataset = "";
+        for (Despesa_Niveis d : lista) {
+
+            i++;
+            if (!Consultar_Despesa_mes_e_nivel(d.getId(), ano).equals("null,null,null,null,null,null,null,null,null,null,null,null")) {
+
+                dataset += "{\n"
+                        + "                       name:  '" + d.getNome() + "',\n"
+                        + "                                 data :[" + Consultar_Despesa_mes_e_nivel(d.getId(), ano) + "]"
+                        + "                        },";
+
+            }
+        }
+        if (dataset.length() > 0) {
+            dataset = dataset.substring(0, dataset.length() - 1);
+        }
+
+        return dataset;
+    }
+
+    public String Despesa_Grafico_nivel1(String ano) throws SQLException, ClassNotFoundException {
+        DaoDespesaNivel obj = new DaoDespesaNivel();
+        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
+
+        Cores c = new Cores();
+        List<Color> cores = c.gerarCores(100);
+        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
+
+        String dataset = "";
+        int i = 0;
+        String corfi = "";
+        for (Despesa_Niveis dd : obj.Consultar_Nivel_1()) {
+            String idarray = "";
+            String data = "";
+            i++;
+
+            for (Despesa_Niveis d : obj.Consultar_Nivel_2()) {
+                if (d.getPai() == dd.getId()) {
+                    for (Despesa_Niveis d2 : lista) {
+                        if (d2.getPai() == d.getId()) {
+                            idarray += d2.getId() + ",";
+                        }
+                    }
+                }
+            }
+            String arraycorrigido = "";
+            if (idarray.length() > 0) {
+                arraycorrigido = idarray.substring(0, idarray.length() - 1);
+            } else {
+                arraycorrigido = "0";
+            }
+
+            //Gerar estrutura para o grafico nivel 2
+            dataset += "{\n"
+                    + "                        name: \"" + dd.getNome() + "\",\n"
+                    + "                                 data :[" + Consultar_Despesa_mes_e_nivel(arraycorrigido, ano) + "]"
+                    + "                        },";
+
+        }
+        String datasetcorrigido = dataset.substring(0, dataset.length() - 1);
+
+        return datasetcorrigido;
+    }
+
+    public String Despesa_Grafico_nivel2(String ano) throws SQLException, ClassNotFoundException {
+        DaoDespesaNivel obj = new DaoDespesaNivel();
+        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
+
+        Cores c = new Cores();
+        List<Color> cores = c.gerarCores(100);
+        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
+
+        String dataset = "";
+        int i = 0;
+        String corfi = "";
+        for (Despesa_Niveis dd : obj.Consultar_Nivel_2()) {
+            String idarray = "";
+            String data = "";
+            i++;
+            for (Despesa_Niveis d : lista) {
+                if (d.getPai() == dd.getId()) {
+                    idarray += d.getId() + ",";
+                }
+            }
+            String arraycorrigido = "";
+            if (idarray.length() > 0) {
+                arraycorrigido = idarray.substring(0, idarray.length() - 1);
+            } else {
+                arraycorrigido = "0";
+            }
+
+            //Gerar estrutura para o grafico nivel 2
+            dataset += "{\n"
+                    + "                        name: \"" + dd.getNome() + "\",\n"
+                    + "                                 data :[" + Consultar_Despesa_mes_e_nivel(arraycorrigido, ano) + "]"
+                    + "                        },";
+
+        }
+        String datasetcorrigido = dataset.substring(0, dataset.length() - 1);
+
+        return datasetcorrigido;
+    }
+
+    public BigDecimal Despesa_tabela_nivel1_total(int id, String ano, int mes) throws SQLException, ClassNotFoundException {
+        DaoDespesaNivel obj = new DaoDespesaNivel();
+        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
+
+        int i = 0;
+        BigDecimal total = new BigDecimal("0");
+        BigDecimal re = new BigDecimal("0");
+        String idarray = "";
+
+        for (Despesa_Niveis d : obj.Consultar_Nivel_1()) {
+            if (d.getId() == id) {
+                for (Despesa_Niveis d1 : obj.Consultar_Nivel_2()) {
+                    if (d1.getPai() == id) {
+                        for (Despesa_Niveis d2 : lista) {
+                            if (d2.getPai() == d1.getId()) {
+                                idarray += d2.getId() + ",";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        String arraycorrigido = "";
+        if (idarray.length() > 0) {
+            arraycorrigido = idarray.substring(0, idarray.length() - 1);
+        } else {
+            arraycorrigido = "0";
+        }
+
+        //Gerar estrutura para o grafico nivel 2
+        if(idarray.length() > 0){
+        re = total.add(Consultar_Despesa_mes_e_nivel_soma_total(arraycorrigido, ano, mes));
+        }
+        return re;
+    }
+    
+    public BigDecimal Despesa_tabela_nivel2_total(int id, String ano, int mes) throws SQLException, ClassNotFoundException {
+        DaoDespesaNivel obj = new DaoDespesaNivel();
+        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
+
+        int i = 0;
+        BigDecimal total = new BigDecimal("0");
+        BigDecimal re = new BigDecimal("0");
+        String idarray = "";
+
+       
+           
+                for (Despesa_Niveis d1 : obj.Consultar_Nivel_2()) {
+                    if (d1.getId() == id) {
+                        for (Despesa_Niveis d2 : lista) {
+                            if (d2.getPai() == d1.getId()) {
+                                idarray += d2.getId() + ",";
+                            }
+                        }
+                    }
+                }
+            
+        
+        String arraycorrigido = "";
+        if (idarray.length() > 0) {
+            arraycorrigido = idarray.substring(0, idarray.length() - 1);
+        } else {
+            arraycorrigido = "0";
+        }
+
+        //Gerar estrutura para o grafico nivel 2
+        if(idarray.length() > 0){
+        re = total.add(Consultar_Despesa_mes_e_nivel_soma_total(arraycorrigido, ano, mes));
+        }
+        return re;
+    }
+
+///////////////////Metodos para consultar despesas para popular os gráficos//////////////////////////
+    //metodo usado na pagina busca despesa
     public List<Despesa> Consultar_Despesa_all(String valor, int op) throws SQLException, ParseException {
 
         if (op == 1) {
@@ -141,6 +328,7 @@ public class DaoDespesa {
         return ls;
     }
 
+    // metodo que consulta a despesa pelo nivel especificado
     public List<Despesa> Consultar_Despesa_pelo_nivel(int id) throws SQLException {
 
         String sql = "SELECT * FROM `despesa` WHERE `id_nivel` = " + id + " ORDER BY `despesa`.`data` DESC";
@@ -232,7 +420,7 @@ public class DaoDespesa {
         return res;
     }
 
-    public String Consultar_Despesa_mes_e_nivel2(String id_nivel_array, String ano) throws SQLException {
+    public String Consultar_Despesa_mes_e_nivel(String id_nivel_array, String ano) throws SQLException {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
@@ -266,117 +454,26 @@ public class DaoDespesa {
         return res;
     }
 
-    public String Despesa_Grafico_nivel(String ano) throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
-        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
-        int i = 0;
+    //metodo para popular valor total dos sub-niveis da tabela de entrada de despesas
+    public BigDecimal Consultar_Despesa_mes_e_nivel_soma_total(String id_nivel_array, String ano, int mes) throws SQLException {
+        BigDecimal total = new BigDecimal("0");
+        BigDecimal re = new BigDecimal("0");
+        String res = "";
+        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('" + ano + "-" + mes + "-01') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-01') AND id_nivel in(" + id_nivel_array + ")";
+        ps = conexao.prepareStatement(sql);
+        rs = ps.executeQuery();
 
-        Cores c = new Cores();
-        List<Color> cores = c.gerarCores(100);
-        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
-
-        String dataset = "";
-        for (Despesa_Niveis d : lista) {
-
-            i++;
-            if (!Consultar_Despesa_mes_e_nivel(d.getId(), ano).equals("null,null,null,null,null,null,null,null,null,null,null,null")) {
-
-                dataset += "{\n"
-                        + "                       name:  '" + d.getNome() + "',\n"
-                        + "                                 data :[" + Consultar_Despesa_mes_e_nivel(d.getId(), ano) + "]"
-                        + "                        },";
-
+        while (rs.next()) {
+            
+            if(rs.getBigDecimal("total") != null){
+            String valor = rs.getBigDecimal("total").toString();
+            re = total.add(new BigDecimal(valor));
             }
         }
-        if (dataset.length() > 0) {
-            dataset = dataset.substring(0, dataset.length() - 1);
-        }
 
-        return dataset;
-    }
+        rs.close();
 
-    public String Despesa_Grafico_nivel1(String ano) throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
-        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
-
-        Cores c = new Cores();
-        List<Color> cores = c.gerarCores(100);
-        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
-
-        String dataset = "";
-        int i = 0;
-        String corfi = "";
-        for (Despesa_Niveis dd : obj.Consultar_Nivel_1()) {
-            String idarray = "";
-            String data = "";
-            i++;
-
-            for (Despesa_Niveis d : obj.Consultar_Nivel_2()) {
-                if (d.getPai() == dd.getId()) {
-                    for (Despesa_Niveis d2 : lista) {
-                        if (d2.getPai() == d.getId()) {
-                            idarray += d2.getId() + ",";
-                        }
-                    }
-                }
-            }
-            String arraycorrigido = "";
-            if (idarray.length() > 0) {
-                arraycorrigido = idarray.substring(0, idarray.length() - 1);
-            } else {
-                arraycorrigido = "0";
-            }
-
-            //Gerar estrutura para o grafico nivel 2
-            dataset += "{\n"
-                    + "                        name: \"" + dd.getNome() + "\",\n"
-                    + "                                 data :[" + Consultar_Despesa_mes_e_nivel2(arraycorrigido, ano) + "]"
-                    + "                        },";
-
-        }
-        String datasetcorrigido = dataset.substring(0, dataset.length() - 1);
-
-        return datasetcorrigido;
-    }
-
-    public String Despesa_Grafico_nivel2(String ano) throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
-        List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
-
-        Cores c = new Cores();
-        List<Color> cores = c.gerarCores(100);
-        List<String> coresHexa = c.gerarCoresHexadecimal(cores);
-
-        String dataset = "";
-        int i = 0;
-        String corfi = "";
-        for (Despesa_Niveis dd : obj.Consultar_Nivel_2()) {
-            String idarray = "";
-            String data = "";
-            i++;
-            for (Despesa_Niveis d : lista) {
-                if (d.getPai() == dd.getId()) {
-                    idarray += d.getId() + ",";
-                }
-            }
-            String arraycorrigido = "";
-            if (idarray.length() > 0) {
-                arraycorrigido = idarray.substring(0, idarray.length() - 1);
-            } else {
-                arraycorrigido = "0";
-            }
-
-            //Gerar estrutura para o grafico nivel 2
-            dataset += "{\n"
-                    + "                        name: \"" + dd.getNome() + "\",\n"
-                                                 
-                    + "                                 data :[" + Consultar_Despesa_mes_e_nivel2(arraycorrigido, ano) + "]"
-                    + "                        },";
-
-        }
-        String datasetcorrigido = dataset.substring(0, dataset.length() - 1);
-
-        return datasetcorrigido;
+        return re;
     }
 
 }
