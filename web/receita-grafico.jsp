@@ -52,7 +52,7 @@
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
                 <div class="box bg-green-active">
-                    <div class="box-header with-border">
+                    <div class="box-header with-border"  style="color: #fff">
 
                         <div class="row">
                             <div class="col-lg-3" style="margin: 10px" >   

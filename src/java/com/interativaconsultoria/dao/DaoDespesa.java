@@ -92,6 +92,21 @@ public class DaoDespesa {
         ps.close();
         return dados;
     }
+    
+    public String Gerar_Grafico_despesa_negativo(String ano) throws SQLException {
+
+        String dados = "";
+        for (int i = 1; i <= 12; i++) {
+            if (i == 12) {
+                dados += "-"+Consultar_Despesa_mes(i, ano);
+            } else {
+                dados += "-"+Consultar_Despesa_mes(i, ano) + ",";
+            }
+        }
+
+        ps.close();
+        return dados;
+    }
 
     public String Despesa_Grafico_nivel(String ano) throws SQLException, ClassNotFoundException {
         DaoDespesaNivel obj = new DaoDespesaNivel();

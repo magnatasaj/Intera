@@ -57,8 +57,8 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="despesa-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico despesas</a></li>
-                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receita</a></li>
-                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receita</a></li>
+                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receitas</a></li>
+                    <li><a href="de_x_re-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receitas x despesas</a></li>
 
 
 

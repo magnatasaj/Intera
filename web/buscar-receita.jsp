@@ -36,7 +36,7 @@
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
                 <div class="box bg-green-gradient">
-                    <div class="box-header with-border">
+                    <div class="box-header with-border"  style="color: #fff">
                         <h1 class="box-title">Buscar Receita</h1>
                         <div class="row">
                             <div class="col-lg-3" style="margin: 10px" >   

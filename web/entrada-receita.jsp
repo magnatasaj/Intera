@@ -35,7 +35,7 @@
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
                 <div class="box bg-green-active">
-                    <div class="box-header with-border">
+                    <div class="box-header with-border"  style="color: #fff">
                         <h1 class="box-title">Entrada de Receita</h1>
                         <div class="row">
                             <div class="col-lg-3" style="margin: 10px" >   
@@ -213,6 +213,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                
+                                            <label for="eddata" class="control-label">Data:</label>
+
                                                 <div class="input-group date">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>

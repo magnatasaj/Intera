@@ -32,9 +32,9 @@
             <!--#FEcha  Menu-lateral -->
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
-            <div class="content-wrapper">
-                <div class="box bg-red-active">
-                    <div class="box-header with-border">
+            <div class="content-wrapper" >
+                <div class="box bg-red-active" >
+                    <div class="box-header with-border" style="color: #fff">
                         <h1 class="box-title">Buscar Despesas</h1>
                         <div class="row">
                             <div class="col-lg-3" style="margin: 10px" >   

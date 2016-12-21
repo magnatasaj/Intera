@@ -17,10 +17,7 @@
 
 <script src="dist/js/sum().js"></script>
 <script src="plugins/datatables/numeric-comma.js" type="text/javascript"></script>
-<!-- Morris.js charts -->
-<script src="plugins/chartjs/Chart.min.js" type="text/javascript"></script>
-<script src="plugins/chartjs/FileSaver.min.js" type="text/javascript"></script>
-<script src="plugins/chartjs/canvas-toBlob.js" type="text/javascript"></script>
+
 <!-- Sparkline -->
 
 <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
