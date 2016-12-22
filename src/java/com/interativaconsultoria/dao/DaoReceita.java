@@ -282,7 +282,7 @@ public class DaoReceita {
                 if (rs.getString("total") != null) {
                     String valor = rs.getBigDecimal("total").toString();
                     re = total.add(new BigDecimal(valor));
-                    if (i == 12) {
+                    if                                                                                                                            (i == 12) {
                         res += re;
                     } else {
                         res += re + ",";
