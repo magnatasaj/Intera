@@ -34,11 +34,13 @@ public class DaoReceita {
     private PreparedStatement ps2 = null;
     private ResultSet rs = null;
     private ResultSet rs2 = null;
-
+    private Jdbc con = new Jdbc();
     private final Connection conexao;
 
     public DaoReceita() throws SQLException, ClassNotFoundException {
-        this.conexao = Jdbc.criarconexcao();
+       if(con == null){
+        this.conexao = con.criarconexcao();
+       }
     }
 
     public void Adicionar_Receita(Receita Re) throws SQLException {
@@ -267,12 +269,12 @@ public class DaoReceita {
         return res;
     }
 
-    public String Consultar_Despesa_mes_e_vendido_normal(int vendido,String ano) throws SQLException {
+    public String Consultar_Despesa_mes_e_vendido_normal(int vendido, String ano) throws SQLException {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + i + "-00') AND YEAR(data) = YEAR('"+ano+"-" + i + "-00') AND (vendido_recebido = " + vendido + " or debito_credito = 1)";
+            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND (vendido_recebido = " + vendido + " or debito_credito = 1)";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -280,7 +282,7 @@ public class DaoReceita {
                 if (rs.getString("total") != null) {
                     String valor = rs.getBigDecimal("total").toString();
                     re = total.add(new BigDecimal(valor));
-                    if                                                                                                                            (i == 12) {
+                    if (i == 12) {
                         res += re;
                     } else {
                         res += re + ",";
@@ -300,7 +302,7 @@ public class DaoReceita {
 
         return res;
     }
-    
+
     public String Consultar_receita_mes_menos_despesa(int vendido, String ano) throws SQLException, ClassNotFoundException {
         DaoDespesa ddesDaoDespesa = new DaoDespesa();
         BigDecimal total = new BigDecimal("0");

@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Jdbc {
-    private static Connection con = null;
-    public static Connection criarconexcao() throws SQLException, ClassNotFoundException {
+    private  Connection con = null;
+    public  Connection criarconexcao() throws SQLException, ClassNotFoundException {
         if(con==null){
         String dbName = "sistema";
         String userName = "root";
