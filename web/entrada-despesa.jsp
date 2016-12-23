@@ -29,6 +29,8 @@
     if (request.getParameter("mes") == null || request.getParameter("mes").isEmpty()) {
         mes += cal.get(Calendar.MONTH);
         System.out.print("mes:" + mes);
+                System.out.print("ano:" + ano);
+
     } else {
         mes = Integer.parseInt(request.getParameter("mes"));
     }

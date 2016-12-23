@@ -7,7 +7,6 @@ package com.interativaconsultoria.dao;
 
 import com.interativaconsultoria.funcao.Cores;
 import com.interativaconsultoria.objetos.Despesa;
-import com.interativaconsultoria.objetos.Despesa_Niveis;
 import com.interativaconsultoria.objetos.Receita;
 import com.interativaconsultoria.objetos.ReceitaOrigem;
 import java.awt.Color;
@@ -36,11 +35,10 @@ public class DaoReceita {
     private ResultSet rs = null;
     private ResultSet rs2 = null;
 
-    private Jdbc con = new Jdbc();
-    private Connection conexao;
+    private final Connection conexao;
 
     public DaoReceita() throws SQLException, ClassNotFoundException {
-        this.conexao = con.criarconexcao();
+        this.conexao = Jdbc.criarconexcao();
     }
 
     public void Adicionar_Receita(Receita Re) throws SQLException {
@@ -204,7 +202,7 @@ public class DaoReceita {
     }
 
     public BigDecimal Consultar_Receita_mes(int mes, String ano) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + mes + "-30') and YEAR(data) = YEAR('" + ano + "-" + mes + "-30')";
+        String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + mes + "-00') and YEAR(data) = YEAR('" + ano + "-" + mes + "-00')";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
@@ -227,10 +225,10 @@ public class DaoReceita {
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-31') AND YEAR(data) = YEAR('" + ano + "-" + i + "-31') AND (vendido_recebido = " + vendido + " or debito_credito = 1)";
+            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND (vendido_recebido = " + vendido + " or debito_credito = 1)";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
-            String sql2 = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-31') AND YEAR(data) = YEAR('" + ano + "-" + i + "-31') AND (vendido_recebido = 2 or debito_credito = 1)";
+            String sql2 = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND (vendido_recebido = 2 or debito_credito = 1)";
             ps2 = conexao.prepareStatement(sql2);
             rs2 = ps2.executeQuery();
 
@@ -274,7 +272,7 @@ public class DaoReceita {
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + i + "-01') AND YEAR(data) = YEAR('"+ano+"-" + i + "-01') AND (vendido_recebido = " + vendido + " or debito_credito = 1)";
+            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('"+ano+"-" + i + "-00') AND YEAR(data) = YEAR('"+ano+"-" + i + "-00') AND (vendido_recebido = " + vendido + " or debito_credito = 1)";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -315,11 +313,11 @@ public class DaoReceita {
         for (int i = 1; i <= 12; i++) {
 
             //consulta para recebido
-            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-31') AND YEAR(data) = YEAR('" + ano + "-" + i + "-31') AND (vendido_recebido = " + vendido + " or debito_credito = 1)";
+            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND (vendido_recebido = " + vendido + " or debito_credito = 1)";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
             //consulta para vendido
-            String sql2 = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-31') AND YEAR(data) = YEAR('" + ano + "-" + i + "-31') AND (vendido_recebido = 2 or debito_credito = 1)";
+            String sql2 = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND (vendido_recebido = 2 or debito_credito = 1)";
             ps2 = conexao.prepareStatement(sql2);
             rs2 = ps2.executeQuery();
             ResultSet rr = rs;
@@ -374,7 +372,7 @@ public class DaoReceita {
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor)  as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-01') AND YEAR(data) = YEAR('" + ano + "-" + i + "-01') AND vendido_recebido =" + vendido + "";
+            String sql = "SELECT SUM(valor)  as total FROM `receita` WHERE MONTH(data) = MONTH('" + ano + "-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND vendido_recebido =" + vendido + "";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -409,7 +407,7 @@ public class DaoReceita {
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND YEAR(data) = YEAR('" + ano + "-" + i + "-01') AND origem = " + id + "";
+            String sql = "SELECT SUM(valor) as total FROM `receita` WHERE MONTH(data) = MONTH('2016-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND origem = " + id + "";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 

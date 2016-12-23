@@ -32,7 +32,7 @@ public class DaoDespesa {
     private PreparedStatement ps2 = null;
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
-    private Connection conexao;
+    private final Connection conexao;
 
     public DaoDespesa() throws SQLException, ClassNotFoundException {
         this.conexao = con.criarconexcao();
@@ -364,7 +364,7 @@ public class DaoDespesa {
     }
 
     public BigDecimal Consultar_Despesa_mes(int mes, String ano) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-01') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-01')";
+        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-00') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-00')";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
@@ -383,7 +383,7 @@ public class DaoDespesa {
     }
 
     public BigDecimal Consultar_Despesa_mes_despesa_especifica(int mes, String ano, int id_nivel) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-01') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-01') AND id_nivel = " + id_nivel + "";
+        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-00') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-00') AND id_nivel = " + id_nivel + "";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
@@ -406,7 +406,7 @@ public class DaoDespesa {
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND YEAR(data) = YEAR('" + ano + "-" + i + "-01') AND id_nivel = " + id_nivel + "";
+            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND id_nivel = " + id_nivel + "";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -440,7 +440,7 @@ public class DaoDespesa {
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-01') AND YEAR(data) = YEAR('" + ano + "-" + i + "-01') AND id_nivel in(" + id_nivel_array + ")";
+            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND id_nivel in(" + id_nivel_array + ")";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -474,7 +474,7 @@ public class DaoDespesa {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('" + ano + "-" + mes + "-01') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-01') AND id_nivel in(" + id_nivel_array + ")";
+        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('" + ano + "-" + mes + "-00') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-00') AND id_nivel in(" + id_nivel_array + ")";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
 

@@ -1,3 +1,5 @@
+<%@page import="com.interativaconsultoria.objetos.ReceitaOrigem"%>
+<%@page import="com.interativaconsultoria.dao.DaoReceitaOrigem"%>
 <%@page import="com.interativaconsultoria.objetos.Receita"%>
 <%@page import="com.interativaconsultoria.dao.DaoReceita"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
@@ -17,6 +19,7 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% DaoReceita ObDaoReceita = new DaoReceita(); %>
+<% DaoReceitaOrigem ObDaoReceitaOrigem = new DaoReceitaOrigem(); %>
 
 <!-- meta-data -->
 <!DOCTYPE html>
@@ -109,22 +112,22 @@
                     <table id="tbniveis" cellspacing="0" width="100%" class="table table-bordered table-striped" >
 
 
-    <thead>
-    <th class="sorting">Valor</th>
-    <th class="sorting">Data</th>
-    <th class="sorting">Descrição</th>
-    <th class="sorting">For / pagamento</th>
-    <th class="sorting">Av ou Ap</th>
-    <th class="sorting">Vendi/Recebido</th>
-    <th class="sorting">Editar</th>
+                        <thead>
+                        <th class="sorting">Valor</th>
+                        <th class="sorting">Data</th>
+                        <th class="sorting">Descrição</th>
+                        <th class="sorting">For / pagamento</th>
+                        <th class="sorting">Av ou Ap</th>
+                        <th class="sorting">Vendi/Recebido</th>
+                        <th class="sorting">Editar</th>
 
-</thead>
-<tfoot>
-    <tr>
-        <th id="tt"></th>
-        <th><--Total</th>
-    </tr>
-</tfoot>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th id="tt"></th>
+                                <th><--Total</th>
+                            </tr>
+                        </tfoot>
                         <tbody>
                             <%
                                 String v = request.getParameter("valor") != null ? request.getParameter("valor") : "falso";
@@ -167,50 +170,104 @@
                             <% };%>
 
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th id="tt"></th>
-                                <th><--Total</th>
-                            </tr>
-                        </tfoot>
+                        
+                       
                     </table>
                 </div>
-                <!-- Modal editar -->
-                <div class="modal fade" id="modal-editar-despesa" role="dialog"   aria-labelledby="myModalLabel">
+                <!-- modal editar -------------------------------------------------------------------------------------->
+                <div class="modal fade" id="modal-editar-receita" role="dialog"   aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
+                                <a href="#" target="_blank" id="edhistorico"><button type="button"   name="edfistorico" class="btn btn-adn">Histórico de Entrada</button></a>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                                <p id="edt"></p>
+                                <p id="re"></p>
 
                             </div>
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <input type="hidden" class="form-control" id="idd">
+                                        <input type="hidden" class="form-control" id="edid">
 
+                                    </div>
+                                    <!-- Tipo de entrada-->
+                                    <div class="row">
+                                        <div id="tipo" class="callout callout-success"  style="font-size: 19px;">
+                                            <h2>Formas de pagamento</h2>
+
+                                            <%  for (ReceitaOrigem r : ObDaoReceitaOrigem.Consultar_Todas_Origens()) { %>
+                                            <div class=" radio-inline">
+                                                <label>
+                                                    <input  type="radio" name="edtipoRadios" id="edtipoRadios" value="<%out.print(r.getId()); %>" >
+                                                    <% out.print(r.getNome()); %>
+                                                </label>
+
+                                            </div>
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                    <!-- á vista e a prazo -->
+                                    <div class="row">
+                                        <div id="ap" class="callout callout-info"  style="font-size: 19px">
+                                            <h2>Á vista/A prazo</h3>
+                                                <div class="radio-inline">
+                                                    <label >
+                                                        <input  type="radio" name="edapRadios" id="edapRadios" value="1">
+                                                        Á vista/Debito
+                                                    </label>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <label>
+                                                        <input type="radio" name="edapRadios" id="edapRadios" value="2">
+                                                        A prazo/Credito
+                                                    </label>
+
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <!--Se foi recebio ou não -->
+                                    <div class="row">
+                                        <div id="vr" class="callout callout-warning"  style="font-size: 19px">
+                                            <h2>Recebido/Vendido</h2>
+                                            <div class="radio-inline">
+                                                <label>
+                                                    <input type="radio" name="edvrRadios" id="edvrRadios" value="1">
+                                                    Recebido
+                                                </label>
+                                            </div>
+                                            <div class="radio-inline">
+                                                <label>
+                                                    <input type="radio" name="edvrRadios" id="edvrRadios" value="2">
+                                                    Vendido
+                                                </label>
+
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="valor" class="control-label">Valor R$:</label>
                                         <div class="input-group">
                                             <span class="input-group-addon">R$</span>
-                                            <input class="form-control" name="valor2" id="valor2" autofocus></input>
+                                            <input  class="form-control" name="edvalor" id="edvalor" autofocus>
                                         </div>
                                     </div>
                                     <div class="form-group">
+
+                                        <label for="eddata" class="control-label">Data:</label>
+
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="ddata2">
+                                            <input type="text"  class="form-control pull-right" id="eddata">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="des" class="control-label">Descrição da despesa:</label>
                                         <div>
 
-                                            <textarea rows="5" class="form-control" name="desc2" id="desc2"></textarea>
+                                            <textarea rows="5"  class="form-control" name="eddesc" id="eddesc"></textarea>
 
                                         </div>
                                     </div>
@@ -219,10 +276,9 @@
                             </div>
                             <div class="modal-footer">
                                 <div class="col-lg-1">
+                                    <button type="button" id="edexcluir" name="edexcluir" class="btn btn-danger">Excluir</button>
                                 </div>
-                                <div class="col-lg-1">
-                                    <button type="button"  id="edexcluir" name="edexcluir" class="btn btn-danger">Excluir</button>
-                                </div>
+
                                 <button type="button"  id="edsalvar" name="edsalvar" class="btn btn-primary">Salvar alterações</button>
 
                                 <button type="button" id="edfecha"  class="btn btn-default" data-dismiss="modal">Fecha</button>
@@ -231,7 +287,7 @@
                         </div>
                     </div>
                 </div>
-                <!--#fecha Modal Editar -->
+                <!-- modal editar  fecha-------------------------------------------------------------------------------------->
 
             </div>
             <!-- #Fecha Conteúdo -->
@@ -264,58 +320,65 @@
 
                 radios[v].checked = true;
             }
-            ;
 
-            function valores(cod, valor, data, desc) {
-                document.getElementById("myModalLabel").innerHTML = "Será inserido na categoria";
-                document.getElementById("idd").value = "";
-                document.getElementById("ddata2").value = "";
-                document.getElementById("desc2").value = "";
-                document.getElementById("idd").value = cod;
-                document.getElementById("desc2").value = desc;
-                document.getElementById("ddata2").value = data;
-                document.getElementById("valor2").value = valor;
+            function valores(id, db, vr, or, data, desc, valor) {
+                $("#edid").val(id);
+                $("input[name='edtipoRadios'][value='" + or + "']").prop("checked", true);
+                $("input[name='edapRadios'][value='" + db + "']").prop("checked", true);
+                $("input[name='edvrRadios'][value='" + vr + "']").prop("checked", true);
 
-
-                document.getElementById("valor2").focus();
+                $('#edvalor').val(valor);
+                $('#eddata').val(data);
+                $('#eddesc').val(desc);
 
             }
             ;
 
             $('#edsalvar').click(function(event) {
-                var idd = $('#idd').val();
-                var valor = $('#valor2').val();
-                var data = $('#ddata2').val();
-                var desc = $('#desc2').val();
-                $.post('SvDespesas', {
-                    id: idd,
+                var id = $('#edid').val();
+                var tipoRadios = $("input[name='edtipoRadios']:checked").val();
+                var apRadios = $("input[name='edapRadios']:checked").val();
+                var vrRadios = $("input[name='edvrRadios']:checked").val();
+
+                var valor = $('#edvalor').val();
+                var data = $('#eddata').val();
+                var desc = $('#eddesc').val();
+                $.post('SvReceita', {
+                    id: id,
+                    tipoRadios: tipoRadios,
+                    apRadios: apRadios,
+                    vrRadios: vrRadios,
                     valor: valor,
                     data: data,
                     desc: desc,
                     t: 'edd'
-
                 }, function(responseText) {
 
 
-                    $("#edt").slideDown("slow");
+                    $("#re").slideDown("slow");
+                    $('#re').html(responseText);
+                    setTimeout("ocultar()", 5000);
 
-                    $('#edt').html(responseText);
-                    setTimeout('ocultar()', 5000);
                 });
-
             });
 
-            $('#edexcluir').click(function(event) {
-                var id = $('#idd').val();
 
-                $.post('SvDespesas', {
+
+            $('#edexcluir').click(function(event) {
+                var id = $('#edid').val();
+
+                $.post('SvReceita', {
                     id: id,
                     t: 'exc'
                 }, function(responseText) {
-                    $('#edt').html(responseText);
-                    $('#valor').val("");
-                    $('#ddata').val("");
-                    $('#desc').val("");
+
+                    $('#re').html(responseText);
+                    $("#re").slideDown("slow");
+                    setTimeout("ocultar()", 5000);
+                    carregar();
+                    $('#edvalor').val('');
+                    $('#eddata').val('');
+                    $('#eddesc').val('');
 
                 });
             })
@@ -326,7 +389,7 @@
             ;
 
 
-            $('#modal-editar-despesa').on('hidden.bs.modal', function() {
+            $('#modal-editar-receita').on('hidden.bs.modal', function() {
 
                 window.setTimeout('location.reload()', 10);
                 location.hash = hash;
@@ -356,7 +419,7 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
-                 "language": {
+                "language": {
                     "decimal": ",",
                     "thousands": "."
                 },
@@ -411,6 +474,8 @@
 
 
             });
+
+
 
         </script>
     </body>

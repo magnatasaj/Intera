@@ -5,8 +5,6 @@
  */
 package com.interativaconsultoria.dao;
 
-import com.sun.jmx.snmp.BerDecoder;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,36 +23,41 @@ public class DaoAno {
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
     private Connection conexao;
-    
+
     public DaoAno() throws SQLException, ClassNotFoundException {
         this.conexao = con.criarconexcao();
     }
 
     public List<Integer> Lista_anos() throws SQLException {
-        String sql = "SELECT MAX(data) as maior,MIN(data) as menor FROM (select data from receita UNION ALL select data from despesa) as dd";
+        String sql = "SELECT MAX(data) as maior,MIN(data) as menor FROM (SELECT data from receita UNION ALL select data from despesa) as dd";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         int menor = 0;
         int maior = 0;
         while (rs.next()) {
-            int qmenor = rs.getString("menor").indexOf("-");
-            int qmaior = rs.getString("maior").indexOf("-");
+            if (rs.getString("menor") != null && rs.getString("maior") != null ) {
+                int qmenor = rs.getString("menor").indexOf("-");
+                int qmaior = rs.getString("maior").indexOf("-");
 
                     //conta numero que compoe o ano
-            //remover mês e dia
-            menor = Integer.parseInt(rs.getString("menor").substring(0, qmenor));
-            maior = Integer.parseInt(rs.getString("maior").substring(0, qmaior));
+                //remover mês e dia
+                menor = Integer.parseInt(rs.getString("menor").substring(0, qmenor));
+                maior = Integer.parseInt(rs.getString("maior").substring(0, qmaior));
+            } else {
+
+                menor = 2016;
+                maior = 2016;
+
+            }
         }
         List<Integer> anos = new ArrayList();
-        
-        for (int i = maior;menor <= i ;i--) {
-          anos.add(i);
-          
+
+        for (int i = maior; menor <= i; i--) {
+            anos.add(i);
+
         }
-       
+        rs.close();
         return anos;
     }
-    
-    
 
 }
