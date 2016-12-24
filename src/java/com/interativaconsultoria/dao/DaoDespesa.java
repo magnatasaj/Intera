@@ -372,7 +372,7 @@ public class DaoDespesa {
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
-        while (rs.next()) {
+       if (rs.next()) {
             if (rs.getString("total") != null) {
                 String valor = rs.getBigDecimal("total").toString();
 
@@ -391,7 +391,7 @@ public class DaoDespesa {
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
-        while (rs.next()) {
+        if (rs.next()) {
             if (rs.getString("total") != null) {
                 String valor = rs.getBigDecimal("total").toString();
 
@@ -413,7 +413,7 @@ public class DaoDespesa {
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 if (rs.getString("total") != null) {
                     String valor = rs.getBigDecimal("total").toString();
                     re = total.add(new BigDecimal(valor));
@@ -447,7 +447,7 @@ public class DaoDespesa {
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 if (rs.getString("total") != null) {
                     String valor = rs.getBigDecimal("total").toString();
                     re = total.add(new BigDecimal(valor));
@@ -481,7 +481,7 @@ public class DaoDespesa {
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
 
-        while (rs.next()) {
+        if (rs.next()) {
             
             if(rs.getBigDecimal("total") != null){
             String valor = rs.getBigDecimal("total").toString();
@@ -493,5 +493,6 @@ public class DaoDespesa {
 
         return re;
     }
+    
 
 }

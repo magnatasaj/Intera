@@ -114,4 +114,4 @@
 </script>
 </body>
 </html>
-
+<% ObDaoReceita.fechar(); %>

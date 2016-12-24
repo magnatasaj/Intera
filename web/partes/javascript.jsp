@@ -4,7 +4,15 @@
     Author     : Lamara
 --%>
 <!-- jQuery 2.2.3 -->
+
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script>
+  $(window).on('load', function() { // makes sure the whole site is loaded 
+  $('#status').fadeOut(); // will first fade out the loading animation 
+  $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website. 
+  $('body').delay(350).css({'overflow':'visible'});
+})  
+    </script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -56,6 +64,5 @@
 <script src="plugins/datatables/ex/dataTables.buttons.min.js" type="text/javascript"></script>
 <script src="plugins/datatables/ex/jszip.min.js" type="text/javascript"></script>
 <script src="plugins/datatables/ex/pdfmake.min.js" type="text/javascript"></script>
-<script src="plugins/datatables/ex/vfs_fonts.js" type="text/javascript"></script>
 <script src="plugins/highcharts/highcharts.js"></script>
 <script src="plugins/highcharts/modules/exporting.js"></script>

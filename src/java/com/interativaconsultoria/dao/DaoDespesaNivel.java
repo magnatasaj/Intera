@@ -28,6 +28,10 @@ public class DaoDespesaNivel {
     public DaoDespesaNivel() throws SQLException, ClassNotFoundException {
         this.conexao = con.criarconexcao();
     }
+     public void fechar() throws SQLException{
+        con.fechar();
+    
+}
 
     public void Adicionar_Nivel_Pai(Despesa_Niveis De) throws SQLException {
 

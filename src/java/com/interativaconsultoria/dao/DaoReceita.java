@@ -209,7 +209,7 @@ public class DaoReceita {
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
-        while (rs.next()) {
+       if (rs.next()) {
             if (rs.getString("total") != null) {
                 String valor = rs.getBigDecimal("total").toString();
 
@@ -234,7 +234,7 @@ public class DaoReceita {
             ps2 = conexao.prepareStatement(sql2);
             rs2 = ps2.executeQuery();
 
-            while (rs.next()) {
+           if (rs.next()) {
                 if (rs.getString("total") != null) {
                     String valor = rs.getBigDecimal("total").toString();
                     re = total.add(new BigDecimal(valor));
@@ -278,7 +278,7 @@ public class DaoReceita {
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
-            while (rs.next()) {
+           if (rs.next()) {
                 if (rs.getString("total") != null) {
                     String valor = rs.getBigDecimal("total").toString();
                     re = total.add(new BigDecimal(valor));
@@ -325,7 +325,7 @@ public class DaoReceita {
             ResultSet rr = rs;
 
             //percorer recebido 
-            while (rr.next()) {
+            if (rr.next()) {
                 //se total foi diferente de null
                 if (rr.getString("total") != null) {
                     String valor = rr.getBigDecimal("total").toString();
@@ -378,7 +378,7 @@ public class DaoReceita {
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 if (rs.getString("total") != null) {
                     String valor = rs.getBigDecimal("total").toString();
                     re = total.add(new BigDecimal(valor));
@@ -413,7 +413,7 @@ public class DaoReceita {
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 if (rs.getString("total") != null) {
                     String valor = rs.getBigDecimal("total").toString();
                     re = total.add(new BigDecimal(valor));

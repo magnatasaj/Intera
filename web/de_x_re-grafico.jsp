@@ -355,4 +355,7 @@
         </script>    
     </body>
 </html>
+<%ObDaoReceita.fechar();  %>
+<% ObDaoDespesa.fechar();  %>
 
+<% ObDaoDespesaNivel.fechar(); %>
