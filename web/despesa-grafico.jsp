@@ -414,4 +414,4 @@ Highcharts.setOptions({
         </script>    
     </body>
 </html>
-
+<% ObDaoDespesa.fechar(); %>

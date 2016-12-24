@@ -37,7 +37,10 @@ public class DaoDespesa {
     public DaoDespesa() throws SQLException, ClassNotFoundException {
         this.conexao = con.criarconexcao();
     }
-
+     public void fechar() throws SQLException{
+        con.fechar();
+    
+}
     public void Adicionar_Despesa(Despesa De) throws SQLException {
 
         String sql = "INSERT INTO `despesa` (`id`, `valor`, `data`, `id_nivel`,`descricao`) VALUES (NULL, ?, ?, ?,?);";

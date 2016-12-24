@@ -15,11 +15,15 @@ public class Jdbc {
         String hostname = "127.0.0.1";
         String port = "3306";
         String jdbcUrl = "jdbc:mysql://" + hostname + ":"
-                + port + "/" + dbName + "?user=" + userName + "&password=" + password;
+                + port + "/" + dbName + "?user=" + userName + "&password=" + password+"&autoReconnect=true";
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(jdbcUrl);
         }
         return con;
         
+    }
+    
+    public void fechar() throws SQLException{
+        con.close();
     }
 }

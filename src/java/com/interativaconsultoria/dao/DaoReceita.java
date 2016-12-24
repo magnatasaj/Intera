@@ -38,9 +38,9 @@ public class DaoReceita {
     private final Connection conexao;
 
     public DaoReceita() throws SQLException, ClassNotFoundException {
-       if(con == null){
+      
         this.conexao = con.criarconexcao();
-       }
+       
     }
 
     public void Adicionar_Receita(Receita Re) throws SQLException {
@@ -561,5 +561,10 @@ public class DaoReceita {
 
         return datasetcorrigido;
     }
+    
+    public void fechar() throws SQLException{
+        con.fechar();
+    
+}
 
 }
