@@ -38,9 +38,9 @@
 </div>
 
 <!-- js -->
-<%@include file="/partes/javascript.jsp" %> 
 
 <!-- #Fecha js-->
 </body>
 </html>
 
+<%@include file="/partes/javascript.jsp" %> 
