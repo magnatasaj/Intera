@@ -1,8 +1,4 @@
-<%-- 
-    Document   : menu-topo
-    Created on : 25/10/2016, 15:14:03
-    Author     : Lamara
---%>
+
  <header class="main-header">
     <!-- Logo -->
     
@@ -13,6 +9,8 @@
         <span class="sr-only">Toggle navigation</span>
       </a>
 
-     
+      <li>
+          <a href="/Interativaconsultoria/SvSair" ><i class="glyphicon glyphicon-lock"></i>  Sair</a>
+          </li>
     
   </header>

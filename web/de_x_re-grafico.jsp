@@ -67,7 +67,7 @@
                             <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                                 <i class="fa fa-times"></i></button>
                         </div>
-                        <form action="receita-grafico.jsp" method="get">
+                        <form action="de_x_re-grafico.jsp" method="get">
                             <h1 class="box-title">Escolha o ano para geração dos gráficos</h1>
                             <select id="ano" name="ano" class="form-control">
                                 <option></option>
@@ -359,3 +359,4 @@
 <% ObDaoDespesa.fechar();  %>
 
 <% ObDaoDespesaNivel.fechar(); %>
+<% dano.fechar(); %> 

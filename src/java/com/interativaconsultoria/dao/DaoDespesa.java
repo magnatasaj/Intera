@@ -32,7 +32,8 @@ public class DaoDespesa {
     private PreparedStatement ps2 = null;
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
-    private final Connection conexao;
+    private Connection conexao;
+    private String tbp = Propriedade.getTbp();
 
     public DaoDespesa() throws SQLException, ClassNotFoundException {
         this.conexao = con.criarconexcao();
@@ -40,10 +41,10 @@ public class DaoDespesa {
      public void fechar() throws SQLException{
         con.fechar();
     
-}
+    }
     public void Adicionar_Despesa(Despesa De) throws SQLException {
 
-        String sql = "INSERT INTO `despesa` (`id`, `valor`, `data`, `id_nivel`,`descricao`) VALUES (NULL, ?, ?, ?,?);";
+        String sql = "INSERT INTO `"+tbp+"despesa` (`id`, `valor`, `data`, `id_nivel`,`descricao`) VALUES (NULL, ?, ?, ?,?);";
         java.util.Date d = De.getData();
         ps = conexao.prepareStatement(sql);
         ps.setBigDecimal(1, De.getValor());
@@ -57,7 +58,7 @@ public class DaoDespesa {
 
     public void Editar_Despesa(Despesa De) throws SQLException {
 
-        String sql = "UPDATE `despesa` SET `valor` = ?, `data` = ?, `descricao` = ? WHERE `despesa`.`id` = ?;";
+        String sql = "UPDATE `"+tbp+"despesa` SET `valor` = ?, `data` = ?, `descricao` = ? WHERE `"+tbp+"despesa`.`id` = ?;";
 
         ps = conexao.prepareStatement(sql);
         ps.setBigDecimal(1, De.getValor());
@@ -71,7 +72,7 @@ public class DaoDespesa {
 
     public void Excluir_Despesa(Despesa De) throws SQLException {
 
-        String sql = "DELETE FROM `despesa` WHERE `despesa`.`id` = ?";
+        String sql = "DELETE FROM `"+tbp+"despesa` WHERE `"+tbp+"despesa`.`id` = ?";
 
         ps = conexao.prepareStatement(sql);
         ps.setInt(1, De.getId());
@@ -304,7 +305,7 @@ public class DaoDespesa {
             valor = valor.replace(",", ".");
             valor = valor.replace(".00", "");
             System.out.println("valor:" + valor);
-            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `despesa`,`despesa_niveis` WHERE `valor` LIKE '%" + valor + "%' and id_nivel = despesa_niveis.id";
+            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `"+tbp+"despesa`,`"+tbp+"despesa_niveis` WHERE `valor` LIKE '%" + valor + "%' and id_nivel = "+tbp+"despesa_niveis.id";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
         }
@@ -319,14 +320,14 @@ public class DaoDespesa {
             date1 = (Date) formatter.parse(data[0]);
             date2 = (Date) formatter.parse(data[1]);
 
-            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `despesa`,`despesa_niveis` WHERE `data` BETWEEN ? AND ? and id_nivel = despesa_niveis.id";
+            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `"+tbp+"despesa`,`"+tbp+"despesa_niveis` WHERE `data` BETWEEN ? AND ? and id_nivel = "+tbp+"despesa_niveis.id";
             ps = conexao.prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(date1.getTime()));
             ps.setDate(2, new java.sql.Date(date2.getTime()));
             rs = ps.executeQuery();
         }
         if (op == 3) {
-            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `despesa`,`despesa_niveis` WHERE `descricao` LIKE ? and id_nivel = despesa_niveis.id";
+            String sql = "SELECT data,nome,id_nivel,despesa.id,valor, descricao FROM `"+tbp+"despesa`,`"+tbp+"despesa_niveis` WHERE `descricao` LIKE ? and id_nivel = "+tbp+"despesa_niveis.id";
             ps = conexao.prepareStatement(sql);
             ps.setString(1, "%" + valor + "%");
             rs = ps.executeQuery();
@@ -349,7 +350,7 @@ public class DaoDespesa {
     // metodo que consulta a despesa pelo nivel especificado
     public List<Despesa> Consultar_Despesa_pelo_nivel(int id) throws SQLException {
 
-        String sql = "SELECT * FROM `despesa` WHERE `id_nivel` = " + id + " ORDER BY `despesa`.`data` DESC";
+        String sql = "SELECT * FROM `"+tbp+"despesa` WHERE `id_nivel` = " + id + " ORDER BY `"+tbp+"despesa`.`data` DESC";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         List<Despesa> ls = new ArrayList();
@@ -367,7 +368,7 @@ public class DaoDespesa {
     }
 
     public BigDecimal Consultar_Despesa_mes(int mes, String ano) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-00') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-00')";
+        String sql = "SELECT SUM(valor) as total FROM `"+tbp+"despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-00') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-00')";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
@@ -386,7 +387,7 @@ public class DaoDespesa {
     }
 
     public BigDecimal Consultar_Despesa_mes_despesa_especifica(int mes, String ano, int id_nivel) throws SQLException {
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-00') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-00') AND id_nivel = " + id_nivel + "";
+        String sql = "SELECT SUM(valor) as total FROM `"+tbp+"despesa` WHERE MONTH(data) = MONTH('2016-" + mes + "-00') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-00') AND id_nivel = " + id_nivel + "";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         BigDecimal total = new BigDecimal("0");
@@ -409,7 +410,7 @@ public class DaoDespesa {
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND id_nivel = " + id_nivel + "";
+            String sql = "SELECT SUM(valor) as total FROM `"+tbp+"despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND id_nivel = " + id_nivel + "";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -443,7 +444,7 @@ public class DaoDespesa {
         BigDecimal re = new BigDecimal("0");
         String res = "";
         for (int i = 1; i <= 12; i++) {
-            String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND id_nivel in(" + id_nivel_array + ")";
+            String sql = "SELECT SUM(valor) as total FROM `"+tbp+"despesa` WHERE MONTH(data) = MONTH('2016-" + i + "-00') AND YEAR(data) = YEAR('" + ano + "-" + i + "-00') AND id_nivel in(" + id_nivel_array + ")";
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -477,7 +478,7 @@ public class DaoDespesa {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
-        String sql = "SELECT SUM(valor) as total FROM `despesa` WHERE MONTH(data) = MONTH('" + ano + "-" + mes + "-00') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-00') AND id_nivel in(" + id_nivel_array + ")";
+        String sql = "SELECT SUM(valor) as total FROM `"+tbp+"despesa` WHERE MONTH(data) = MONTH('" + ano + "-" + mes + "-00') AND YEAR(data) = YEAR('" + ano + "-" + mes + "-00') AND id_nivel in(" + id_nivel_array + ")";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
 

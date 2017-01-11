@@ -1,19 +1,24 @@
-<%-- 
-    Document   : menu-lateral
-    Created on : 25/10/2016, 15:15:34
-    Author     : Lamara
---%>
+
+<%@page import="java.util.Properties"%>
+<%@page import="com.interativaconsultoria.dao.Propriedade"%>
+<%@page import="com.interativaconsultoria.objetos.User"%>
+
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="dist/img/user2-160x160.png" alt="User Image">
+          <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-circle" alt="User Image">
+        </div>
+            <div class="pull-left image" style="color: #FFF">
+                 <p>APP: <%out.print(Propriedade.getNome()); %></p>
+
+                <p>Olá, <% User al = new User();
+            al = (User)session.getAttribute("nome");
+    out.print(al.getNome()); %></p>
             </div>
-            <div class="pull-left info">
-                <p>Rodrigo Silva</p>
-            </div>
+           
         </div>
         
         <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -75,7 +80,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="despesa-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico despesas</a></li>
-                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receita</a></li>
+                    <li><a href="receita-relatorio.jsp"><i class="fa fa-angle-right"></i>Receita</a></li>
                     <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receita</a></li>
 
 

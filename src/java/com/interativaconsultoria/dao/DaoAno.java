@@ -23,13 +23,19 @@ public class DaoAno {
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
     private Connection conexao;
+    private String tbp = Propriedade.getTbp();
 
     public DaoAno() throws SQLException, ClassNotFoundException {
         this.conexao = con.criarconexcao();
     }
+    
+     public void fechar() throws SQLException{
+        con.fechar();
+    
+    }
 
     public List<Integer> Lista_anos() throws SQLException {
-        String sql = "SELECT MAX(data) as maior,MIN(data) as menor FROM (SELECT data from receita UNION ALL select data from despesa) as dd";
+        String sql = "SELECT MAX(data) as maior,MIN(data) as menor FROM (SELECT data from "+tbp+"receita UNION ALL select data from "+tbp+"despesa) as dd";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         int menor = 0;

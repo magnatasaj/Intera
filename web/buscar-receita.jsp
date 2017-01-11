@@ -2,7 +2,6 @@
 <%@page import="com.interativaconsultoria.dao.DaoReceitaOrigem"%>
 <%@page import="com.interativaconsultoria.objetos.Receita"%>
 <%@page import="com.interativaconsultoria.dao.DaoReceita"%>
-<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : index
     Created on : 25/10/2016, 15:08:38

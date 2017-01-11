@@ -24,6 +24,7 @@ public class DaoDespesaNivel {
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
     private Connection conexao;
+    private String tbp = Propriedade.getTbp();
 
     public DaoDespesaNivel() throws SQLException, ClassNotFoundException {
         this.conexao = con.criarconexcao();
@@ -31,11 +32,11 @@ public class DaoDespesaNivel {
      public void fechar() throws SQLException{
         con.fechar();
     
-}
+    }
 
     public void Adicionar_Nivel_Pai(Despesa_Niveis De) throws SQLException {
 
-        String sql = "INSERT INTO `despesa_niveis` (`id`, `nome`, `pai`, `ordem`) VALUES (NULL,?, 0,?)";
+        String sql = "INSERT INTO `"+tbp+"despesa_niveis` (`id`, `nome`, `pai`, `ordem`) VALUES (NULL,?, 0,?)";
 
         ps = conexao.prepareStatement(sql);
         ps.setString(1, De.getNome());
@@ -47,7 +48,7 @@ public class DaoDespesaNivel {
 
     public void Adicionar_Nivel_1(Despesa_Niveis De) throws SQLException {
 
-        String sql = "INSERT INTO `despesa_niveis` (`id`, `nome`, `pai`, `ordem`) VALUES (NULL,?, ?,?)";
+        String sql = "INSERT INTO `"+tbp+"despesa_niveis` (`id`, `nome`, `pai`, `ordem`) VALUES (NULL,?, ?,?)";
 
         ps = conexao.prepareStatement(sql);
         ps.setString(1, De.getNome());
@@ -60,7 +61,7 @@ public class DaoDespesaNivel {
 
     public List<Despesa_Niveis> Consultar_Todos_Nivel() throws SQLException {
 
-        String sql = "SELECT * FROM `despesa_niveis` ORDER BY `despesa_niveis`.`ordem` ASC";
+        String sql = "SELECT * FROM `"+tbp+"despesa_niveis` ORDER BY `"+tbp+"despesa_niveis`.`ordem` ASC";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         List<Despesa_Niveis> ls = new ArrayList();
@@ -130,7 +131,7 @@ public class DaoDespesaNivel {
 
     public List<Despesa_Niveis> Consultar_Nivel_Pai() throws SQLException {
 
-        String sql = "SELECT * FROM `despesa_niveis`  ORDER BY `despesa_niveis`.`ordem` ASC";
+        String sql = "SELECT * FROM `"+tbp+"despesa_niveis`  ORDER BY `"+tbp+"despesa_niveis`.`ordem` ASC";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         List<Despesa_Niveis> ls = new ArrayList();
@@ -149,7 +150,7 @@ public class DaoDespesaNivel {
 
     public List<Despesa_Niveis> Consultar_Nivel(int id) throws SQLException {
 
-        String sql = "SELECT * FROM `despesa_niveis` where pai = " + id + " ORDER BY `despesa_niveis`.`ordem` ASC";
+        String sql = "SELECT * FROM `"+tbp+"despesa_niveis` where pai = " + id + " ORDER BY `"+tbp+"despesa_niveis`.`ordem` ASC";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         List<Despesa_Niveis> ls = new ArrayList();
@@ -168,7 +169,7 @@ public class DaoDespesaNivel {
 
     public void Editar_Nivel(Despesa_Niveis De) throws SQLException {
 
-        String sql = "UPDATE `despesa_niveis` SET `nome` = ?, `ordem` = ?  WHERE `despesa_niveis`.`id` =?;";
+        String sql = "UPDATE `"+tbp+"despesa_niveis` SET `nome` = ?, `ordem` = ?  WHERE `"+tbp+"despesa_niveis`.`id` =?;";
 
         ps = conexao.prepareStatement(sql);
         ps.setString(1, De.getNome());
@@ -181,7 +182,7 @@ public class DaoDespesaNivel {
 
     public void Excluir_Nivel(Despesa_Niveis De) throws SQLException {
 
-        String sql = "DELETE FROM `despesa_niveis` WHERE `despesa_niveis`.`id` =? ";
+        String sql = "DELETE FROM `"+tbp+"despesa_niveis` WHERE `"+tbp+"despesa_niveis`.`id` =? ";
 
         ps = conexao.prepareStatement(sql);
         ps.setInt(1, De.getId());

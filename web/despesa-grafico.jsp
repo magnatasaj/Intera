@@ -1,12 +1,6 @@
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="com.interativaconsultoria.dao.DaoAno"%>
-<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%-- 
-    Document   : index
-    Created on : 25/10/2016, 15:08:38
-    Author     : Lamara
---%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.math.BigDecimal"%>
 <%@page import="com.interativaconsultoria.funcao.Valor"%>
@@ -414,4 +408,7 @@ Highcharts.setOptions({
         </script>    
     </body>
 </html>
+<% dano.fechar(); %> 
 <% ObDaoDespesa.fechar(); %>
+<% ObDaoDespesaNivel.fechar(); %>
+

@@ -1,9 +1,4 @@
-<%-- 
-    Document   : javascript
-    Created on : 25/10/2016, 15:19:39
-    Author     : Lamara
---%>
-<!-- jQuery 2.2.3 -->
+<%@page import="com.interativaconsultoria.dao.Propriedade"%>
 
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script>
@@ -16,7 +11,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script src="legenda/legend.js" type="text/javascript"></script>
+<script src="/<%out.print(Propriedade.getApp());%>/legenda/legend.js" type="text/javascript"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!--- script para tabela,soma da tabela e ordenação -->

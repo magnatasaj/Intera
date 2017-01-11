@@ -1,8 +1,5 @@
-<%-- 
-    Document   : meta-data
-    Created on : 25/10/2016, 14:42:32
-    Author     : Lamara
---%>
+
+<%@include file="/sessao.jsp" %>
 
 <head>
    <%

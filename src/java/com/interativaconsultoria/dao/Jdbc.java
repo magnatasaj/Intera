@@ -5,23 +5,41 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Jdbc {
-    private  Connection con = null;
+    private static Connection con;
     public  Connection criarconexcao() throws SQLException, ClassNotFoundException {
-        if(con==null){
-        String dbName = "sistema";
-        String userName = "root";
-        String password = "semanaacademica";
-        //String password = "";
-        String hostname = "127.0.0.1";
-        String port = "3306";
+        
+        
+        if(con == null){
+        String dbName = Propriedade.getDb();
+            System.out.println("nome:"+dbName);
+        String userName = Propriedade.getUser();
+        String password = Propriedade.getSenha();
+        String hostname = Propriedade.getHost();
+        String port = Propriedade.getPorta();
         String jdbcUrl = "jdbc:mysql://" + hostname + ":"
                 + port + "/" + dbName + "?user=" + userName + "&password=" + password+"&autoReconnect=true";
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(jdbcUrl);
+        }else{
+          if(con.isClosed()){
+              String dbName = Propriedade.getDb();
+            System.out.println("nome:"+dbName);
+        String userName = Propriedade.getUser();
+        String password = Propriedade.getSenha();
+        String hostname = Propriedade.getHost();
+        String port = Propriedade.getPorta();
+        String jdbcUrl = "jdbc:mysql://" + hostname + ":"
+                + port + "/" + dbName + "?user=" + userName + "&password=" + password+"&autoReconnect=true";
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection(jdbcUrl);
+          }  
         }
         return con;
         
+        
     }
+    
+    
     
     public void fechar() throws SQLException{
         con.close();
