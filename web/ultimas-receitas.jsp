@@ -14,7 +14,7 @@
 
 <!--------- tabela ------------------------------------------------------------------------------------------------------------------->
 <h1> Últimas entradas do mês</h1>
-<table id="tbniveis" cellspacing="0" width="100%" class="table table-bordered table-hover dataTable" role="grid" >
+<table id="tbniveis" cellspacing="0" width="99%" class="table table-bordered table-hover dataTable" role="grid" >
 
 
     <thead>
@@ -70,6 +70,7 @@
         
         $('#tbniveis').DataTable({
             "ordering": true,
+            "scrollX": true,
             "order": [[2, 'desc']],
             "autoWidth": true,
             "lengthMenu": [[10, 25, 50,100, -1], [10, 25, 50,100, "Todos"]],

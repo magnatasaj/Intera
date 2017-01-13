@@ -81,7 +81,7 @@
                 <!--- Graficos testes -->
                 <div class="box" >
                     <div class="box-header" style="height: 100px" >
-                        <h3 class="box-title">Anual Despesas</h3>
+                        <h3 class="box-title">Despesas Globais</h3>
 
                         <div class="box-tools pull-right" >
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -101,7 +101,7 @@
 
                 <div class="box" >
                     <div class="box-header" >
-                        <h3 class="box-title">Anual por Área 1</h3>
+                        <h3 class="box-title">Despesas por Área</h3>
 
                         <div class="box-tools pull-right" >
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -124,7 +124,7 @@
 
                 <div class="box" >
                     <div class="box-header"  >
-                        <h3 class="box-title">Anual por Área 2</h3>
+                        <h3 class="box-title">Despesas por categorias</h3>
 
                         <div class="box-tools pull-right" >
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -146,7 +146,7 @@
 
                 <div class="box" >
                     <div class="box-header"  >
-                        <h3 class="box-title">Anual por Área 3</h3>
+                        <h3 class="box-title">Despesas detalhadas</h3>
 
                         <div class="box-tools pull-right" >
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -196,10 +196,10 @@ Highcharts.setOptions({
                     type: 'column'
                 },
                 title: {
-                    text: 'Monthly Average Rainfall'
+                    text: 'Despesas Globais'
                 },
                 subtitle: {
-                    text: 'Source: WorldClimate.com'
+                    text: ''
                 },
                 xAxis: {
                     categories: [
@@ -209,15 +209,18 @@ Highcharts.setOptions({
                 },
                 yAxis: {
                     labels: {
-                        format: 'R$ {value}',
+                        format: '{value}',
                         style: {
                             color: '#89A54E'
                         }
-                    }
+                    },
+                title: {
+                text: 'Valores em R$'
+                }
                 },
                 tooltip: {
                     valueDecimals: 2,
-                    valuePrefix: 'R$ ',
+                    valuePrefix: '',
                     shared: true,
                 },
                  plotOptions: {
@@ -229,7 +232,7 @@ Highcharts.setOptions({
                             enabled: true,
                             crop: false,
                             overflow: 'none',
-                            format: "R$ {y:,3.2f}"
+                            format: "{y:,3.2f}"
                             
                         }
 
@@ -249,10 +252,10 @@ Highcharts.setOptions({
                     type: 'column'
                 },
                 title: {
-                    text: 'Monthly Average Rainfall'
+                    text: 'Despesas por Área'
                 },
                 subtitle: {
-                    text: 'Source: WorldClimate.com'
+                    text: ''
                 },
                 xAxis: {
                     categories: [
@@ -262,15 +265,18 @@ Highcharts.setOptions({
                 },
                 yAxis: {
                     labels: {
-                        format: 'R$ {value}',
+                        format: '{value}',
                         style: {
                             color: '#89A54E'
                         }
-                    }
+                    },
+                title: {
+                text: 'Valores em R$'
+                }
                 },
                  tooltip: {
                     valueDecimals: 2,
-                    valuePrefix: 'R$ ',
+                    valuePrefix: '',
                     shared: true
 
                 },
@@ -283,7 +289,7 @@ Highcharts.setOptions({
                             enabled: true,
                             crop: false,
                             overflow: 'none',
-                            format: "R$ {y:,3.2f}"
+                            format: "{y:,3.2f}"
                             
                         }
 
@@ -303,10 +309,10 @@ Highcharts.setOptions({
                     
                 },
                 title: {
-                    text: 'Monthly Average Rainfall'
+                    text: 'Despesas por Categorias'
                 },
                 subtitle: {
-                    text: 'Source: WorldClimate.com'
+                    text: ''
                 },
                 xAxis: {
                     categories: [
@@ -316,15 +322,18 @@ Highcharts.setOptions({
                 },
                 yAxis: {
                     labels: {
-                        format: 'R$ {value}',
+                        format: '{value}',
                         style: {
                             color: '#89A54E'
                         }
-                    }
+                    },
+                title: {
+                text: 'Valores em R$'
+                }
                 },
                 tooltip: {
                     valueDecimals: 2,
-                    valuePrefix: 'R$ ',
+                    valuePrefix: '',
                     shared: true
                                   
 
@@ -338,7 +347,7 @@ Highcharts.setOptions({
                             enabled: true,
                             crop: false,
                             overflow: 'none',
-                            format: "R$ {y:,3.2f}"
+                            format: "{y:,3.2f}"
                             
                             
                             
@@ -358,10 +367,10 @@ Highcharts.setOptions({
                     type: 'column'
                 },
                 title: {
-                    text: 'Monthly Average Rainfall'
+                    text: 'Despesas detalhadas'
                 },
                 subtitle: {
-                    text: 'Source: WorldClimate.com'
+                    text: ''
                 },
                 xAxis: {
                     categories: [
@@ -371,15 +380,18 @@ Highcharts.setOptions({
                 },
                 yAxis: {
                     labels: {
-                        format: 'R$ {value}',
+                        format: '{value}',
                         style: {
                             color: '#89A54E'
                         }
-                    }
+                    },
+                title: {
+                text: 'Valores em R$'
+                }
                 },
                 tooltip: {
                     valueDecimals: 2,
-                    valuePrefix: 'R$ ',
+                    valuePrefix: '',
                     shared: true
 
                 },
@@ -392,7 +404,7 @@ Highcharts.setOptions({
                             enabled: true,
                             crop: false,
                             overflow: 'none',
-                            format: "R$ {y:,3.2f}"
+                            format: "{y:,3.2f}"
                             
                         }
 

@@ -61,3 +61,18 @@
 <script src="plugins/datatables/ex/pdfmake.min.js" type="text/javascript"></script>
 <script src="plugins/highcharts/highcharts.js"></script>
 <script src="plugins/highcharts/modules/exporting.js"></script>
+
+ <script type="text/javascript">
+
+	$("#tbusca").keyup(function(){
+		var texto = $(this).val().toUpperCase();
+		
+		$("#treeview-menu li").css("display", "block");
+		$("#treeview-menu li").each(function(){
+			if($(this).text().toUpperCase.indexOf(texto) < 0)
+			   $(this).css("display", "none");
+		});
+	});
+
+</script>   
+    

@@ -5,7 +5,7 @@
 --%>
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Vesão</b> 2.3.7
+      <b>Vesão</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2016 <a href="http://interativaconsultoria.com">Interativa Consultoria</a>.</strong> todos os direitos reservados.
+    <strong>Copyright &copy; 2017 <a href="http://interativaconsultoria.com">Interativa Consultoria</a>.</strong> todos os direitos reservados.
   </footer>

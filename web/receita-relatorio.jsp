@@ -345,14 +345,14 @@
                             <div class="form-group">
                                 <div class="input-group date">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>Data início:<% out.print(data_in); %>
+                                        <i class="fa fa-calendar"></i>Data início:
                                     </div>
                                     <input  type="text"  class="form-control pull-right" name="dinicial" id="dinicial">
                                 </div>
                                 </br>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>Data final:<% out.print(data_fi); %>
+                                        <i class="fa fa-calendar"></i>Data final:
                                     </div>
                                     <input type="text"  class="form-control pull-right" name="dfinal" id="dfinal">
                                 </div>
@@ -390,7 +390,7 @@
                             </tr>
                             <tr class="xl1510571">
                                 <td height=26 class=xl1510571 style='height:20.1pt'></td>
-                                <td colspan=2 rowspan=2 class=xl7310571><p>Data início:</p><p>Data final:</p></td>
+                                <td colspan=2 rowspan=2 class=xl7310571><p>Data início: <% out.print(data_in); %></p><p>Data final: <% out.print(data_fi); %></p></td>
 
                                 <td rowspan=2 class=xl7110571 style='border-bottom:.5pt solid black'>Dinheiro</td>
                                 <td colspan=2 class=xl7010571 style='border-left:none'>Cheque</td>

@@ -44,7 +44,7 @@
                                 <i class="fa fa-times"></i></button>
                         </div>
                         <!--------- tabela ------>
-                        <table id="tbniveis" class="table table-bordered " >
+                        <table id="tbniveis" width="99%" class="table table-bordered " >
 
 
                             <thead>
@@ -346,6 +346,7 @@
     
     $('#tbniveis').DataTable({
       "paging": false,
+      "scrollX": true,
       "lengthChange": true,
       "searching": true,
       "ordering": true,

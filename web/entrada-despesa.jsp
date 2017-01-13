@@ -94,7 +94,7 @@
                         <p>OBS: para filtrar nível 1 use "@"</p>
                     </div>
                     <!--------- tabela ------>
-                    <table id="tbniveis" cellspacing="0" width="100%" class="table table-bordered table-striped" >
+                    <table id="tbniveis" cellspacing="0" width="99%" class="table table-bordered table-striped" >
 
 
                         <thead>
@@ -307,8 +307,10 @@
 
         var tb = $('#tbniveis').DataTable({
             "paging": false,
+            "scrollX": true,
             "lengthChange": true,
             "searching": true,
+            
             "ordering": false,
             "info": true,
             "autoWidth": true,
@@ -337,18 +339,19 @@
             ]
 
         });
-
         $('#ddata').datepicker({
             autoclose: true,
             format: 'dd/mm/yyyy',
             language: 'pt-BR'
+             
+
 
         });
 
-        new $.fn.dataTable.FixedHeader(tb);
-        $('#ddata').datepicker("update", new Date());
+        $('#ddata').datepicker("update", new Date("<%out.print(ano+"/"+mes+"/01"); %>"));
 
     </script>
+    
 </body>
 </html>
 <% ObDaoDespesa.fechar(); %>

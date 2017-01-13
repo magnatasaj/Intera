@@ -90,7 +90,7 @@
                 <!--- Graficos testes -->
                 <div class="box" >
                     <div class="box-header" style="height: 100px" >
-                        <h3 class="box-title">Anual Despesas</h3>
+                        <h3 class="box-title">Recebidos (receita)</h3>
 
                         <div class="box-tools pull-right" >
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -106,7 +106,7 @@
                 <!-- /.box-body -->
             <div class="box" >
                 <div class="box-header" style="height: 100px" >
-                    <h3 class="box-title">Anual por Área 2</h3>
+                    <h3 class="box-title">Receita por forma de pagamento</h3>
 
                     <div class="box-tools pull-right" >
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -124,7 +124,7 @@
             </div>
             <div class="box" >
                 <div class="box-header" style="height: 100px" >
-                    <h3 class="box-title">Anual por Área 3</h3>
+                    <h3 class="box-title">Movimento finaceiro</h3>
 
                     <div class="box-tools pull-right" >
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -166,6 +166,7 @@
                 thousandsSep: '.'
 
             }
+            
         });
         
 // primeiro gráfico                                        
@@ -174,10 +175,10 @@
                 type: 'column'
             },
             title: {
-                text: 'Monthly Average Rainfall'
+                text: 'Recebidos (Receitas)'
             },
             subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: ''
             },
             xAxis: {
                 categories: [
@@ -187,16 +188,19 @@
             },
             yAxis: {
                 labels: {
-                    format: 'R$ {value}',
+                    format: '{value}',
                     style: {
                         color: '#89A54E'
                     }
+                },
+                title: {
+                text: 'Valores em R$'
                 }
             },
             tooltip: {
                 valueDecimals: 2,
-                valuePrefix: 'R$ ',
-                shared: true,
+                valuePrefix: '',
+                shared: true
             },
             plotOptions: {
                 column: {
@@ -206,17 +210,13 @@
                         enabled: true,
                         crop: false,
                         overflow: 'none',
-                        format: "R$ {y:,3.2f}"
+                        format: "{y:,3.2f}"
 
                     }
 
 
                 }},
-            series: [{
-                    name: 'Receita',
-        <% out.print("data: [" + ObDaoReceita.Gerar_Grafico_receita(ano) + "]");%>
-                }
-            ]
+             series: [<%out.print(ObDaoReceita.Receita_Grafico_vendido(1, ano));%>]
         });
 
 //gráfico 1               
@@ -225,10 +225,10 @@
                 type: 'column'
             },
             title: {
-                text: 'Monthly Average Rainfall'
+                text: 'Receitas por forma de pagamento'
             },
             subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: ''
             },
             xAxis: {
                 categories: [
@@ -238,15 +238,18 @@
             },
             yAxis: {
                 labels: {
-                    format: 'R$ {value}',
+                    format: '{value}',
                     style: {
                         color: '#89A54E'
                     }
+                },
+                title: {
+                text: 'Valores em R$'
                 }
             },
             tooltip: {
                 valueDecimals: 2,
-                valuePrefix: 'R$ ',
+                valuePrefix: '',
                 shared: true
 
             },
@@ -258,7 +261,7 @@
                         enabled: true,
                         crop: false,
                         overflow: 'none',
-                        format: "R$ {y:,3.2f}"
+                        format: "{y:,3.2f}"
 
                     }
 
@@ -277,10 +280,10 @@
                 type: 'column'
             },
             title: {
-                text: 'Monthly Average Rainfall'
+                text: 'Movimento financeiro'
             },
             subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: ''
             },
             xAxis: {
                 categories: [
@@ -290,15 +293,18 @@
             },
             yAxis: {
                 labels: {
-                    format: 'R$ {value}',
+                    format: '{value}',
                     style: {
                         color: '#89A54E'
                     }
+                },
+                title: {
+                text: 'Valores em R$'
                 }
             },
             tooltip: {
                 valueDecimals: 2,
-                valuePrefix: 'R$ ',
+                valuePrefix: '',
                 shared: true
 
             },
@@ -310,7 +316,7 @@
                         enabled: true,
                         crop: false,
                         overflow: 'none',
-                        format: "R$ {y:,3.2f}"
+                        format: "{y:,3.2f}"
 
                     }
 
@@ -327,21 +333,6 @@
 
             ]
         });
-
-
-
-       
-
-
-
-
-
-
-
-
-
-
-
     </script>    
 </body>
 </html>

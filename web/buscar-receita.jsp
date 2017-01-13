@@ -169,8 +169,8 @@
                             <% };%>
 
                         </tbody>
-                        
-                       
+
+
                     </table>
                 </div>
                 <!-- modal editar -------------------------------------------------------------------------------------->
@@ -413,6 +413,7 @@
 
             $('#tbniveis').DataTable({
                 "paging": true,
+                "scrollX": true,
                 "lengthChange": true,
                 "searching": true,
                 "ordering": true,

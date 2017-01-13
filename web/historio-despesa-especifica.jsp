@@ -251,6 +251,7 @@
             $(document).ready(function() {
                 $('#tbniveis').DataTable({
                     "paging": true,
+                    "scrollX": true,
                     "lengthChange": true,
                     "searching": true,
                     "ordering": true,

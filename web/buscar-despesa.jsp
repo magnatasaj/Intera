@@ -332,6 +332,7 @@
 
             $('#tbniveis').DataTable({
                 "paging": true,
+                "scrollX": true,
                 "lengthChange": true,
                 "searching": true,
                 "ordering": true,
@@ -396,5 +397,5 @@
         </script>
     </body>
 </html>
-<% ObDaoDespesa.fechar(); %>
+<% ObDaoDespesa.fechar();%>
 

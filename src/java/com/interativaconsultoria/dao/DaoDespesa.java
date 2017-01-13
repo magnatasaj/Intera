@@ -174,11 +174,13 @@ public class DaoDespesa {
             }
 
             //Gerar estrutura para o grafico nivel 2
+            String dataresultado = Consultar_Despesa_mes_e_nivel(arraycorrigido, ano);
+            if(!dataresultado.equals("null,null,null,null,null,null,null,null,null,null,null,null")){
             dataset += "{\n"
                     + "                        name: \"" + dd.getNome() + "\",\n"
-                    + "                                 data :[" + Consultar_Despesa_mes_e_nivel(arraycorrigido, ano) + "]"
+                    + "                                 data :[" + dataresultado + "]"
                     + "                        },";
-
+            }
         }
         String datasetcorrigido = dataset.substring(0, dataset.length() - 1);
 
@@ -212,12 +214,14 @@ public class DaoDespesa {
                 arraycorrigido = "0";
             }
 
-            //Gerar estrutura para o grafico nivel 2
+            //Gerar estrutura para o grafico nivel 
+             String dataresultado = Consultar_Despesa_mes_e_nivel(arraycorrigido, ano);
+            if(!dataresultado.equals("null,null,null,null,null,null,null,null,null,null,null,null")){
             dataset += "{\n"
                     + "                        name: \"" + dd.getNome() + "\",\n"
-                    + "                                 data :[" + Consultar_Despesa_mes_e_nivel(arraycorrigido, ano) + "]"
+                    + "                                 data :[" + dataresultado + "]"
                     + "                        },";
-
+            }
         }
         String datasetcorrigido = dataset.substring(0, dataset.length() - 1);
 
