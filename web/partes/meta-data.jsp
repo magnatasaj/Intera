@@ -10,11 +10,15 @@ response.setHeader("Expires", "0"); // Proxies.
    
    %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title><%out.print(Propriedade.getNome()); %></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
-    
+    <link rel="shortcut icon" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-16x16.png" />
+<link rel="apple-touch-icon" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-57x57.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-114x114.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-72x72.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-144x144.png" />
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -63,38 +67,22 @@ response.setHeader("Expires", "0"); // Proxies.
 }
 
 #status {
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 107px;
   position: absolute;
   left: 50%;
   /* centers the loading animation horizontally one the screen */
   top: 50%;
   /* centers the loading animation vertically one the screen */
-  background-image: url(https://raw.githubusercontent.com/niklausgerber/PreLoadMe/master/img/status.gif);
+  background-image: url('../<%out.print(Propriedade.getApp()); %>/dist/img/caregador.gif');
   /* path to your loading animation */
-  background-repeat: no-repeat;
+  //background-repeat: no-repeat;
   background-position: center;
   margin: -100px 0 0 -100px;
   /* is width and height divided by two */
 }    
         </style>
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-87932595-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
+    
 </head>
 <div id="preloader">
   <div id="status">&nbsp;</div>

@@ -5,9 +5,9 @@
 
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+    <section id="menu" class="sidebar affix">
         <!-- Sidebar user panel -->
-        <div class="user-panel" >
+        <div class="user-panel">
             <div class="pull-left image" style="min-height: 40px">
           <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image">
         </div>
@@ -83,9 +83,7 @@
                     </span>
                 </a>
                 <ul id="treeview-menu" class="treeview-menu">
-                    <li><a href="despesa-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico despesas</a></li>
                     <li><a href="receita-relatorio.jsp"><i class="fa fa-angle-right"></i>Receita</a></li>
-                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receita</a></li>
 
 
 
@@ -93,6 +91,23 @@
                 </ul>
             </li>
             <% };%>
+                      
+   <li class="active treeview">
+                <a style="border-left-color: #FFf" href="#">
+                    <i class="fa  fa-sign-out" style="color: #FFf"></i>
+                    <span>Configurações</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul id="treeview-menu" class="treeview-menu">
+                    <li><a href="/<%out.print(Propriedade.getApp()); %>/SvSair" ><i class="glyphicon glyphicon-lock"></i>  Sair</a></li>
+
+
+
+
+                </ul>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

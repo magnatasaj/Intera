@@ -321,6 +321,8 @@ function _init() {
         if ($(window).width() > (screenSizes.sm - 1)) {
           if ($("body").hasClass('sidebar-collapse')) {
             $("body").removeClass('sidebar-collapse').trigger('expanded.pushMenu');
+           
+
           } else {
             $("body").addClass('sidebar-collapse').trigger('collapsed.pushMenu');
           }

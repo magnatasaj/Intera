@@ -138,13 +138,12 @@
                         <div class="modal fade" id="modal-editar-receita" role="dialog"   aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <a href="#" target="_blank" id="edhistorico"><button type="button"   name="edfistorico" class="btn btn-adn">Histórico de Entrada</button></a>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                                        <p id="re"></p>
 
-                                    </div>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                    <p id="re"></p>
+
+
                                     <div class="modal-body">
                                         <form>
                                             <div class="form-group">
@@ -154,7 +153,7 @@
                                             <!-- Tipo de entrada-->
                                             <div class="row">
                                                 <div id="tipo" class="callout callout-success"  style="font-size: 19px;">
-                                                    <h2>Formas de pagamento</h2>
+                                                    <h3>Formas de pagamento</h3>
 
                                                     <%  for (ReceitaOrigem r : ObDaoReceitaOrigem.Consultar_Todas_Origens()) { %>
                                                     <div class=" radio-inline">
@@ -170,26 +169,26 @@
                                             <!-- á vista e a prazo -->
                                             <div class="row">
                                                 <div id="ap" class="callout callout-info"  style="font-size: 19px">
-                                                    <h2>Á vista/A prazo</h3>
-                                                        <div class="radio-inline">
-                                                            <label >
-                                                                <input  type="radio" name="edapRadios" id="edapRadios" value="1">
-                                                                Á vista/Debito
-                                                            </label>
-                                                        </div>
-                                                        <div class="radio-inline">
-                                                            <label>
-                                                                <input type="radio" name="edapRadios" id="edapRadios" value="2">
-                                                                A prazo/Credito
-                                                            </label>
+                                                    <h3>Á vista/A prazo</h3>
+                                                    <div class="radio-inline">
+                                                        <label >
+                                                            <input  type="radio" name="edapRadios" id="edapRadios" value="1">
+                                                            Á vista/Debito
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-inline">
+                                                        <label>
+                                                            <input type="radio" name="edapRadios" id="edapRadios" value="2">
+                                                            A prazo/Credito
+                                                        </label>
 
-                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--Se foi recebio ou não -->
                                             <div class="row">
-                                                <div id="vr" class="callout callout-warning"  style="font-size: 19px">
-                                                    <h2>Recebido/Vendido</h2>
+                                                <div id="vr" class="callout callout-warning"  style="font-size: 15px">
+                                                    <h3>Recebido/Vendido</h3>
                                                     <div class="radio-inline">
                                                         <label>
                                                             <input type="radio" name="edvrRadios" id="edvrRadios" value="1">
@@ -206,16 +205,12 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="valor" class="control-label">Valor R$:</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon">R$</span>
                                                     <input  class="form-control" name="edvalor" id="edvalor" autofocus>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                
-                                            <label for="eddata" class="control-label">Data:</label>
-
                                                 <div class="input-group date">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -224,10 +219,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="des" class="control-label">Descrição da despesa:</label>
                                                 <div>
 
-                                                    <textarea rows="5"  class="form-control" name="eddesc" id="eddesc"></textarea>
+                                                    <textarea rows="3"  class="form-control" name="eddesc" id="eddesc"></textarea>
 
                                                 </div>
                                             </div>

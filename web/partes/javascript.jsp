@@ -65,14 +65,28 @@
  <script type="text/javascript">
 
 	$("#tbusca").keyup(function(){
-		var texto = $(this).val().toUpperCase();
+		var texto = replaceSpecialChars($(this).val().toUpperCase());
 		
 		$("#treeview-menu li").css("display", "block");
 		$("#treeview-menu li").each(function(){
-			if($(this).text().toUpperCase.indexOf(texto) < 0)
+                    var t = replaceSpecialChars($(this).text().toUpperCase());
+			if(t.indexOf(texto) < 0)
 			   $(this).css("display", "none");
 		});
 	});
+        
+        function replaceSpecialChars(str)
+{
+    str = str.replace(/[ÀÁÂÃÄÅ]/,"A");
+    str = str.replace(/[àáâãäå]/,"a");
+    str = str.replace(/[ÈÉÊË]/,"E");
+    str = str.replace(/[Ç]/,"C");
+    str = str.replace(/[ç]/,"c");
+
+    // o resto
+
+    return str.replace(/[^a-z0-9]/gi,''); 
+}
 
 </script>   
     

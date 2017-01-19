@@ -1,5 +1,6 @@
 
- <header class="main-header">
+ <%@page import="com.interativaconsultoria.dao.Propriedade"%>
+<header class="main-header">
     <!-- Logo -->
     
     <!-- Header Navbar: style can be found in header.less -->
@@ -9,8 +10,6 @@
         <span class="sr-only">Toggle navigation</span>
       </a>
 
-      <li>
-          <a href="/Interativaconsultoria/SvSair" ><i class="glyphicon glyphicon-lock"></i>  Sair</a>
-          </li>
+          
     
   </header>
