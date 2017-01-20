@@ -1,4 +1,5 @@
 <%@page import="com.interativaconsultoria.dao.Propriedade"%>
+<script src="plugins/daterangepicker/moment.js" type="text/javascript"></script>
 
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script>
@@ -30,8 +31,9 @@
 <!-- jQuery Knob Chart -->
 <script src="plugins/knob/jquery.knob.js"></script>
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<script src="https://longbill.github.io/jquery-date-range-picker/dist/jquery.daterangepicker.min.js" type="text/javascript"></script>
+
 <!-- datepicker -->
 <script src="dist/js/teste.js"></script>
 <script src="plugins/datepicker/bootstrap-datepicker.min.js"></script>

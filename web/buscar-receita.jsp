@@ -123,8 +123,8 @@
                         </thead>
                         <tfoot>
                             <tr>
-                                <th id="tt"></th>
-                                <th><--Total</th>
+                                
+                                <th><span id="tt"></span> <--Total</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -418,7 +418,28 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": true,
+                "autoWidth": true,"oLanguage": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+    "sInfoPostFix": "",
+    "sInfoThousands": ".",
+    "sLengthMenu": "_MENU_ resultados por página",
+    "sLoadingRecords": "Carregando...",
+    "sProcessing": "Processando...",
+    "sZeroRecords": "Nenhum registro encontrado",
+    "sSearch": "Pesquisar",
+    "oPaginate": {
+        "sNext": "Próximo",
+        "sPrevious": "Anterior",
+        "sFirst": "Primeiro",
+        "sLast": "Último"
+    },
+    "oAria": {
+        "sSortAscending": ": Ordenar colunas de forma ascendente",
+        "sSortDescending": ": Ordenar colunas de forma descendente"
+    }},
                 "language": {
                     "decimal": ",",
                     "thousands": "."
@@ -452,12 +473,16 @@
 
 
             $('#ddata').daterangepicker({
-                autoUpdateInput: false,
+                      autoUpdateInput: false,
+                          	language: 'pt-BR',
+
                 locale: {
                     format: 'DD/MM/YYYY'
                 }
+                
 
             });
+          
             $('#ddata').on('apply.daterangepicker', function(ev, picker) {
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
             });
@@ -471,9 +496,7 @@
                 format: 'dd/mm/yyyy',
                 language: 'pt-BR',
                 weekStart: 0
-
-
-            });
+                });
 
 
 

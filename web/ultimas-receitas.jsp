@@ -29,8 +29,8 @@
 </thead>
 <tfoot>
     <tr>
-        <th id="tt"></th>
-        <th><--Total</th>
+        <th><span id="tt"></span> <--Total</th>
+
     </tr>
 </tfoot>
 <tbody>
@@ -48,7 +48,7 @@
         <td><% out.print(d.getDebito_credito_st(d.getDebito_credito())); %></td>
         <td><% out.print(d.getVendido_recebido_st(d.getVendido_recebido())); %></td>
 
-        <td><a href="#modal-editar-receita" onclick='valores("<% out.print(d.getId());%>","<% out.print(d.getDebito_credito()); %>","<% out.print(d.getVendido_recebido()); %>","<% out.print(d.getReceita_origem().getId()); %>","<% out.print(Data.MudarFormatoDeData(d.getData())); %>", "<% out.print(d.getDescricao()); %>","<% out.print(Valor.FormatarValor(d.getValor()).replace("R$", "").trim()); %>")' data-toggle="modal" data-target="#modal-editar-receita">editar</a></td>
+        <td><a href="#modal-editar-receita" onclick='valores("<% out.print(d.getId());%>", "<% out.print(d.getDebito_credito()); %>", "<% out.print(d.getVendido_recebido()); %>", "<% out.print(d.getReceita_origem().getId()); %>", "<% out.print(Data.MudarFormatoDeData(d.getData())); %>", "<% out.print(d.getDescricao()); %>", "<% out.print(Valor.FormatarValor(d.getValor()).replace("R$", "").trim()); %>")' data-toggle="modal" data-target="#modal-editar-receita">editar</a></td>
 
 
     </tr>
@@ -66,14 +66,14 @@
 <script>
 
     $(document).ready(function() {
-        
-        
+
+
         $('#tbniveis').DataTable({
             "ordering": true,
             "scrollX": true,
             "order": [[2, 'desc']],
             "autoWidth": true,
-            "lengthMenu": [[10, 25, 50,100, -1], [10, 25, 50,100, "Todos"]],
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
             dom: 'l,Bfrtip',
             buttons: [
                 {extend: 'copy',
@@ -101,7 +101,7 @@
         })
 
 
-        
+
 
 
 
@@ -115,4 +115,4 @@
 </script>
 </body>
 </html>
-<% ObDaoReceita.fechar(); %>
+<% ObDaoReceita.fechar();%>
