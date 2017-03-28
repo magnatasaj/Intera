@@ -137,7 +137,7 @@ public class SvReceita extends HttpServlet {
             }
 
         } catch (NumberFormatException ex) {
-            response.getWriter().print(Alerta.erro("Erro no formato de número, hoje o dia não esta bom", ex.toString()));
+            response.getWriter().print(Alerta.erro("Erro no formato de número, O campo valor não pode ser vazio!", ex.toString()));
             Logger.getLogger(SvReceita.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             response.getWriter().print(Alerta.erro("PasresException", ex.toString()));

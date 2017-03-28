@@ -67,16 +67,15 @@ response.setHeader("Expires", "0"); // Proxies.
 }
 
 #status {
-  width: 250px;
+  width: 40px;
   height: 107px;
   position: absolute;
-  left: 50%;
+  left: 55%;
   /* centers the loading animation horizontally one the screen */
   top: 50%;
   /* centers the loading animation vertically one the screen */
   background-image: url('../<%out.print(Propriedade.getApp()); %>/dist/img/caregador.gif');
   /* path to your loading animation */
-  //background-repeat: no-repeat;
   background-position: center;
   margin: -100px 0 0 -100px;
   /* is width and height divided by two */

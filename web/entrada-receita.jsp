@@ -112,7 +112,7 @@
                                 <label for="valor" class="control-label">Valor R$:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    <input  class="form-control" name="valor" id="valor" autofocus>
+                                    <input  class="form-control" name="valor" id="valor" required autofocus>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -268,7 +268,7 @@
         </div>
         <!-- js -->
         <script>
-            $('#salvar').click(function(event) {
+        $('#salvar').click(function(event) {
                 var tipoRadios = $("input[name='tipoRadios']:checked").val();
                 var apRadios = $("input[name='apRadios']:checked").val();
                 var vrRadios = $("input[name='vrRadios']:checked").val();
@@ -276,6 +276,8 @@
                 var valor = $('#valor').val();
                 var data = $('#ddata').val();
                 var desc = $('#desc').val();
+                $('#valor').val("");
+                $('#desc').val("");
                 $.post('SvReceita', {
                     tipoRadios: tipoRadios,
                     apRadios: apRadios,
@@ -286,7 +288,7 @@
                     t: 'add'
                 }, function(responseText) {
 
-
+                
                     $("#edt").slideDown("slow");
                     carregar();
                     $('#edt').html(responseText);

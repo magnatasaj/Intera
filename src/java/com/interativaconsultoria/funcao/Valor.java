@@ -8,6 +8,7 @@ package com.interativaconsultoria.funcao;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Locale;
 
 /**
  *
@@ -17,7 +18,10 @@ public class Valor {
 
     public static String FormatarValor(BigDecimal v) throws ParseException {
         BigDecimal bd = new BigDecimal (v.toString());
-NumberFormat nf = NumberFormat.getCurrencyInstance();
+        Locale ptBr = new Locale( "pt" , "BR" );
+NumberFormat nf;
+        nf = NumberFormat.getCurrencyInstance(ptBr);
+    
 String s = nf.format (bd); // deve mostrar "R$ 12,34"
 
         return s;
