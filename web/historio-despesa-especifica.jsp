@@ -253,6 +253,14 @@
                     "paging": true,
                     "scrollX": true,
                     "lengthChange": true,
+                     "language": {
+            "decimal": ",",
+            "thousands": "."
+        },
+        "columnDefs": [
+                 { type: "date-br", targets: 1 }
+        
+               ],
                     "searching": true,
                     "ordering": true,
                     "info": true,

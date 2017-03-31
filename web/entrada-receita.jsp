@@ -345,7 +345,7 @@
                     $('#eddesc').val('');
 
                 });
-            })
+            });
             function valores(id, db, vr, or, data, desc, valor) {
                 $("#edid").val(id);
                 $("input[name='edtipoRadios'][value='" + or + "']").prop("checked", true);
@@ -354,7 +354,7 @@
 
                 $('#edvalor').val(valor);
                 $('#eddata').val(data);
-                $('#eddesc').val(desc);
+                $('#eddesc').val($("#tb"+id).text());
 
             }
 

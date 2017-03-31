@@ -17,7 +17,7 @@ public class Propriedade {
 
  
    
-    public static void setpropb() {
+    public static void setpropbk() {
         props.setProperty("prop.nome", "Interativaconsultoria");
         props.setProperty("prop.app", "Interativaconsultoria");
         props.setProperty("prop.tbp", "o_");
@@ -31,9 +31,9 @@ public class Propriedade {
     public static void setprop() {
        props.setProperty("prop.nome", "Lavoisier");
         props.setProperty("prop.app", "lavoisier");
-        props.setProperty("prop.db", "sistema");
-        props.setProperty("prop.user", "root");
-        props.setProperty("prop.senha", "semanaacademica");
+        props.setProperty("prop.db", "fininter_sistema");
+        props.setProperty("prop.user", "fininter");
+        props.setProperty("prop.senha", "FiNt7E766@I");
         props.setProperty("prop.host", "127.0.0.1");
         props.setProperty("prop.porta", "3306");
         props.setProperty("prop.tbp", "empresa_");
