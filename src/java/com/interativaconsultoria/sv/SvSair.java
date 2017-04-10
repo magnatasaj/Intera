@@ -31,7 +31,7 @@ public class SvSair extends HttpServlet {
         request.getSession().invalidate();
            
         
-        response.sendRedirect("/" +Propriedade.getApp());
+        response.sendRedirect("/Interativaconsultoria");
 
     }
 

@@ -8,7 +8,6 @@
 <%@page import="com.interativaconsultoria.dao.DaoDespesaNivel"%>
 <%@page import="com.interativaconsultoria.objetos.Despesa_Niveis"%>
 <%@page import="java.util.List"%>
-<% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel();%>
 
 
 
@@ -26,6 +25,7 @@
             <!-- Menu-lateral -->
             <%@include file="/partes/menu-lateral.jsp" %> 
             <!--#FEcha  Menu-lateral -->
+<% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(app.getPrefixo_tb());%>
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
@@ -379,5 +379,5 @@
 </script>
     </body>
 </html>
-<% ObDaoDespesaNivel.fechar();%>
+<% ObDaoDespesaNivel.fechar(); ls = null; System.gc();%>
 

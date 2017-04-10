@@ -1,4 +1,5 @@
 
+<%@page import="com.interativaconsultoria.objetos.App"%>
 <%@include file="/sessao.jsp" %>
 
 <head>
@@ -6,11 +7,15 @@
    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 response.setHeader("Expires", "0"); // Proxies.    
-   
-   
+   App aa = new App();
+   if(request.getSession().getAttribute("app") == null){
+       aa.setNome("Sistema financeiro");
+   }else{
+       aa = (App) request.getSession().getAttribute("app");
+   }
    %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><%out.print(Propriedade.getNome()); %></title>
+    <title><%out.print(aa.getNome()); %></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -74,7 +79,7 @@ response.setHeader("Expires", "0"); // Proxies.
   /* centers the loading animation horizontally one the screen */
   top: 50%;
   /* centers the loading animation vertically one the screen */
-  background-image: url('../<%out.print(Propriedade.getApp()); %>/dist/img/caregador.gif');
+  background-image: url('../Interativaconsultoria/dist/img/caregador.gif');
   /* path to your loading animation */
   background-position: center;
   margin: -100px 0 0 -100px;

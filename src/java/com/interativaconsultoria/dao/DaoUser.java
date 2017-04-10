@@ -25,9 +25,10 @@ public class DaoUser {
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
     private Connection conexao;
-    private String tbp = Propriedade.getTbp();
+    public String tbp;
 
-    public DaoUser() throws SQLException, ClassNotFoundException {
+    public DaoUser(String tb) throws SQLException, ClassNotFoundException {
+        this.tbp = tb;
         this.conexao = con.criarconexcao();
     }
 

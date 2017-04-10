@@ -17,10 +17,8 @@ public class Propriedade {
 
  
    
-    public static void setpropbk() {
-        props.setProperty("prop.nome", "Interativaconsultoria");
-        props.setProperty("prop.app", "Interativaconsultoria");
-        props.setProperty("prop.tbp", "o_");
+    public static void setprop() {
+        
         props.setProperty("prop.db", "sistema");
         props.setProperty("prop.user", "root");
         props.setProperty("prop.senha", "semanaacademica");
@@ -28,26 +26,7 @@ public class Propriedade {
         props.setProperty("prop.porta", "3306");
     }
     
-    public static void setprop() {
-       props.setProperty("prop.nome", "Lavoisier");
-        props.setProperty("prop.app", "lavoisier");
-        props.setProperty("prop.db", "fininter_sistema");
-        props.setProperty("prop.user", "fininter");
-        props.setProperty("prop.senha", "FiNt7E766@I");
-        props.setProperty("prop.host", "127.0.0.1");
-        props.setProperty("prop.porta", "3306");
-        props.setProperty("prop.tbp", "empresa_");
-
-    }
-    
    
-    
-    
-    public static String getApp() {
-        setprop();
-        System.err.println("app:" + props.getProperty("prop.app"));
-        return props.getProperty("prop.app");
-    }
 
     public static String getDb() {
         setprop();
@@ -74,14 +53,7 @@ public class Propriedade {
         return props.getProperty("prop.porta");
     }
 
-    public static String getNome() {
-        setprop();
-        return props.getProperty("prop.nome");
-    }
+  
 
-    public static String getTbp() {
-        setprop();
-        return props.getProperty("prop.tbp");
-    }
 
 }

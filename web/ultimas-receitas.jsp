@@ -1,3 +1,4 @@
+<%@page import="com.interativaconsultoria.objetos.App"%>
 <%@page import="com.interativaconsultoria.objetos.Receita"%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Calendar"%>
@@ -8,7 +9,8 @@
 <%@page import="com.interativaconsultoria.dao.DaoReceita"%>
 <%@page import="com.interativaconsultoria.dao.DaoDespesaNivel"%>
 <%@page import="java.util.List"%>
-<% DaoReceita ObDaoReceita = new DaoReceita();
+<% App app2 = (App)request.getSession().getAttribute("app");
+    DaoReceita ObDaoReceita = new DaoReceita(app2.getPrefixo_tb());
     request.setCharacterEncoding("UTF-8");    %>
 
 

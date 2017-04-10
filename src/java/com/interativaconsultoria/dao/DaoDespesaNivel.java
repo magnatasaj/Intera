@@ -24,9 +24,10 @@ public class DaoDespesaNivel {
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
     private Connection conexao;
-    private String tbp = Propriedade.getTbp();
+    private String tbp;
 
-    public DaoDespesaNivel() throws SQLException, ClassNotFoundException {
+    public DaoDespesaNivel(String tb) throws SQLException, ClassNotFoundException {
+        this.tbp = tb;
         this.conexao = con.criarconexcao();
     }
      public void fechar() throws SQLException{

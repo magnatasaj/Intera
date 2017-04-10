@@ -13,7 +13,6 @@
 <%@page import="com.interativaconsultoria.dao.DaoDespesaNivel"%>
 <%@page import="com.interativaconsultoria.objetos.Despesa_Niveis"%>
 <%@page import="java.util.List"%>
-<% DaoReceitaOrigem ObDaoReceitaOrigem = new DaoReceitaOrigem(); %>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -31,6 +30,7 @@
             <!-- Menu-lateral -->
             <%@include file="/partes/menu-lateral.jsp" %> 
             <!--#FEcha  Menu-lateral -->
+<% DaoReceitaOrigem ObDaoReceitaOrigem = new DaoReceitaOrigem(app.getPrefixo_tb()); %>
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">

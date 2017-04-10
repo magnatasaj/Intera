@@ -11,77 +11,13 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="com.interativaconsultoria.dao.DaoReceita"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% DaoReceita ObDaoReceita = new DaoReceita(); %>
-<%
-                            String data_in = request.getParameter("dinicial") != null ? request.getParameter("dinicial") : "falso";
-                            String data_fi = request.getParameter("dfinal") != null ? request.getParameter("dfinal") : "falso";
 
-                            String dinheiro = "0";
-                            String cheque_prazo_v = "0";
-                            String cheque_prazo_r = "0";
-                            String cheque_avista = "0";
-
-                            String cartao_avista = "0";
-                            String cartao_prazo_v = "0";
-                            String cartao_prazo_r = "0";
-
-                            String promissoria_v = "0";
-                            String promissoria_r = "0";
-
-                            BigDecimal vendido = new BigDecimal("0");
-                            BigDecimal recebido = new BigDecimal("0");
-                            BigDecimal futuro = new BigDecimal("0");
-
-                            if (!data_fi.equals("falso") && !data_in.equals("falso")) {
-                                DateFormat formatter;
-                                Date date1;
-                                Date date2;
-                                formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                date1 = (Date) formatter.parse(data_in);
-                                date2 = (Date) formatter.parse(data_fi);
-
-                                dinheiro = ObDaoReceita.Consultar_Receita_data(date1, date2, 1, 1, 1).toString();
-                                cheque_prazo_v = ObDaoReceita.Consultar_Receita_data(date1, date2, 3, 2, 2).toString();
-                                cheque_prazo_r = ObDaoReceita.Consultar_Receita_data(date1, date2, 3, 2, 1).toString();
-                                cheque_avista = ObDaoReceita.Consultar_Receita_data(date1, date2, 3, 1, 1).toString();
-
-                                cartao_avista = ObDaoReceita.Consultar_Receita_data(date1, date2, 2, 1, 1).toString();
-                                cartao_prazo_v = ObDaoReceita.Consultar_Receita_data(date1, date2, 2, 2, 2).toString();
-                                cartao_prazo_r = ObDaoReceita.Consultar_Receita_data(date1, date2, 2, 2, 1).toString();
-
-                                promissoria_v = ObDaoReceita.Consultar_Receita_data(date1, date2, 4, 2, 2).toString();
-                                promissoria_r = ObDaoReceita.Consultar_Receita_data(date1, date2, 4, 2, 1).toString();
-
-                                BigDecimal soma_v = new BigDecimal("0");
-                                BigDecimal soma_r = new BigDecimal("0");
-                                BigDecimal soma_f = new BigDecimal("0");
-
-                                vendido = vendido.add(soma_v.add(new BigDecimal(dinheiro)));
-                                vendido = vendido.add(soma_v.add(new BigDecimal(cheque_avista)));
-                                vendido = vendido.add(soma_v.add(new BigDecimal(cheque_prazo_v)));
-                                vendido = vendido.add(soma_v.add(new BigDecimal(cartao_avista)));
-                                vendido = vendido.add(soma_v.add(new BigDecimal(cartao_prazo_v)));
-                                vendido = vendido.add(soma_v.add(new BigDecimal(promissoria_v)));
-
-                                recebido = recebido.add(soma_r.add(new BigDecimal(dinheiro)));
-                                recebido = recebido.add(soma_r.add(new BigDecimal(cheque_avista)));
-                                recebido = recebido.add(soma_r.add(new BigDecimal(cheque_prazo_r)));
-                                recebido = recebido.add(soma_r.add(new BigDecimal(cartao_avista)));
-                                recebido = recebido.add(soma_r.add(new BigDecimal(cartao_prazo_r)));
-                                recebido = recebido.add(soma_r.add(new BigDecimal(promissoria_r)));
-
-                                futuro = futuro.add(soma_f.add(new BigDecimal(cartao_prazo_v)));
-                                futuro = futuro.add(soma_f.add(new BigDecimal(cheque_prazo_v)));
-                                futuro = futuro.add(soma_f.add(new BigDecimal(promissoria_v)));
-
-                            }
-
-                        %>
 
 <!-- meta-data -->
 <!DOCTYPE html>
 <html>
     <%@include file="partes/meta-data.jsp" %>  
+    
     <style id="Base Controle Receitas 2016_10571_Styles">
         <!--table
         {mso-displayed-decimal-separator:"\,";
@@ -319,7 +255,72 @@
             <!-- Menu-lateral -->
             <%@include file="/partes/menu-lateral.jsp" %> 
             <!--#FEcha  Menu-lateral -->
+<% DaoReceita ObDaoReceita = new DaoReceita(app.getPrefixo_tb()); %>
+<%
+                            String data_in = request.getParameter("dinicial") != null ? request.getParameter("dinicial") : "falso";
+                            String data_fi = request.getParameter("dfinal") != null ? request.getParameter("dfinal") : "falso";
 
+                            String dinheiro = "0";
+                            String cheque_prazo_v = "0";
+                            String cheque_prazo_r = "0";
+                            String cheque_avista = "0";
+
+                            String cartao_avista = "0";
+                            String cartao_prazo_v = "0";
+                            String cartao_prazo_r = "0";
+
+                            String promissoria_v = "0";
+                            String promissoria_r = "0";
+
+                            BigDecimal vendido = new BigDecimal("0");
+                            BigDecimal recebido = new BigDecimal("0");
+                            BigDecimal futuro = new BigDecimal("0");
+
+                            if (!data_fi.equals("falso") && !data_in.equals("falso")) {
+                                DateFormat formatter;
+                                Date date1;
+                                Date date2;
+                                formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                date1 = (Date) formatter.parse(data_in);
+                                date2 = (Date) formatter.parse(data_fi);
+
+                                dinheiro = ObDaoReceita.Consultar_Receita_data(date1, date2, 1, 1, 1).toString();
+                                cheque_prazo_v = ObDaoReceita.Consultar_Receita_data(date1, date2, 3, 2, 2).toString();
+                                cheque_prazo_r = ObDaoReceita.Consultar_Receita_data(date1, date2, 3, 2, 1).toString();
+                                cheque_avista = ObDaoReceita.Consultar_Receita_data(date1, date2, 3, 1, 1).toString();
+
+                                cartao_avista = ObDaoReceita.Consultar_Receita_data(date1, date2, 2, 1, 1).toString();
+                                cartao_prazo_v = ObDaoReceita.Consultar_Receita_data(date1, date2, 2, 2, 2).toString();
+                                cartao_prazo_r = ObDaoReceita.Consultar_Receita_data(date1, date2, 2, 2, 1).toString();
+
+                                promissoria_v = ObDaoReceita.Consultar_Receita_data(date1, date2, 4, 2, 2).toString();
+                                promissoria_r = ObDaoReceita.Consultar_Receita_data(date1, date2, 4, 2, 1).toString();
+
+                                BigDecimal soma_v = new BigDecimal("0");
+                                BigDecimal soma_r = new BigDecimal("0");
+                                BigDecimal soma_f = new BigDecimal("0");
+
+                                vendido = vendido.add(soma_v.add(new BigDecimal(dinheiro)));
+                                vendido = vendido.add(soma_v.add(new BigDecimal(cheque_avista)));
+                                vendido = vendido.add(soma_v.add(new BigDecimal(cheque_prazo_v)));
+                                vendido = vendido.add(soma_v.add(new BigDecimal(cartao_avista)));
+                                vendido = vendido.add(soma_v.add(new BigDecimal(cartao_prazo_v)));
+                                vendido = vendido.add(soma_v.add(new BigDecimal(promissoria_v)));
+
+                                recebido = recebido.add(soma_r.add(new BigDecimal(dinheiro)));
+                                recebido = recebido.add(soma_r.add(new BigDecimal(cheque_avista)));
+                                recebido = recebido.add(soma_r.add(new BigDecimal(cheque_prazo_r)));
+                                recebido = recebido.add(soma_r.add(new BigDecimal(cartao_avista)));
+                                recebido = recebido.add(soma_r.add(new BigDecimal(cartao_prazo_r)));
+                                recebido = recebido.add(soma_r.add(new BigDecimal(promissoria_r)));
+
+                                futuro = futuro.add(soma_f.add(new BigDecimal(cartao_prazo_v)));
+                                futuro = futuro.add(soma_f.add(new BigDecimal(cheque_prazo_v)));
+                                futuro = futuro.add(soma_f.add(new BigDecimal(promissoria_v)));
+
+                            }
+
+                        %>
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
                 <div class="box bg-red-active" >

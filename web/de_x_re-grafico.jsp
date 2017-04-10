@@ -19,21 +19,6 @@
 <%@page import="com.interativaconsultoria.objetos.Despesa_Niveis"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% DaoReceita ObDaoReceita = new DaoReceita(); %>
-<% DaoDespesa ObDaoDespesa = new DaoDespesa(); %>
-
-<% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(); %>
-<%
-    Calendar cal = GregorianCalendar.getInstance();
-    String ano = "";
-    if (request.getParameter("ano") == null) {
-        ano = Integer.toString(cal.get(Calendar.YEAR));
-    } else {
-        ano = request.getParameter("ano");
-    }
-
-
-%>
 
 
 <!-- meta-data -->
@@ -50,6 +35,21 @@
             <!-- Menu-lateral -->
             <%@include file="/partes/menu-lateral.jsp" %> 
             <!--#FEcha  Menu-lateral -->
+<% DaoReceita ObDaoReceita = new DaoReceita(app.getPrefixo_tb()); %>
+<% DaoDespesa ObDaoDespesa = new DaoDespesa(app.getPrefixo_tb()); %>
+
+<% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(app.getPrefixo_tb()); %>
+<%
+    Calendar cal = GregorianCalendar.getInstance();
+    String ano = "";
+    if (request.getParameter("ano") == null) {
+        ano = Integer.toString(cal.get(Calendar.YEAR));
+    } else {
+        ano = request.getParameter("ano");
+    }
+
+
+%>
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
@@ -71,7 +71,7 @@
                             <h1 class="box-title">Escolha o ano para geração dos gráficos</h1>
                             <select id="ano" name="ano" class="form-control">
                                 <option></option>
-                                <% DaoAno dano = new DaoAno();
+                                <% DaoAno dano = new DaoAno(app.getPrefixo_tb());
                                     List<Integer> lano = dano.Lista_anos();
                                     for (int an : lano) { %>  
                                 <option><% out.println(an); %></option>
@@ -354,7 +354,8 @@
     </body>
 </html>
 <%ObDaoReceita.fechar();  %>
-<% ObDaoDespesa.fechar();  %>
+<% ObDaoDespesa.fechar(); 
+ %>
 
 <% ObDaoDespesaNivel.fechar(); %>
-<% dano.fechar(); %> 
+<% dano.fechar(); v = null; System.gc(); %> 

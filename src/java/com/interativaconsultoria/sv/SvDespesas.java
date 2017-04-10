@@ -7,8 +7,10 @@ package com.interativaconsultoria.sv;
 
 import com.interativaconsultoria.dao.DaoDespesa;
 import com.interativaconsultoria.dao.DaoDespesaNivel;
+import com.interativaconsultoria.objetos.App;
 import com.interativaconsultoria.objetos.Despesa;
 import com.interativaconsultoria.objetos.Despesa_Niveis;
+import com.interativaconsultoria.objetos.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -44,7 +46,10 @@ public class SvDespesas extends HttpServlet {
         
         
         try {
+            User al = (User)request.getSession().getAttribute("nome");
+            App app = (App)request.getSession().getAttribute("app");
             if (request.getParameter("t").equals("add")) {
+                
                 String d = request.getParameter("valor").trim();
                 String id = request.getParameter("id");
                 String desc = request.getParameter("desc");
@@ -65,8 +70,8 @@ public class SvDespesas extends HttpServlet {
                 ObDespesa.setValor(valor);
                 ObDespesa.setData(date);
                 ObDespesa.setDescricao(desc);
-                DaoDespesa ObDaoDespesa = new DaoDespesa();
-                ObDaoDespesa.Adicionar_Despesa(ObDespesa);
+                DaoDespesa ObDaoDespesa = new DaoDespesa(app.getPrefixo_tb());
+                ObDaoDespesa.Adicionar_Despesa(ObDespesa,al.getId());
                 response.getWriter().print(Alerta.Ok("Salvo com sucesso"));
             }
             
@@ -91,7 +96,7 @@ public class SvDespesas extends HttpServlet {
                 ObDespesa.setValor(valor);
                 ObDespesa.setData(date);
                 ObDespesa.setDescricao(desc);
-                DaoDespesa ObDaoDespesa = new DaoDespesa();
+                DaoDespesa ObDaoDespesa = new DaoDespesa(app.getPrefixo_tb());
                 ObDaoDespesa.Editar_Despesa(ObDespesa);
                 response.getWriter().print(Alerta.Ok("Atualizado com sucesso"));
             }
@@ -102,7 +107,7 @@ public class SvDespesas extends HttpServlet {
              
                 Despesa ObDespesa = new Despesa();
                 ObDespesa.setId(iddespesa);
-                DaoDespesa ObDaoDespesa = new DaoDespesa();
+                DaoDespesa ObDaoDespesa = new DaoDespesa(app.getPrefixo_tb());
                 ObDaoDespesa.Excluir_Despesa(ObDespesa);
                 response.getWriter().print(Alerta.Ok("Excluido com sucesso!"));
             }

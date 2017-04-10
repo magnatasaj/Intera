@@ -1,6 +1,5 @@
 <%@page import="com.interativaconsultoria.dao.Jdbc"%>
 <%@page import="com.interativaconsultoria.dao.Propriedade"%>
-<%@page import="java.util.Properties"%>
 
 <%
    //System.out.print("url:" + request.getServletPath());

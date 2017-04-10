@@ -22,9 +22,10 @@ public class DaoLogin {
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
     private Connection conexao;
-    private String tbp = Propriedade.getTbp();
+    private String tbp;
 
-    public DaoLogin() throws SQLException, ClassNotFoundException {
+    public DaoLogin(String tb) throws SQLException, ClassNotFoundException {
+        this.tbp = tb;
         this.conexao = con.criarconexcao();
     }
 

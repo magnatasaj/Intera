@@ -1,3 +1,4 @@
+<%@page import="com.interativaconsultoria.objetos.App"%>
 <%@page import="com.interativaconsultoria.objetos.User"%>
 <%@page import="com.interativaconsultoria.dao.DaoUser"%>
 <%@page import="com.interativaconsultoria.objetos.Receita"%>
@@ -10,7 +11,9 @@
 <%@page import="com.interativaconsultoria.dao.DaoReceita"%>
 <%@page import="com.interativaconsultoria.dao.DaoDespesaNivel"%>
 <%@page import="java.util.List"%>
-<% DaoUser daoUser = new DaoUser();
+<% App app2 = (App)request.getSession().getAttribute("app");
+    DaoReceita ObDaoReceita = new DaoReceita(app2.getPrefixo_tb());
+    DaoUser daoUser = new DaoUser(app2.getPrefixo_tb());
     request.setCharacterEncoding("UTF-8");    %>
 
 

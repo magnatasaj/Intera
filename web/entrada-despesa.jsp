@@ -14,8 +14,25 @@
 <%@page import="com.interativaconsultoria.dao.DaoDespesaNivel"%>
 <%@page import="com.interativaconsultoria.objetos.Despesa_Niveis"%>
 <%@page import="java.util.List"%>
-<% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(); %>
-<% DaoDespesa ObDaoDespesa = new DaoDespesa(); %>
+
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!-- meta-data -->
+<!DOCTYPE html>
+<html>
+    <%@include file="partes/meta-data.jsp" %>    
+    <!-- #Meta-data ------------------------------------------------------------------------------------------------->
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            <!-- Menu-Topo -->   
+            <%@include file="partes/menu-topo.jsp" %>    
+
+            <!-- #fecha MEnu-top ------------------------------------------------------------------------------------------->
+            <!-- Menu-lateral -->
+            <%@include file="/partes/menu-lateral.jsp" %> 
+            <!--#FEcha  Menu-lateral -->
+<% DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(app.getPrefixo_tb()); %>
+<% DaoDespesa ObDaoDespesa = new DaoDespesa(app.getPrefixo_tb()); %>
 <%
 
     Calendar cal = GregorianCalendar.getInstance();
@@ -36,23 +53,6 @@
     }
 
 %>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!-- meta-data -->
-<!DOCTYPE html>
-<html>
-    <%@include file="partes/meta-data.jsp" %>    
-    <!-- #Meta-data ------------------------------------------------------------------------------------------------->
-    <body class="hold-transition skin-blue sidebar-mini">
-        <div class="wrapper">
-            <!-- Menu-Topo -->   
-            <%@include file="partes/menu-topo.jsp" %>    
-
-            <!-- #fecha MEnu-top ------------------------------------------------------------------------------------------->
-            <!-- Menu-lateral -->
-            <%@include file="/partes/menu-lateral.jsp" %> 
-            <!--#FEcha  Menu-lateral -->
-
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
                 <div class="box" style="border-top: 5px solid red">
@@ -66,7 +66,7 @@
                                     ANO:
                                     <select id="ano" name="ano" class="form-control">
                                         <option></option>
-                                        <% DaoAno dano = new DaoAno();
+                                        <% DaoAno dano = new DaoAno(app.getPrefixo_tb());
                                             List<Integer> lano = dano.Lista_anos();
                                             for (int an : lano) { %>  
                                         <option><% out.println(an); %></option>
@@ -387,4 +387,4 @@
 
 </body>
 </html>
-<% ObDaoDespesa.fechar();%>
+<% ObDaoDespesa.fechar(); ls = null; System.gc();%>

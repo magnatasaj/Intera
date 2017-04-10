@@ -5,8 +5,10 @@
  */
 package com.interativaconsultoria.sv;
 
+import com.interativaconsultoria.dao.DaoApp;
 import com.interativaconsultoria.dao.DaoLogin;
 import com.interativaconsultoria.dao.DaoUser;
+import com.interativaconsultoria.objetos.App;
 import com.interativaconsultoria.objetos.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,20 +44,28 @@ public class SvEntrar extends HttpServlet {
             throws ServletException, IOException {
         try {
              response.setContentType("text/plain");
-            DaoLogin dlo = new DaoLogin();
-            DaoUser dal = new DaoUser();
+            
+           
             String e = request.getParameter("email");
             String s = request.getParameter("senha");
+            String app = request.getParameter("app");
+            String appn = request.getParameter("appn");
+            DaoLogin dlo = new DaoLogin(app);
+            DaoUser dal = new DaoUser(app);
+            DaoApp daoApp = new DaoApp();
             int id = dlo.Consultar_Login(request.getParameter("email"),request.getParameter("senha"));
             if(id == 0){
                         response.getWriter().write("Email ou Senha estão incoretos!");
 
             }else{
             User als = new User();
+            App obapp = new App();
+            obapp = daoApp.obj_app(appn);
             als = dal.Obj_Aluno(Integer.toString(id));
             HttpSession session = request.getSession(true);
           //passa nome para a sessão
-         session.setAttribute("nome",als);   
+         session.setAttribute("nome",als);
+         session.setAttribute("app",obapp);
          response.getWriter().write(e);
             }
         } catch (SQLException ex) {

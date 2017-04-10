@@ -12,7 +12,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script src="/<%out.print(Propriedade.getApp());%>/legenda/legend.js" type="text/javascript"></script>
+<script src="/Interativaconsultoria/legenda/legend.js" type="text/javascript"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!--- script para tabela,soma da tabela e ordenação -->

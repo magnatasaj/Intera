@@ -6,6 +6,7 @@
 package com.interativaconsultoria.sv;
 
 import com.interativaconsultoria.dao.DaoDespesaNivel;
+import com.interativaconsultoria.objetos.App;
 import com.interativaconsultoria.objetos.Despesa_Niveis;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,13 +32,15 @@ public class SvNiveis extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
+                        App app = (App)request.getSession().getAttribute("app");
+
             if (request.getParameter("t").equals("psv")) {
                 String nome = request.getParameter("nome").trim();
                 int ordem = Integer.parseInt(request.getParameter("ordem").trim());
                 Despesa_Niveis ObDespesa_Niveis = new Despesa_Niveis();
                 ObDespesa_Niveis.setNome(nome);
                 ObDespesa_Niveis.setOrdem(ordem);
-                DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel();
+                DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(app.getPrefixo_tb());
                 ObDaoDespesaNivel.Adicionar_Nivel_Pai(ObDespesa_Niveis);
                 response.getWriter().print(Alerta.Ok("Salvo com sucesso"));
             }
@@ -51,7 +54,7 @@ public class SvNiveis extends HttpServlet {
                 ObDespesa_Niveis.setNome(nome);
                 ObDespesa_Niveis.setOrdem(ordem);
                 ObDespesa_Niveis.setPai(idpai);
-                DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel();
+                DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(app.getPrefixo_tb());
                 ObDaoDespesaNivel.Adicionar_Nivel_1(ObDespesa_Niveis);
                 response.getWriter().print(Alerta.Ok("Salvo com sucesso"));
             }
@@ -66,7 +69,7 @@ public class SvNiveis extends HttpServlet {
                 ObDespesa_Niveis.setNome(nome);
                 ObDespesa_Niveis.setOrdem(ordem);
                 ObDespesa_Niveis.setId(id);
-                DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel();
+                DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(app.getPrefixo_tb());
                 ObDaoDespesaNivel.Editar_Nivel(ObDespesa_Niveis);
                 response.getWriter().print(Alerta.Ok("Atualizado com sucesso"));
             }
@@ -76,7 +79,7 @@ public class SvNiveis extends HttpServlet {
             if (request.getParameter("t").equals("exc")) {
 
                 int id = Integer.parseInt(request.getParameter("id").trim());
-                DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel();
+                DaoDespesaNivel ObDaoDespesaNivel = new DaoDespesaNivel(app.getPrefixo_tb());
                 List<Despesa_Niveis> ls = ObDaoDespesaNivel.Consultar_Todos_Nivel();
                  for(Despesa_Niveis d : ls){
                  if(d.getId() == id){ 

@@ -33,9 +33,10 @@ public class DaoDespesa {
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
     private Connection conexao;
-    private String tbp = Propriedade.getTbp();
+    private String tbp;
 
-    public DaoDespesa() throws SQLException, ClassNotFoundException {
+    public DaoDespesa(String tb) throws SQLException, ClassNotFoundException {
+        this.tbp = tb;
         this.conexao = con.criarconexcao();
     }
 
@@ -44,15 +45,16 @@ public class DaoDespesa {
 
     }
 
-    public void Adicionar_Despesa(Despesa De) throws SQLException {
+    public void Adicionar_Despesa(Despesa De,int iduser) throws SQLException {
 
-        String sql = "INSERT INTO `" + tbp + "despesa` (`id`, `valor`, `data`, `id_nivel`,`descricao`) VALUES (NULL, ?, ?, ?,?);";
+        String sql = "INSERT INTO `" + tbp + "despesa` (`id`, `valor`, `data`, `id_nivel`,`descricao`,id_user) VALUES (NULL, ?, ?, ?,?,?);";
         java.util.Date d = De.getData();
         ps = conexao.prepareStatement(sql);
         ps.setBigDecimal(1, De.getValor());
         ps.setDate(2, new java.sql.Date(De.getData().getTime()));
         ps.setInt(3, De.getId_nivel());
         ps.setString(4, De.getDescricao());
+        ps.setInt(5, iduser);
         ps.execute();
         ps.close();
 
@@ -115,7 +117,7 @@ public class DaoDespesa {
     }
 
     public String Despesa_Grafico_nivel(String ano) throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
+        DaoDespesaNivel obj = new DaoDespesaNivel(tbp);
         List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
         int i = 0;
 
@@ -144,7 +146,7 @@ public class DaoDespesa {
     }
 
     public String Despesa_Grafico_nivel1(String ano) throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
+        DaoDespesaNivel obj = new DaoDespesaNivel(tbp);
         List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
 
         Cores c = new Cores();
@@ -192,7 +194,7 @@ public class DaoDespesa {
     }
 
     public String Despesa_Grafico_nivel2(String ano) throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
+        DaoDespesaNivel obj = new DaoDespesaNivel(tbp);
         List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
 
         Cores c = new Cores();
@@ -238,7 +240,7 @@ public class DaoDespesa {
     }
 
     public BigDecimal Despesa_tabela_nivel1_total(int id, String ano, int mes) throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
+        DaoDespesaNivel obj = new DaoDespesaNivel(tbp);
         List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
 
         int i = 0;
@@ -274,7 +276,7 @@ public class DaoDespesa {
     }
 
     public BigDecimal Despesa_tabela_nivel2_total(int id, String ano, int mes) throws SQLException, ClassNotFoundException {
-        DaoDespesaNivel obj = new DaoDespesaNivel();
+        DaoDespesaNivel obj = new DaoDespesaNivel(tbp);
         List<Despesa_Niveis> lista = obj.Consultar_Nivel_Final();
 
         int i = 0;

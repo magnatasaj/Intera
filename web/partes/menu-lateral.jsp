@@ -1,4 +1,7 @@
-
+<%
+    App app = (App)request.getSession().getAttribute("app");
+    %>
+<%@page import="com.interativaconsultoria.objetos.App"%>
 <%@page import="java.util.Properties"%>
 <%@page import="com.interativaconsultoria.dao.Propriedade"%>
 <%@page import="com.interativaconsultoria.objetos.User"%>
@@ -10,10 +13,10 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
         <div class="pull-left image" style="min-height: 40px">
-          <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image">
+          <img src="/Interativaconsultoria/dist/img/<%out.print(app.getNome_sistema()); %>.png" class="img-thumbnail" alt="User Image">
         </div>
             <div class="pull-left info" style="color: #FFF">
-                 <p>APP: <%out.print(Propriedade.getNome()); %></p>
+                 <p>APP: <%out.print(app.getNome()); %></p>
 
                 <p>Olá, <% User al = new User();
             al = (User)session.getAttribute("nome");
@@ -103,7 +106,7 @@
                 </a>
                 <ul id="treeview-menu" class="treeview-menu">
                     <li><a href="gerenciar-usuarios.jsp" ><i class="glyphicon glyphicon-user"></i>Usuários</a></li>
-                    <li><a href="/<%out.print(Propriedade.getApp()); %>/SvSair" ><i class="glyphicon glyphicon-lock"></i>Sair</a></li>
+                    <li><a href="/Interativaconsultoria/SvSair" ><i class="glyphicon glyphicon-lock"></i>Sair</a></li>
 
 
 

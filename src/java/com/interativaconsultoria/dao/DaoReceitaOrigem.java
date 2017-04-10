@@ -25,9 +25,10 @@ public class DaoReceitaOrigem {
     private ResultSet rs = null;
     private Jdbc con = new Jdbc();
     private Connection conexao;
-    private String tbp = Propriedade.getTbp();
+    private String tbp;
 
-    public DaoReceitaOrigem() throws SQLException, ClassNotFoundException {
+    public DaoReceitaOrigem(String tb) throws SQLException, ClassNotFoundException {
+        this.tbp = tb;
         this.conexao = con.criarconexcao();
     }
 

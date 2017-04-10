@@ -44,3 +44,4 @@
 </html>
 
 <%@include file="/partes/javascript.jsp" %> 
+<% System.gc(); %>

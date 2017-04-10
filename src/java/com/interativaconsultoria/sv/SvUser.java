@@ -10,6 +10,7 @@ import com.interativaconsultoria.dao.DaoDespesa;
 import com.interativaconsultoria.dao.DaoDespesaNivel;
 import com.interativaconsultoria.dao.DaoReceita;
 import com.interativaconsultoria.dao.DaoUser;
+import com.interativaconsultoria.objetos.App;
 import com.interativaconsultoria.objetos.Despesa;
 import com.interativaconsultoria.objetos.Despesa_Niveis;
 import com.interativaconsultoria.objetos.Receita;
@@ -49,6 +50,7 @@ public class SvUser extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
+            App app = (App)request.getSession().getAttribute("app");
             if (request.getParameter("t").equals("add")) {
                 String nome = request.getParameter("nome").trim();
                 String email = request.getParameter("email");
@@ -62,7 +64,7 @@ public class SvUser extends HttpServlet {
                 user.setSenha(senha);
                 user.setTipo(Integer.parseInt(tipo));
                 
-                DaoUser daoUser = new DaoUser();
+                DaoUser daoUser = new DaoUser(app.getPrefixo_tb());
                 daoUser.Aluno_Salvar(user);
                 
                 response.getWriter().print(Alerta.Ok("Adicionado com sucesso."));
@@ -83,7 +85,7 @@ public class SvUser extends HttpServlet {
                 user.setSenha(senha);
                 user.setTipo(Integer.parseInt(tipo));
                 
-                DaoUser daoUser = new DaoUser();
+                DaoUser daoUser = new DaoUser(app.getPrefixo_tb());
                 daoUser.Aluno_atualizar(user);
                 
                 response.getWriter().print(Alerta.Ok("As alterações foram salvas!"));
@@ -91,7 +93,7 @@ public class SvUser extends HttpServlet {
 
             if (request.getParameter("t").equals("exc")) {
                 String id = request.getParameter("id").trim();
-                DaoUser daoUser = new DaoUser();
+                DaoUser daoUser = new DaoUser(app.getPrefixo_tb());
                 daoUser.Aluno_excluir(Integer.parseInt(id));
                 response.getWriter().print(Alerta.Ok("Foi excluido com sucesso!"));
             }

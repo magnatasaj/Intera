@@ -8,10 +8,12 @@ package com.interativaconsultoria.sv;
 import com.interativaconsultoria.dao.DaoDespesa;
 import com.interativaconsultoria.dao.DaoDespesaNivel;
 import com.interativaconsultoria.dao.DaoReceita;
+import com.interativaconsultoria.objetos.App;
 import com.interativaconsultoria.objetos.Despesa;
 import com.interativaconsultoria.objetos.Despesa_Niveis;
 import com.interativaconsultoria.objetos.Receita;
 import com.interativaconsultoria.objetos.ReceitaOrigem;
+import com.interativaconsultoria.objetos.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -46,6 +48,9 @@ public class SvReceita extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
+            User al = (User) request.getSession().getAttribute("nome");
+            App app = (App) request.getSession().getAttribute("app");
+
             if (request.getParameter("t").equals("add")) {
                 String d = request.getParameter("valor").trim();
                 String receita_origem = request.getParameter("tipoRadios");
@@ -55,7 +60,7 @@ public class SvReceita extends HttpServlet {
                 String desc = request.getParameter("desc");
                 String str_data = request.getParameter("data").trim();
                 str_data = str_data.replace("-", "/");
-                
+
                 int receita_origem_id = Integer.parseInt(receita_origem);
                 int debito_creditoI = Integer.parseInt(debito_credito);
                 int vendido_recebidoI = Integer.parseInt(vendido_recebido);
@@ -79,8 +84,8 @@ public class SvReceita extends HttpServlet {
                 ObReceita.setValor(valor);
                 ObReceita.setData(date);
                 ObReceita.setDescricao(desc);
-                DaoReceita ObDaoReceita = new DaoReceita();
-                ObDaoReceita.Adicionar_Receita(ObReceita);
+                DaoReceita ObDaoReceita = new DaoReceita(app.getPrefixo_tb());
+                ObDaoReceita.Adicionar_Receita(ObReceita, al.getId());
                 response.getWriter().print(Alerta.Ok("Adicionado com sucesso. Espero que sempre seja assim"));
             }
 
@@ -95,7 +100,7 @@ public class SvReceita extends HttpServlet {
                 String desc = request.getParameter("desc");
                 String str_data = request.getParameter("data").trim();
                 str_data = str_data.replace("-", "/");
-                
+
                 int receita_origem_id = Integer.parseInt(receita_origem);
                 int debito_creditoI = Integer.parseInt(debito_credito);
                 int vendido_recebidoI = Integer.parseInt(vendido_recebido);
@@ -120,7 +125,7 @@ public class SvReceita extends HttpServlet {
                 ObReceita.setValor(valor);
                 ObReceita.setData(date);
                 ObReceita.setDescricao(desc);
-                DaoReceita ObDaoReceita = new DaoReceita();
+                DaoReceita ObDaoReceita = new DaoReceita(app.getPrefixo_tb());
                 ObDaoReceita.Editar_Receita(ObReceita);
                 response.getWriter().print(Alerta.Ok("As alterações foram salvas. Isso é bom!"));
             }
@@ -131,7 +136,7 @@ public class SvReceita extends HttpServlet {
 
                 Receita ObReceita = new Receita();
                 ObReceita.setId(iddespesa);
-                DaoReceita ObDaoReceita = new DaoReceita();
+                DaoReceita ObDaoReceita = new DaoReceita(app.getPrefixo_tb());
                 ObDaoReceita.Excluir_Receita(ObReceita);
                 response.getWriter().print(Alerta.Ok("Que pena, foi excluido com sucesso a receita!"));
             }
@@ -148,7 +153,7 @@ public class SvReceita extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             response.getWriter().print(Alerta.erro("Erro Classe não existe. Vix, é melhor chamar o suporte", ex.toString()));
             Logger.getLogger(SvReceita.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(NullPointerException ex){
+        } catch (NullPointerException ex) {
             response.getWriter().print(Alerta.erro("Valor Vazío. Os campos tem que está preenchidos", ex.toString()));
             Logger.getLogger(SvReceita.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -36,17 +36,17 @@ public class DaoReceita {
     private ResultSet rs2 = null;
     private Jdbc con = new Jdbc();
     private final Connection conexao;
-    private String tbp = Propriedade.getTbp();
+    private String tbp;
 
-    public DaoReceita() throws SQLException, ClassNotFoundException {
-
+    public DaoReceita(String tb) throws SQLException, ClassNotFoundException {
+       this.tbp = tb;
         this.conexao = con.criarconexcao();
 
     }
 
-    public void Adicionar_Receita(Receita Re) throws SQLException {
+    public void Adicionar_Receita(Receita Re, int id_user) throws SQLException {
 
-        String sql = "INSERT INTO `" + tbp + "receita` (`valor`, `data`, `origem`, `vendido_recebido`, `debito_credito`, `descricao`) VALUES (?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO `" + tbp + "receita` (`valor`, `data`, `origem`, `vendido_recebido`, `debito_credito`, `descricao`, `id_user`) VALUES (?, ?, ?, ?, ?, ?,?);";
         ps = conexao.prepareStatement(sql);
         ps.setBigDecimal(1, Re.getValor());
         ps.setDate(2, new java.sql.Date(Re.getData().getTime()));
@@ -54,6 +54,7 @@ public class DaoReceita {
         ps.setInt(4, Re.getVendido_recebido());
         ps.setInt(5, Re.getDebito_credito());
         ps.setString(6, Re.getDescricao());
+        ps.setInt(7,id_user);
         ps.execute();
         ps.close();
 
@@ -333,7 +334,7 @@ public class DaoReceita {
     }
 
     public String Consultar_receita_mes_menos_despesa(int vendido, String ano) throws SQLException, ClassNotFoundException {
-        DaoDespesa ddesDaoDespesa = new DaoDespesa();
+        DaoDespesa ddesDaoDespesa = new DaoDespesa(tbp);
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         BigDecimal re2 = new BigDecimal("0");
@@ -468,7 +469,7 @@ public class DaoReceita {
     }
 
     public String Receita_Grafico_vendido(int rv, String ano) throws SQLException, ClassNotFoundException {
-        DaoReceitaOrigem obj = new DaoReceitaOrigem();
+        DaoReceitaOrigem obj = new DaoReceitaOrigem(tbp);
 
         Cores c = new Cores();
         List<Color> cores = c.gerarCores(100);
@@ -500,7 +501,7 @@ public class DaoReceita {
     }
 
     public String Receita_Grafico_vendido_menos_despesas(int rv, String ano) throws SQLException, ClassNotFoundException {
-        DaoReceitaOrigem obj = new DaoReceitaOrigem();
+        DaoReceitaOrigem obj = new DaoReceitaOrigem(tbp);
 
         Cores c = new Cores();
         List<Color> cores = c.gerarCores(100);
@@ -532,7 +533,7 @@ public class DaoReceita {
     }
 
     public String Receita_Grafico_Credito_futuro(int rv, String ano) throws SQLException, ClassNotFoundException {
-        DaoReceitaOrigem obj = new DaoReceitaOrigem();
+        DaoReceitaOrigem obj = new DaoReceitaOrigem(tbp);
 
         Cores c = new Cores();
         List<Color> cores = c.gerarCores(100);
@@ -564,7 +565,7 @@ public class DaoReceita {
     }
 
     public String Receita_Grafico_Origens(String ano) throws SQLException, ClassNotFoundException {
-        DaoReceitaOrigem obj = new DaoReceitaOrigem();
+        DaoReceitaOrigem obj = new DaoReceitaOrigem(tbp);
         List<ReceitaOrigem> lista = obj.Consultar_Todas_Origens();
 
         Cores c = new Cores();

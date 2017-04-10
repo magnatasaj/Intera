@@ -17,8 +17,7 @@
 <%@page import="com.interativaconsultoria.objetos.Despesa_Niveis"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% DaoReceita ObDaoReceita = new DaoReceita(); %>
-<% DaoReceitaOrigem ObDaoReceitaOrigem = new DaoReceitaOrigem(); %>
+
 
 <!-- meta-data -->
 <!DOCTYPE html>
@@ -34,7 +33,8 @@
             <!-- Menu-lateral -->
             <%@include file="/partes/menu-lateral.jsp" %> 
             <!--#FEcha  Menu-lateral -->
-
+<% DaoReceita ObDaoReceita = new DaoReceita(app.getPrefixo_tb()); %>
+<% DaoReceitaOrigem ObDaoReceitaOrigem = new DaoReceitaOrigem(app.getPrefixo_tb()); %>
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
             <div class="content-wrapper">
                 <div class="box bg-green-gradient">
@@ -508,4 +508,5 @@
         </script>
     </body>
 </html>
+<% ObDaoReceita.fechar(); ls = null; System.gc();%>
 
