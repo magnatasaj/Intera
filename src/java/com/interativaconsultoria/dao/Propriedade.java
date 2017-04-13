@@ -15,9 +15,16 @@ public class Propriedade {
 
     private static Properties props = new Properties();
 
- 
-   
     public static void setprop() {
+        
+        props.setProperty("prop.db", "fininter_sistema");
+        props.setProperty("prop.user", "fininter");
+        props.setProperty("prop.senha", "FiNt7E766@I");
+        props.setProperty("prop.host", "127.0.0.1");
+        props.setProperty("prop.porta", "3306");
+    }
+   
+    public static void setpropde() {
         
         props.setProperty("prop.db", "sistema");
         props.setProperty("prop.user", "root");
